@@ -47,6 +47,7 @@ class User extends CI_Controller
         $data['offset']         = $offset;
         // dd($data['users']);
         $data['title']          = 'User';
+        $data['total']          = $config['total_rows'];
 
         $this->load->view('admin/header', $data);
         $this->load->view('user/user');
@@ -60,7 +61,7 @@ class User extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('user/create');
+        $this->load->view('jenissurat/create');
         $this->load->view('admin/footer');
     }
 

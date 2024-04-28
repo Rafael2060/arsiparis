@@ -124,3 +124,10 @@ function dd($data)
     var_dump($data);
     die();
 }
+
+function pesan($pesan, $messageorerror, $tipe)
+{
+    $ci = get_instance();
+
+    $ci->session->set_flashdata($messageorerror, '<div style="width:100%" class="alert alert-' . $tipe . ' alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+}

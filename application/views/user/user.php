@@ -75,6 +75,7 @@
         <?php echo $this->pagination->create_links(); ?>
     </nav>
 
+    <small>Total data : <?= $total; ?></small>
     <script>
         function hapususer(id, name) {
             // alert(id);
