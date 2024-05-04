@@ -1,16 +1,111 @@
-<div class="table-responsive">
-    <table class="table table-striped">
-        <form action="<?php echo base_url('JenisSurat/update'); ?>" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id_jenissurat" id="id_jenissurat" value="<?php echo $jenissurat['id_jenissurat']; ?>">
+<script src="<?php echo base_url('assets/js/jquery-3.3.1.min.js') ?>"></script>
+<link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet" type="text/css">
+<script src="<?php echo base_url('assets/js/gijgo.min.js') ?>" type="text/javascript"></script>
+<link href="<?php echo base_url('assets/css/gijgo.min.css') ?>" rel="stylesheet" type="text/css">
+
+<form action="<?php echo base_url('SuratMasuk/update'); ?>" method="post" enctype="multipart/form-data">
+    <div class="table-responsive">
+        <table class="table table-striped">
             <tbody>
                 <tr>
-                    <td style="width:15%">Nama Jenis Surat</td>
+                    <td style="width:20%">Nomor Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <input class="form-control" type="text" name="nama_jenissurat" id="nama_jenissurat" value="<?php echo htmlentities($jenissurat['nama_jenissurat'], ENT_QUOTES); ?>">
-                        <input class="form-control" type="hidden" name="nama_jenissuratlama" id="nama_jenissuratlama" value="<?php echo htmlentities($jenissurat['nama_jenissurat'], ENT_QUOTES); ?>">
+                        <input type="hidden" name="id_suratmasuk" id="id_suratmasuk" value="<?= $suratmasuk['id_suratmasuk'] ?>">
+                        <input autofocus class="form-control" type="text" name="no_surat" id="no_surat" value="<?php echo htmlentities($suratmasuk['no_surat'], ENT_QUOTES); ?>">
+                        <small class="text-danger"> <?php echo form_error('no_surat'); ?></small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20%">Nomor Agenda</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <input class="form-control" type="text" name="no_agenda" id="no_agenda" value="<?php echo htmlentities($suratmasuk['no_agenda'], ENT_QUOTES); ?>">
+                        <small class="text-danger"> <?php echo form_error('no_agenda'); ?></small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20%">Asal Surat</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <input class="form-control" type="text" name="asal_surat" id="asal_surat" value="<?php echo htmlentities($suratmasuk['asal_surat'], ENT_QUOTES); ?>">
+                        <small class="text-danger"> <?php echo form_error('asal_surat'); ?></small>
+                    </td>
+                </tr>
 
-                        <small class="text-danger"> <?php echo form_error('nama_jenissurat'); ?></small>
+                <tr>
+                    <td style="width:20%">Tanggal Surat</td>
+                    <td style="width:5%">:</td>
+                    <td>
+
+                        <input type="text" class="form-control" class="ml-1" autocomplete="off" id="tanggal_surat" name="tanggal_surat" width="276" value="<?= date('d-m-Y', strtotime($suratmasuk['tanggal_surat'])) ?>" />
+                        <small class="text-danger"> <?php echo form_error('tanggal_surat'); ?></small>
+                        <script>
+                            $('#tanggal_surat').datepicker({
+                                uiLibrary: 'bootstrap4',
+                                format: 'dd-mm-yyyy'
+                            });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20%">Tanggal Diterima</td>
+                    <td style="width:5%">:</td>
+                    <td>
+
+                        <input type="text" class="form-control" class="ml-1" autocomplete="off" id="tanggal_diterima" name="tanggal_diterima" width="276" value="<?= date('d-m-Y', strtotime($suratmasuk['tanggal_diterima'])) ?>" />
+                        <small class="text-danger"> <?php echo form_error('tanggal_diterima'); ?></small>
+                        <script>
+                            $('#tanggal_diterima').datepicker({
+                                uiLibrary: 'bootstrap4',
+                                format: 'dd-mm-yyyy'
+                            });
+                        </script>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="width:20%">Jenis Surat</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <select class="form-control" name="id_jenissurat" id="id_jenissurat">
+                            <?php foreach ($jenissurats as $data) : ?>
+                                <option value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == $suratmasuk['id_jenissurat']) {
+                                                                                    echo 'selected';
+                                                                                } ?>><?= $data['nama_jenissurat']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">Perihal</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <input class="form-control" type="text" name="perihal" id="perihal" value="<?php echo htmlentities($suratmasuk['perihal'], ENT_QUOTES); ?>">
+                        <small class="text-danger"> <?php echo form_error('perihal'); ?></small>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">Lampiran</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <input class="form-control" type="number" name="lampiran" id="lampiran" value="<?php echo htmlentities($suratmasuk['lampiran'], ENT_QUOTES); ?>">
+                        <small class="text-danger"> <?php echo form_error('lampiran'); ?></small>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">File surat</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <input type="file" name="user_file" id="user_file" size="20" />
+                        <small class="text-danger"> <?php echo form_error('user_file'); ?></small>
+                        <?php if (!$suratmasuk['file'] == '') : ?>
+                            <a href="<?= base_url() . '/uploads/' . $suratmasuk['file']; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
 
@@ -18,15 +113,12 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('JenisSurat'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
-                        <button type="submit" class="btn btn-outline-primary">UPDATE</button>
+                        <a href="<?php echo base_url('SuratMasuk'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <button type="submit" class="btn btn-outline-primary">SIMPAN</button>
                     </td>
                 </tr>
 
             </tbody>
-        </form>
-    </table>
-</div>
-<nav aria-label="Page navigation">
-    <?php echo $this->pagination->create_links(); ?>
-</nav>
+        </table>
+    </div>
+</form>

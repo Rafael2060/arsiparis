@@ -15,6 +15,22 @@
                 </tr>
 
                 <tr>
+                    <td style="width:15%">Kelompok Jenis Surat</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <select class="form-control" name="tipe" id="tipe">
+                            <option value="m" <?php if ($jenissurat['tipe'] == 'm') {
+                                                    echo 'selected';
+                                                } ?>>Masuk</option>
+                            <option value="k" <?php if ($jenissurat['tipe'] == 'k') {
+                                                    echo 'selected';
+                                                } ?>>Keluar</option>
+                        </select>
+                        <small class="text-danger"> <?php echo form_error('tipe'); ?></small>
+                    </td>
+                </tr>
+
+                <tr>
                     <td></td>
                     <td></td>
                     <td>

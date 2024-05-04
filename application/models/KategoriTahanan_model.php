@@ -19,8 +19,9 @@ class KategoriTahanan_Model extends CI_Model
         return $this->db->where('id_kategori', $id)->get('kategoritahanan')->row_array();
     }
 
-    public function total()
+    public function total($cari = null)
     {
+        $this->db->like('nama_kategori', $cari);
         return $this->db->get('kategoritahanan')->num_rows();
     }
 

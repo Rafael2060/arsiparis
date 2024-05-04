@@ -13,7 +13,7 @@
                                     </P> -->
 
                                     <!-- Line Chart -->
-                                    <div id="reportsChart"></div>
+                                    <!-- <div id="reportsChart"></div> -->
 
                                     <script>
                                         document.addEventListener("DOMContentLoaded", () => {

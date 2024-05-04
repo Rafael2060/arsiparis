@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class SuratMasuk extends CI_Controller
+class SuratMasuk_Tahanan extends CI_Controller
 {
     public function __construct()
     {
@@ -163,78 +163,28 @@ class SuratMasuk extends CI_Controller
     public function store()
     {
 
-        $no_surat           = $this->input->post('no_surat');
-        $no_agenda          = $this->input->post('no_agenda');
-        $tanggal_surat      = date('Y-m-d', strtotime($this->input->post('tanggal_surat')));
-        $tanggal_diterima   = date('Y-m-d', strtotime($this->input->post('tanggal_diterima')));
-        $id_jenissurat      = $this->input->post('id_jenissurat');
-        $asal_surat         = $this->input->post('asal_surat');
-        $perihal            = $this->input->post('perihal');
-        $lampiran           = $this->input->post('lampiran');
+        $id_tahanan         = $this->input->post('id_tahanan');
+        $id_suratmasuk      = $this->input->post('id_suratmasuk');
 
-        $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Masuk tidak boleh kosong.'));
-
-        if ($this->form_validation->run() == FALSE) {
-            $data['title']          = 'Tambah Data Surat Masuk';
-
-            $this->load->view('admin/header', $data);
-            $this->load->view('suratmasuk/create');
-            $this->load->view('admin/footer');
-        } else {
-
-            $data = array(
-                'no_surat' => $no_surat,
-                'no_agenda' => $no_agenda,
-                'tanggal_surat' => $tanggal_surat,
-                'tanggal_diterima' => $tanggal_diterima,
-                'id_jenissurat' => $id_jenissurat,
-                'asal_surat' => $asal_surat,
-                'perihal' => $perihal,
-                'lampiran' => $lampiran,
-
-            );
-
-            $lastId = $this->SuratMasuk_model->store($data);
+        // file_put_contents("Pesan SuratMasuk_Tahanan Controller = ", $id_suratmasuk . '-' . $id_tahanan);
 
 
+        $data = array(
+            'id_suratmasuk' => $id_suratmasuk,
+            'id_tahanan' => $id_tahanan,
+        );
 
-            if ($_FILES['user_file']) {
-                $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                $config['max_size']             = 2200;
-                $config['max_width']            = 5000;
-                $config['max_height']           = 5000;
-                $config['file_name']            = $lastId;
+        $this->SuratMasuk_Tahanan_model->store($data);
+        echo  "Data Tahanan Surat Masuk sudah ditambahan.";
+        // $pesan      = "Data Tahanan Surat Masuk sudah disimpan.";
+        // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
+        // pesan($pesan, 'message', 'success');
 
-                if (!$this->upload->do_upload('user_file')) {
-                    // $pesanUpload = array('error' => $this->upload->display_errors());
-                    $pesanUpload = $this->upload->display_errors();
-                } else {
-                    // $data = array('upload_data' => $this->upload->data());
-                    $filename = $_FILES["user_file"]["name"];
-                    $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
-                    $data = array(
-                        'file' => $lastId . '.' . $file_ext
-                    );
-
-                    $this->SuratMasuk_model->update($lastId, $data);
-                    $pesanUpload = 'File berhasil di-upload.';
-                }
-            } else {
-                $pesanUpload = 'Tidak ada file yang di upload.';
-            }
-
-            $pesan      = "Data Surat Masuk sudah disimpan." . ' ' . $pesanUpload;
-            // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-
-            pesan($pesan, 'message', 'success');
-
-            redirect(base_url('SuratMasuk'));
-        }
+        // redirect(base_url('SuratMasuk/tahanan/' . $id_suratmasuk));
     }
+
+
 
     public function show()
     {
@@ -252,12 +202,13 @@ class SuratMasuk extends CI_Controller
 
     public function delete()
     {
-        $id_jenissurat      = $this->input->post('idHapus');
-        $this->db->where('id_suratmasuk', $id_jenissurat)->delete('suratmasuk');
+        $idHapus        = $this->input->post('idHapus');
+        $idSuratMasuk   = $this->input->post('idSuratMasuk');
+        $this->db->where('id', $idHapus)->delete('suratmasuk_tahanan');
 
-        pesan("Data Surat Masuk sudah dihapus.", 'message', 'success');
+        pesan("Data Tahana Surat Masuk sudah dihapus.", 'message', 'success');
 
-        redirect(base_url('SuratMasuk'));
+        redirect(base_url('SuratMasuk/tahanan') . '/' . $idSuratMasuk);
     }
 
     public function unique2($data1, $data2)
@@ -299,13 +250,12 @@ class SuratMasuk extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['suratmasuk']             = $this->SuratMasuk_model->show($id);
-        $data['tahanans']               = $this->Tahanan_model->tahanan($cari, $config['per_page'], $offset);
-        $data['suratmasuk_tahanans']    = $this->SuratMasuk_Tahanan_model->suratmasuk_tahanan($id);
-        $data['offset']                 = $offset;
+        $data['suratmasuk']         = $this->SuratMasuk_model->show($id);
+        $data['tahanans']           = $this->Tahanan_model->tahanan($cari, $config['per_page'], $offset);
+        $data['offset']             = $offset;
         // dd($data['tahanans']);
-        $data['title']                  = 'Surat Masuk > Tambah Data Tahanan';
-        $data['total']                  = $config['total_rows'];
+        $data['title']              = 'Surat Masuk > Tambah Data Tahanan';
+        $data['total']              = $config['total_rows'];
 
         $this->load->view('admin/header', $data);
         $this->load->view('suratmasuk_tahanan/suratmasuk_tahanan');

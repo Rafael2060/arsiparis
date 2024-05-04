@@ -43,7 +43,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nama Jenis Surat</th>
-                <th scope="col">Aksi</th>
+                <th scope="col" class="text-center">Tipe</th>
+                <th scope="col" class="text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -51,8 +52,14 @@
                 <tr>
                     <th scope="row"><?php echo $key + 1 + $offset; ?></th>
                     <td><?php echo htmlspecialchars($data['nama_jenissurat'], ENT_QUOTES); ?></td>
+                    <?php if ($data['tipe'] == 'm') {
+                        $tipe = 'Masuk';
+                    } else {
+                        $tipe = 'Keluar';
+                    } ?>
+                    <td class="text-center"><?php echo htmlspecialchars($tipe, ENT_QUOTES); ?></td>
 
-                    <td>
+                    <td class="text-center">
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a href="<?php echo base_url('JenisSurat/show/') . $data['id_jenissurat']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
                             <a href="<?php echo base_url('JenisSurat/edit/') . $data['id_jenissurat']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>

@@ -13,9 +13,9 @@ class KategoriTahanan extends CI_Controller
     public function index()
     {
         $cari                           = $this->input->get('cari');
-        $config['base_url']             = base_url('KategoriTahanan/');
-        $config['total_rows']           = $this->KategoriTahanan_model->total();
-        $config['per_page']             = 2;
+        $config['base_url']             = base_url('KategoriTahanan/?cari=') . $cari;
+        $config['total_rows']           = $this->KategoriTahanan_model->total($cari);
+        $config['per_page']             = 10;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
 

@@ -6,8 +6,19 @@
                     <td style="width:15%">Nama Jenis Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <input class="form-control" type="text" name="nama_jenissurat" id="nama_jenissurat" value="<?php echo htmlentities(set_value('nama_jenissurat'), ENT_QUOTES); ?>">
+                        <input autofocus class="form-control" type="text" name="nama_jenissurat" id="nama_jenissurat" value="<?php echo htmlentities(set_value('nama_jenissurat'), ENT_QUOTES); ?>">
                         <small class="text-danger"> <?php echo form_error('nama_jenissurat'); ?></small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">Kelompok Jenis Surat</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <select class="form-control" name="tipe" id="tipe">
+                            <option value="m">Masuk</option>
+                            <option value="k">Keluar</option>
+                        </select>
+                        <small class="text-danger"> <?php echo form_error('tipe'); ?></small>
                     </td>
                 </tr>
 

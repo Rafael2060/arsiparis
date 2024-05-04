@@ -19,16 +19,54 @@ class JenisSurat_Model extends CI_Model
         return $this->db->where('id_jenissurat', $id)->get('jenissurat')->row_array();
     }
 
-    public function total()
+    public function total($cari = null, $tipe = '')
     {
+        if (strtolower($cari) == 'masuk') {
+            $cari = '';
+            $tipe = 'm';
+        } elseif (strtolower($cari) == 'keluar') {
+            $cari = '';
+            $tipe = 'k';
+        } else {
+            $tipe = 'a';
+        }
+
+        if ($tipe == 'm') {
+            $arrayTipe  = array('tipe' => 'm');
+        } elseif ($tipe == 'k') {
+            $arrayTipe  = array('tipe' => 'k');
+        } else {
+            $arrayTipe  = array();
+        }
+        $this->db->like('nama_jenissurat', $cari);
+        $this->db->where($arrayTipe);
         return $this->db->get('jenissurat')->num_rows();
     }
 
-    public function jenissurat($cari, $limit = null, $offset = null)
+    public function jenissurat($cari = null, $tipe = '', $limit = null, $offset = null)
     {
+
+        if (strtolower($cari) == 'masuk') {
+            $cari = '';
+            $tipe = 'm';
+        } elseif (strtolower($cari) == 'keluar') {
+            $cari = '';
+            $tipe = 'k';
+        } else {
+            $tipe = 'a';
+        }
+
+        if ($tipe == 'm') {
+            $arrayTipe  = array('tipe' => 'm');
+        } elseif ($tipe == 'k') {
+            $arrayTipe  = array('tipe' => 'k');
+        } else {
+            $arrayTipe  = array();
+        }
+
         $this->db->select('*');
         $this->db->like('nama_jenissurat', $cari);
-
+        $this->db->where($arrayTipe);
         $this->db->order_by('nama_jenissurat', 'asc');
         $this->db->limit($limit);
         $this->db->offset($offset);

@@ -15,7 +15,7 @@ class Tahanan extends CI_Controller
         $cari                           = $this->input->get('cari');
         $config['base_url']             = base_url('Tahanan/');
         $config['total_rows']           = $this->Tahanan_model->total();
-        $config['per_page']             = 2;
+        $config['per_page']             = 10;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
 
@@ -46,6 +46,75 @@ class Tahanan extends CI_Controller
         $this->load->view('admin/header', $data);
         $this->load->view('tahanan/tahanan');
         $this->load->view('admin/footer');
+    }
+
+    public function cariJQ()
+    {
+        $cari                           = $this->input->post('cari');
+
+        $config['base_url']             = base_url('Tahanan/');
+        $config['total_rows']           = $this->Tahanan_model->total();
+        $config['per_page']             = 10;
+        $config['page_query_string']    = TRUE;
+        $offset = html_escape($this->input->get('per_page'));
+
+        $config['full_tag_open']    = '<ul class="pagination">';
+        $config['full_tag_close']   = '</ul>';
+        $config['num_tag_open']     = '<li class="page-item">';
+        $config['num_tag_close']    = '</li>';
+
+        $config['cur_tag_open']     = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close']    = '</a></li>';
+        $config['prev_tag_open']    = '<li>';
+        $config['prev_tag_close']   = '</li>';
+        $config['next_tag_open']    = '<li>';
+        $config['next_tag_close']   = '</li>';
+        $config['last_tag_open']    = '<li>';
+        $config['last_tag_close']   = '</li>';
+        $config['first_tag_open']   = '<li>';
+        $config['first_tag_close']  = '</li>';
+
+        $this->pagination->initialize($config);
+
+        $data['tahanans']           = $this->Tahanan_model->tahanan($cari, $config['per_page'], $offset);
+        $data['offset']             = $offset;
+        // dd($data['tahanans']);
+        $data['title']              = 'Tahanan';
+        $data['total']              = $config['total_rows'];
+
+        $head = '<table cellpadding="2"  style="width:100%" class="table table-striped">';
+        $baris = '<strong><tr>
+        <td>Nama</td>
+        <td>KTP</td>
+        <td>Jenis Kelamin</td>
+        <td>Tanggal Masuk</td>
+        <td>Aksi</td>
+        </tr></strong>';
+        foreach ($data['tahanans'] as $key => $value) {
+            $baris = $baris .
+                '<tr>
+            <td>' .  $value['nama_tahanan'] . '</td>
+            <td>' .  $value['ktp'] . '</td>
+            <td>-
+            ' .  (($value['jk'] == 'L') ? 'Laki-laki' : 'Perempuan')  .  '
+            </td>
+            <td>-
+            ' .  $value['tanggal_masuk']  .  '
+            </td>
+            <td align="right">
+                <a target="_blank" href="' . base_url("Tahanan/show/") . $value['id_tahanan'] . '" class="btn btn-sm btn-secondary ml-2 ">Cek Tahanan</a>
+                <button onclick="javascript:pilih(' . chr(39) . $value['id_tahanan'] . chr(39) .  ')" value="' .  $value['id_tahanan']  .  '" id="btnPilih" class="btn btn-sm btn-primary ml-2 ">Pilih</button>
+            </td>
+            </tr>';
+        };
+
+        $close = '</table>';
+
+        echo $head;
+        echo $baris;
+        echo $close;
+
+        // echo '<p>Query=' . $cari . '</p>';
     }
 
     public function create()

@@ -13,11 +13,15 @@ class JenisSurat extends CI_Controller
     public function index()
     {
         $cari                           = $this->input->get('cari');
-        $config['base_url']             = base_url('JenisSurat/');
-        $config['total_rows']           = $this->JenisSurat_model->total();
-        $config['per_page']             = 2;
+        $tipe                           = $this->input->get('tipe');
+        $config['base_url']             = base_url('JenisSurat/?cari=') . $cari;
+        $config['total_rows']           = $this->JenisSurat_model->total($cari, $tipe);
+        $config['per_page']             = 3;
         $config['page_query_string']    = TRUE;
+        // $config['enable_query_strings'] = TRUE;
+        $config['reuse_query_string']   = FALSE;
         $offset = html_escape($this->input->get('per_page'));
+        $config["uri_segment"] = 3;
 
         $config['full_tag_open']    = '<ul class="pagination">';
         $config['full_tag_close']   = '</ul>';
@@ -37,7 +41,9 @@ class JenisSurat extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['jenissurats']        = $this->JenisSurat_model->jenissurat($cari, $config['per_page'], $offset);
+
+
+        $data['jenissurats']        = $this->JenisSurat_model->jenissurat($cari, $tipe, $config['per_page'], $offset);
         $data['offset']             = $offset;
         // dd($data['users']);
         $data['title']              = 'Jenis Surat';
@@ -76,6 +82,7 @@ class JenisSurat extends CI_Controller
         $nama_jenissurat    = $this->input->post('nama_jenissurat');
         $nama_jenissuratlama = $this->input->post('nama_jenissuratlama');
         $parameter          = array($nama_jenissuratlama, 'nama_jenissurat', 'jenissurat');
+        $tipe               = $this->input->post('tipe');
 
         // $this->form_validation->set_rules('nama_jenissurat', 'Nama Jenis Surat', 'required|callback_unique[' . $nama_jenissuratlama . ',"nama_jenissurat","jenissurat"]', array('required' => 'Kolom nama jenis surat tidak boleh kosong.'));
         $this->form_validation->set_rules('nama_jenissurat', 'NamaJenisSurat', 'required|callback_unique2[' . $parameter[0] . ',' . $parameter[1] . ',' . $parameter[2] . ']', array('required' => 'Kolom nama jenis surat tidak boleh kosong.', 'unique2' => 'Nama ini sudah dipakai.'));
@@ -91,7 +98,7 @@ class JenisSurat extends CI_Controller
 
             $data = array(
                 'nama_jenissurat' => $nama_jenissurat,
-
+                'tipe' => $tipe,
             );
             $this->JenisSurat_model->update($id_jenissurat, $data);
 
@@ -105,6 +112,7 @@ class JenisSurat extends CI_Controller
     {
 
         $nama_jenissurat    = $this->input->post('nama_jenissurat');
+        $tipe               = $this->input->post('tipe');
 
         $this->form_validation->set_rules('nama_jenissurat', 'Nama Jenis Surat', 'required|is_unique[jenissurat.nama_jenissurat]', array('required' => 'Kolom nama jenis surat tidak boleh kosong.', 'is_unique' => 'Nama jenis surat ini sudah dipakai.'));
 
@@ -118,6 +126,7 @@ class JenisSurat extends CI_Controller
 
             $data = array(
                 'nama_jenissurat' => $nama_jenissurat,
+                'tipe' => $tipe,
 
             );
             $this->JenisSurat_model->store($data);
