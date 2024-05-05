@@ -1,6 +1,6 @@
 <!-- modal Hapus Tahanan -->
 <div class="modal fade" id="basicModal" tabindex="-1">
-    <form id="formHapus" action="<?php echo base_url('SuratMasuk_Tahanan/delete') ?>" method="post" enctype="multipart/form-data">
+    <form id="formHapus" action="<?php echo base_url('SuratKeluar_Tahanan/delete') ?>" method="post" enctype="multipart/form-data">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <input type="hidden" name="idHapus" id="idHapus" value="">
-                <input type="hidden" name="idSuratMasuk" id="idSuratMasuk" value="<?= $suratmasuk['id_suratmasuk']; ?>">
+                <input type="hidden" name="idSuratKeluar" id="idSuratKeluar" value="<?= $suratkeluar['id_suratkeluar']; ?>">
                 <div class="modal-body">
 
                 </div>
@@ -23,6 +23,7 @@
 
 </div><!-- End modal hapus tahanan-->
 
+<!-- modal cari -->
 <div class="modal fade" id="modalCari" tabindex="-1">
 
     <div class="modal-dialog modal-lg">
@@ -38,8 +39,8 @@
                     <div class="input-group mb-3">
                         <form id="pencarian" class="search-form d-flex align-items-center" action="<?php echo base_url('Tahanan/cariJQ'); ?>" method="get">
                             <input name="cari" type="text" class="form-control" placeholder="Cari..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <input type="hidden" name="id_suratmasuk" id="id_suratmasuk" value="<?= $suratmasuk['id_suratmasuk'] ?>">
-                            <input type="hidden" name="url" id="url" value="<?= base_url('SuratMasuk_Tahanan/store') ?>">
+                            <input type="hidden" name="id_suratkeluar" id="id_suratkeluar" value="<?= $suratkeluar['id_suratkeluar'] ?>">
+                            <input type="hidden" name="url" id="url" value="<?= base_url('SuratKeluar_Tahanan/store') ?>">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
                             </div>
@@ -56,22 +57,21 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- <a href="<?= base_url('SuratMasuk_Tahanan') . '/' . $suratmasuk['id_suratmasuk'] ?>"></a> -->
+
                 <!-- <button type="submit" class="btn btn-danger">HAPUS</button> -->
             </div>
         </div>
     </div>
 
-</div><!-- End Basic Modal-->
+</div><!-- End modal cari-->
 
 <div class="row d-flex justify-content-between">
-    <span>Nomor surat : <strong> <?= $suratmasuk['no_surat']; ?> </strong></span>
+    <span>Nomor surat : <strong> <?= $suratkeluar['no_surat']; ?> </strong></span>
     <div class=" col-sm-12 col-md-4">
 
 
-
         <!-- <div class="input-group mb-3">
-            <form class="search-form d-flex align-items-center" action="<?php echo base_url('SuratMasuk_Tahanan'); ?>" method="get">
+            <form class="search-form d-flex align-items-center" action="<?php echo base_url('Tahanan'); ?>" method="get">
                 <input name="cari" type="text" class="form-control" placeholder="Cari..." aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
@@ -98,7 +98,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($suratmasuk_tahanans as $key => $data) :  ?>
+            <?php foreach ($suratkeluar_tahanans as $key => $data) :  ?>
                 <tr>
                     <th scope="row"><?php echo $key + 1 + $offset; ?></th>
                     <td><?php echo htmlspecialchars($data['nama_tahanan'], ENT_QUOTES); ?></td>
@@ -188,18 +188,18 @@
 
     function pilih(id_tahanan) {
 
-        var id_suratmasuk = $('#id_suratmasuk').val();
+        var id_suratkeluar = $('#id_suratkeluar').val();
         var url = $('#url').val();
         var id_tahanan = id_tahanan;
         // alert(url);
-        // alert(id_suratmasuk);
+        // alert(id_suratkeluar);
         // alert(id_tahanan);
 
         $.ajax({
             type: "POST",
             url: url,
             data: {
-                'id_suratmasuk': id_suratmasuk,
+                'id_suratkeluar': id_suratkeluar,
                 'id_tahanan': id_tahanan,
             },
             beforeFilter: function() {

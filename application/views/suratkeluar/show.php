@@ -22,10 +22,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Asal Surat</td>
+                    <td style="width:20%">Tujuan Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo htmlentities($suratmasuk['asal_surat'], ENT_QUOTES); ?></span>
+                        <span><?php echo htmlentities($suratmasuk['tujuan_surat'], ENT_QUOTES); ?></span>
                     </td>
                 </tr>
 
@@ -37,10 +37,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Tanggal Diterima</td>
+                    <td style="width:20%">Tanggal Dikirim</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?= date('d-m-Y', strtotime($suratmasuk['tanggal_diterima'])) ?></span>
+                        <span><?= date('d-m-Y', strtotime($suratmasuk['tanggal_dikirim'])) ?></span>
                     </td>
                 </tr>
 
@@ -75,7 +75,7 @@
                     <td>
                         <?php if (!$suratmasuk['file'] == '') : ?>
                             <?php $random = rand(10, 100); ?>
-                            <a href="<?= base_url() . '/uploads/masuk/' . $suratmasuk['file'] . '?t=' . $random; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
+                            <a href="<?= base_url() . '/uploads/keluar/' . $suratmasuk['file'] . '?t=' . $random; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -84,7 +84,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratMasuk'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a href="<?php echo base_url('SuratKeluar'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
                     </td>
                 </tr>
 

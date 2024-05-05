@@ -206,7 +206,7 @@ class SuratMasuk_Tahanan extends CI_Controller
         $idSuratMasuk   = $this->input->post('idSuratMasuk');
         $this->db->where('id', $idHapus)->delete('suratmasuk_tahanan');
 
-        pesan("Data Tahana Surat Masuk sudah dihapus.", 'message', 'success');
+        pesan("Data Tahanan Surat Masuk sudah dihapus.", 'message', 'success');
 
         redirect(base_url('SuratMasuk/tahanan') . '/' . $idSuratMasuk);
     }
