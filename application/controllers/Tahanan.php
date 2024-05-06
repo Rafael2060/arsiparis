@@ -15,7 +15,7 @@ class Tahanan extends CI_Controller
         $cari                           = $this->input->get('cari');
         $config['base_url']             = base_url('Tahanan/');
         $config['total_rows']           = $this->Tahanan_model->total();
-        $config['per_page']             = 10;
+        $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
 
@@ -54,7 +54,7 @@ class Tahanan extends CI_Controller
 
         $config['base_url']             = base_url('Tahanan/');
         $config['total_rows']           = $this->Tahanan_model->total();
-        $config['per_page']             = 10;
+        $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
 
@@ -277,6 +277,8 @@ class Tahanan extends CI_Controller
     {
         $id_tahanan      = $this->input->post('idHapus');
         $this->db->where('id_tahanan', $id_tahanan)->delete('tahanan');
+        $this->db->where('id_tahanan', $id_tahanan)->delete('suratmasuk_tahanan');
+        $this->db->where('id_tahanan', $id_tahanan)->delete('suratkeluar_tahanan');
 
         pesan("Data Tahanan sudah dihapus.", 'message', 'success');
 
@@ -292,5 +294,97 @@ class Tahanan extends CI_Controller
         } else {
             return FALSE;
         }
+    }
+
+    public function suratmasuk($id_tahanan = null, $limit = null, $offset = null)
+    {
+        $id_tahanan                     = $this->uri->segment(3);
+
+
+        $config['base_url']             = base_url('Tahanan/suratmasuk/') . $id_tahanan;
+        $config['total_rows']           = $this->SuratMasuk_Tahanan_model->tahanan_total($id_tahanan);
+        $config['per_page']             = 5;
+        $config['page_query_string']    = TRUE;
+        $offset = html_escape($this->input->get('per_page'));
+
+        $config['full_tag_open']    = '<ul class="pagination">';
+        $config['full_tag_close']   = '</ul>';
+        $config['num_tag_open']     = '<li class="page-item">';
+        $config['num_tag_close']    = '</li>';
+
+        $config['cur_tag_open']     = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close']    = '</a></li>';
+        $config['prev_tag_open']    = '<li>';
+        $config['prev_tag_close']   = '</li>';
+        $config['next_tag_open']    = '<li>';
+        $config['next_tag_close']   = '</li>';
+        $config['last_tag_open']    = '<li>';
+        $config['last_tag_close']   = '</li>';
+        $config['first_tag_open']   = '<li>';
+        $config['first_tag_close']  = '</li>';
+
+        $this->pagination->initialize($config);
+
+        $data['suratmasuks']        = $this->SuratMasuk_Tahanan_model->tahanan_suratmasuk($id_tahanan, $config['per_page'], $offset);
+
+        if (!$data['suratmasuks'] == NULL) {
+            $data['nama_tahanan']       = $data['suratmasuks'][0]['nama_tahanan'];
+        }
+
+        // $data['jenissurats']        = $this->JenisSurat_model->jenissurat('masuk');
+        $data['offset']             = $offset;
+        // dd($data['suratmasuks']);
+        $data['title']              = 'Surat Masuk Dimiliki Tahanan';
+        $data['total']              = $config['total_rows'];
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('suratmasuk/suratmasuk');
+        $this->load->view('admin/footer');
+    }
+
+    public function suratkeluar()
+    {
+        $id_tahanan                     = $this->uri->segment(3);
+
+
+        $config['base_url']             = base_url('Tahanan/suratkeluar/') . $id_tahanan;
+        $config['total_rows']           = $this->SuratKeluar_Tahanan_model->tahanan_total($id_tahanan);
+        $config['per_page']             = 5;
+        $config['page_query_string']    = TRUE;
+        $offset = html_escape($this->input->get('per_page'));
+
+        $config['full_tag_open']    = '<ul class="pagination">';
+        $config['full_tag_close']   = '</ul>';
+        $config['num_tag_open']     = '<li class="page-item">';
+        $config['num_tag_close']    = '</li>';
+
+        $config['cur_tag_open']     = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close']    = '</a></li>';
+        $config['prev_tag_open']    = '<li>';
+        $config['prev_tag_close']   = '</li>';
+        $config['next_tag_open']    = '<li>';
+        $config['next_tag_close']   = '</li>';
+        $config['last_tag_open']    = '<li>';
+        $config['last_tag_close']   = '</li>';
+        $config['first_tag_open']   = '<li>';
+        $config['first_tag_close']  = '</li>';
+
+        $this->pagination->initialize($config);
+
+        $data['suratkeluars']       = $this->SuratKeluar_Tahanan_model->tahanan_suratkeluar($id_tahanan, $config['per_page'], $offset);
+
+        if (!$data['suratkeluars'] == NULL) {
+            $data['nama_tahanan']   = $data['suratkeluars'][0]['nama_tahanan'];
+        }
+
+        // $data['jenissurats']        = $this->JenisSurat_model->jenissurat('keluar');
+        $data['offset']             = $offset;
+        // dd($data['suratkeluars']);
+        $data['title']              = 'Surat Keluar Dimiliki Tahanan';
+        $data['total']              = $config['total_rows'];
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('suratkeluar/suratkeluar');
+        $this->load->view('admin/footer');
     }
 }

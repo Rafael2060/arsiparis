@@ -46,7 +46,7 @@ class SuratMasuk_Model extends CI_Model
         return $this->db->get('suratmasuk')->num_rows();
     }
 
-    public function suratmasuk($no_surat = null, $no_agenda = null, $tanggal_diterima_awal = null, $tanggal_diterima_akhir = null, $id_jenissurat = null, $limit = null, $offset = null)
+    public function suratmasuk($no_surat = null, $no_agenda = null, $tanggal_diterima_awal = null, $tanggal_diterima_akhir = null, $id_jenissurat = null, $id_tahanan = null, $limit = null, $offset = null)
     {
 
         if ($tanggal_diterima_awal == '' || $tanggal_diterima_akhir == '') {
@@ -63,14 +63,23 @@ class SuratMasuk_Model extends CI_Model
             $queryIdJenis = array('suratmasuk.id_jenissurat' => $id_jenissurat);
         }
 
+        if ($id_tahanan == '' || $id_tahanan == null) {
+            $queryIdTahanan = array();
+        } else {
+            $queryIdTahanan = array('suratmasuk_tahanan.id_tahanan' => $id_tahanan);
+        }
+
         //dd($tanggal_awal);
         $this->db->select('suratmasuk.*, jenissurat.nama_jenissurat, jenissurat.tipe');
         $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratmasuk.id_jenissurat');
+        // $this->db->join('suratmasuk_tahanan', 'on suratmasuk_tahanan.id_suratmasuk = suratmasuk.id_suratmasuk');
         $this->db->like('no_surat', $no_surat);
         $this->db->like('no_agenda', $no_agenda);
         $this->db->where($queryIdJenis);
         $this->db->where($rangeTanggal);
+        $this->db->where($queryIdTahanan);
         $this->db->order_by('suratmasuk.created', 'desc');
+        // $this->db->group_by('suratmasuk.id_suratmasuk');
         $this->db->limit($limit);
         $this->db->offset($offset);
         return $this->db->get('suratmasuk')->result_array();

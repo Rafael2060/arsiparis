@@ -25,6 +25,7 @@
 
 </div><!-- End Basic Modal-->
 
+<!-- Modal cari -->
 <div class="modal fade" id="modalCari" tabindex="-1">
     <form id="formCari" action="<?php echo base_url('SuratMasuk') ?>" method="get">
         <div class="modal-dialog modal-lg">
@@ -121,6 +122,16 @@
         <a style="height:70%" href="<?= base_url('SuratMasuk/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
     </div>
 </div>
+
+<?php if (isset($nama_tahanan)) :  ?>
+    <div>
+        <h5>Nama Tahanan : <?= $nama_tahanan ?></h5>
+    </div>
+<?php else : ?>
+    <div>
+        <h5>Belum ada data Surat Masuk untuk tahanan ini.</h5>
+    </div>
+<?php endif; ?>
 
 
 <div class="table-responsive">

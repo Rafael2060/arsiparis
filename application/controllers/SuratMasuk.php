@@ -13,6 +13,7 @@ class SuratMasuk extends CI_Controller
     public function index()
     {
         $cari                           = $this->input->get('cari');
+        $id_tahanan                     = $this->input->get('id_tahanan');
         $no_surat                       = $this->input->get('no_surat');
         $no_agenda                      = $this->input->get('no_agenda');
         $tanggal_diterima_awal          = $this->input->get('tanggal_diterima_awal');
@@ -44,7 +45,7 @@ class SuratMasuk extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['suratmasuks']        = $this->SuratMasuk_model->suratmasuk($no_surat, $no_agenda, $tanggal_diterima_awal, $tanggal_diterima_akhir, $id_jenissurat, $config['per_page'], $offset);
+        $data['suratmasuks']        = $this->SuratMasuk_model->suratmasuk($no_surat, $no_agenda, $tanggal_diterima_awal, $tanggal_diterima_akhir, $id_jenissurat, $id_tahanan, $config['per_page'], $offset);
         $data['jenissurats']        = $this->JenisSurat_model->jenissurat('masuk');
         $data['offset']             = $offset;
         // dd($data['suratmasuks']);
