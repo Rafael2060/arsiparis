@@ -270,9 +270,10 @@ class SuratMasuk extends CI_Controller
         $data['suratmasuk']   = $this->SuratMasuk_model->show($id);
         $data['disposisis']   = $this->SuratMasuk_model->showDisposisi($id);
         $data['tahanans']     = $this->SuratMasuk_model->showTahanan($id);
+        $data['roles']        = $this->Role_model->role();
         $data['title']        = 'Tampil Data Surat Masuk';
 
-        // dd($data['tahanans']);
+        // dd($data['disposisis']);
 
         $this->load->view('admin/header', $data);
         $this->load->view('suratmasuk/show');
@@ -351,6 +352,7 @@ class SuratMasuk extends CI_Controller
         $tanggal_diterima_awal          = $this->input->get('tanggal_diterima_awal');
         $tanggal_diterima_akhir         = $this->input->get('tanggal_diterima_akhir');
         $id_jenissurat                  = $this->input->get('id_jenissurat');
+        $tolak                          = $this->input->get('tolak');
         // Load plugin PHPExcel nya
         include APPPATH . 'third_party/PHPExcel/PHPExcel.php';
 
@@ -408,7 +410,8 @@ class SuratMasuk extends CI_Controller
         $excel->getActiveSheet()->getStyle('E3')->applyFromArray($style_col);
 
         // Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
-        $suratmasuks = $this->SuratMasuk_model->suratmasuk($no_surat, $no_agenda, $tanggal_diterima_awal, $tanggal_diterima_akhir, $id_jenissurat);
+        $suratmasuks = $this->SuratMasuk_model->suratmasuk($no_surat, $no_agenda, $tanggal_diterima_awal, $tanggal_diterima_akhir, $id_jenissurat, $id_tahanan, '0', $tolak);
+        // dd($suratmasuks);
         $no = 1; // Untuk penomoran tabel, di awal set dengan 1
         $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
         foreach ($suratmasuks as $data) { // Lakukan looping pada variabel siswa

@@ -115,6 +115,7 @@
                         <th scope="col">Dibaca</th>
                         <th scope="col">Ditolak</th>
                         <th scope="col">Catatan</th>
+                        <th scope="col">Tujuan</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
@@ -137,6 +138,13 @@
                                                         echo 'DITERIMA';
                                                     } ?></td>
                             <td style="width:10%"><?= $data['catatan'] ?></td>
+                            <td style="width:10%"><?php
+                                                    foreach ($roles as $datarole) {
+                                                        if ($data['target_role_id'] == $datarole['id']) {
+                                                            echo $datarole['role'];
+                                                        }
+                                                    }
+                                                    ?></td>
                             <td style="width:10%"><?php if ($data['status'] == '0') {
                                                         echo 'PROSES';
                                                     } else {

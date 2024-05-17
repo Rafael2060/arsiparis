@@ -119,7 +119,9 @@
                                 <?php if ($this->session->userdata('role_id') == $data['id']) : ?>
 
                                 <?php elseif ($data['id'] > $this->session->userdata('role_id')) : ?>
-                                    <option data-nama="<?= $data['role'] ?>" value="<?= $data['id'] ?>"><?= $data['role'] ?></option>
+                                    <option data-nama="<?= $data['role'] ?>" value="<?= $data['id'] ?>" <?php if (($data['id'] - $role_id) == 1) {
+                                                                                                            echo 'selected';
+                                                                                                        } ?>><?= $data['role'] ?></option>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
