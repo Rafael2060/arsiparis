@@ -21,7 +21,7 @@ class User extends CI_Controller
         $cari                           = $this->input->get('cari');
         $config['base_url']             = base_url('User/');
         $config['total_rows']           = $this->User_model->total();
-        $config['per_page']             = 2;
+        $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
 
@@ -61,7 +61,7 @@ class User extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('jenissurat/create');
+        $this->load->view('user/create');
         $this->load->view('admin/footer');
     }
 
@@ -91,6 +91,7 @@ class User extends CI_Controller
                 'name' => $name,
                 'username' => $username,
                 'email' => $email,
+                'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role_id' => $role_id
             );
             $this->User_model->store($data);
@@ -103,6 +104,11 @@ class User extends CI_Controller
     public function edit()
     {
         $id             = $this->uri->segment(3);
+        if (!cek_self($id)) {
+            pesan('Maaf, anda tidak memiliki akses untuk fungsi ini', 'message', 'danger');
+            redirect(base_url('User'));
+        }
+
         $data['user']   = $this->User_model->show($id);
         $data['title']  = 'Edit Data User';
         $data['role']   = $this->Role_model->role();
@@ -110,6 +116,25 @@ class User extends CI_Controller
 
         $this->load->view('admin/header', $data);
         $this->load->view('user/edit');
+        $this->load->view('admin/footer');
+    }
+
+    public function editPassword()
+    {
+        $id             = $this->uri->segment(3);
+
+        if (!cek_self($id)) {
+            pesan('Maaf, anda tidak memiliki akses untuk fungsi ini', 'message', 'danger');
+            redirect(base_url('User'));
+        }
+
+        $data['user']   = $this->User_model->show($id);
+        $data['title']  = 'Edit Password User';
+        $data['role']   = $this->Role_model->role();
+        // dd($data['user']);
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('user/password');
         $this->load->view('admin/footer');
     }
 
@@ -126,9 +151,15 @@ class User extends CI_Controller
         $this->load->view('admin/footer');
     }
 
+
     public function update()
     {
         $id     = $this->input->post('id');
+        if (!cek_self($id)) {
+            pesan('Maaf, anda tidak memiliki akses untuk fungsi ini', 'message', 'danger');
+            redirect(base_url('User'));
+        }
+
         $name   = $this->input->post('name');
         $email  = $this->input->post('email');
         $role_id = $this->input->post('role');
@@ -138,7 +169,7 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $data['user']   = $this->User_model->show($id);
-            $data['title']  = 'Tampil Data User';
+            $data['title']  = 'Edit Data User';
             $data['role']   = $this->Role_model->role();
 
             $this->load->view('admin/header', $data);
@@ -153,7 +184,42 @@ class User extends CI_Controller
             );
             $this->User_model->update($id, $data);
 
-            $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">Data user sudah diperbarui.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">Data user sudah diperbarui.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            pesan('Data user sudah diperbarui.', 'message', 'success');
+            redirect(base_url('User'));
+        }
+    }
+
+    public function updatePassword()
+    {
+        $id         = $this->input->post('id');
+
+        if (!cek_self($id)) {
+            pesan('Maaf, anda tidak memiliki akses untuk fungsi ini', 'message', 'danger');
+            redirect(base_url('User'));
+        }
+
+        $this->form_validation->set_rules('password', 'Password', 'trim|required', array('required' => 'Kolom password tidak boleh kosong'));
+        $this->form_validation->set_rules('password2', 'Password', 'trim|required|matches[password]', array('required' => 'Kolom Konfirmasi Password tidak boleh kosong', 'matches' => 'Kolom Konfirmasi Password tidak cocok dengan kolom Password.'));
+
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['user']   = $this->User_model->show($id);
+            $data['title']  = 'Edit Password User';
+            $data['role']   = $this->Role_model->role();
+
+            $this->load->view('admin/header', $data);
+            $this->load->view('user/password');
+            $this->load->view('admin/footer');
+        } else {
+
+            $data = array(
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+
+            );
+            $this->User_model->update($id, $data);
+
+            $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">Data password user sudah diperbarui.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
             redirect(base_url('User'));
         }
     }

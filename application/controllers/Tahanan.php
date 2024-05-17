@@ -337,8 +337,9 @@ class Tahanan extends CI_Controller
         $data['title']              = 'Surat Masuk Dimiliki Tahanan';
         $data['total']              = $config['total_rows'];
 
+
         $this->load->view('admin/header', $data);
-        $this->load->view('suratmasuk/suratmasuk');
+        $this->load->view('suratmasuk_tahanan/lihat_suratmasuk_tahanan');
         $this->load->view('admin/footer');
     }
 
@@ -384,7 +385,7 @@ class Tahanan extends CI_Controller
         $data['total']              = $config['total_rows'];
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratkeluar/suratkeluar');
+        $this->load->view('suratkeluar_tahanan/lihat_suratkeluar_tahanan');
         $this->load->view('admin/footer');
     }
 }

@@ -131,3 +131,49 @@ function pesan($pesan, $messageorerror, $tipe)
 
     $ci->session->set_flashdata($messageorerror, '<div style="width:100%" class="alert alert-' . $tipe . ' alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 }
+
+function cek_administrator($cekId)
+{
+    $ci         = get_instance();
+    $role_id    = $ci->session->userdata('role_id');
+    $id         = $ci->session->userdata('id');
+
+    // var_dump($role_id . '-' . $id . '-' . $cekId);
+    if ($role_id == 1) {
+        if ($cekId == $id) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+function cek_staff()
+{
+    $ci         = get_instance();
+    $role_id    = $ci->session->userdata('role_id');
+
+
+    // var_dump($role_id . '-' . $id . '-' . $cekId);
+    if ($role_id == 1 || $role_id == 2) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function cek_self($cekId)
+{
+    $ci         = get_instance();
+    $id         = $ci->session->userdata('id');
+    $role_id    = $ci->session->userdata('role_id');
+
+
+    // var_dump($role_id . '-' . $id . '-' . $cekId);
+    if ($id == $cekId || $role_id == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}

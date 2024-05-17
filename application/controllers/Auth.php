@@ -34,7 +34,7 @@ class Auth extends CI_Controller
 
         // $user = $this->db->get_where('user', ['username' => $username])->row_array();
 
-        $this->db->select('a.name,a.username,a.role_id,a.password,a.is_active,a.image,b.role');
+        $this->db->select('a.id, a.name,a.username,a.role_id,a.password,a.is_active,a.image,b.role');
         $this->db->from('user as a');
         $this->db->from('user_role as b');
         $this->db->where('b.id=a.role_id');
@@ -46,6 +46,8 @@ class Auth extends CI_Controller
             if ($user['is_active'] == '1') {
                 if (password_verify($password, $user['password'])) {
                     $data = [
+
+                        'id' => $user['id'],
                         'username' => $user['username'],
                         'name' => $user['name'],
                         'role_id' => $user['role_id'],
@@ -221,7 +223,7 @@ class Auth extends CI_Controller
 
     public function blocked()
     {
-        $this->load->view('Auth/blocked2');
+        $this->load->view('auth/blocked');
     }
 
     public function forgotPassword()

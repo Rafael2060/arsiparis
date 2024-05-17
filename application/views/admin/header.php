@@ -81,10 +81,9 @@
                         <li class="dropdown-header">
                             <h6><?php echo $this->session->userdata('name') ?></h6>
                             <span><?php echo $this->session->userdata('role') ?></span>
+
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="<?php echo base_url('User/') . $this->session->userdata('username') ?>">
@@ -166,6 +165,8 @@
 
                 </ul>
             </li><!-- End Components Nav -->
+
+
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">

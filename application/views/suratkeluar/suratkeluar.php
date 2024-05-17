@@ -119,6 +119,7 @@
     </div>
     <div class="col-sm-12 col-md-4 d-flex flex-row-reverse">
         <a style="height:70%" href="<?= base_url('SuratKeluar/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+        <a style="height:70%" href="<?= base_url('SuratKeluar/export/?') . 'no_surat=' . $parameter['no_surat'] . '&no_agenda=' . $parameter['no_agenda'] . '&tanggal_dikirim_awal=' . $parameter['tanggal_dikirim_awal'] . '&tanggal_dikirim_akhir=' . $parameter['tanggal_dikirim_akhir'] . '&id_jenissurat=' . $parameter['id_jenissurat']; ?>" target="_self" class="btn btn-success" rel="noopener noreferrer">CETAK</a>
     </div>
 </div>
 
@@ -127,9 +128,7 @@
         <h5>Nama Tahanan : <?= $nama_tahanan ?></h5>
     </div>
 <?php else : ?>
-    <div>
-        <h5>Belum ada data Surat Masuk untuk tahanan ini.</h5>
-    </div>
+
 <?php endif; ?>
 
 <div class="table-responsive">

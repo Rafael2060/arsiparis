@@ -94,6 +94,18 @@
                     </div>
                 </div>
 
+                <div class="form-group row mx-1 my-1">
+                    <label for="tolak" class="col-sm-3 col-form-label">Status Terima</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="tolak" id="tolak">
+                            <option value="">Semua</option>
+                            <option value="0">Terima</option>
+                            <option value="1">Tolak</option>
+
+                        </select>
+                    </div>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">CARI</button>
@@ -119,7 +131,10 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-4 d-flex flex-row-reverse">
-        <a style="height:70%" href="<?= base_url('SuratMasuk/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+        <?php if (cek_staff()) :  ?>
+            <a style="height:70%" href="<?= base_url('SuratMasuk/create'); ?>" target="_self" class="btn btn-primary mx-1" rel="noopener noreferrer">TAMBAH</a>
+        <?php endif; ?>
+        <a style="height:70%" href="<?= base_url('SuratMasuk/export/?') . 'no_surat=' . $parameter['no_surat'] . '&no_agenda=' . $parameter['no_agenda'] . '&tanggal_diterima_awal=' . $parameter['tanggal_diterima_awal'] . '&tanggal_diterima_akhir=' . $parameter['tanggal_diterima_akhir'] . '&id_jenissurat=' . $parameter['id_jenissurat']; ?>" target="_self" class="btn btn-success" rel="noopener noreferrer">CETAK</a>
     </div>
 </div>
 
@@ -128,9 +143,7 @@
         <h5>Nama Tahanan : <?= $nama_tahanan ?></h5>
     </div>
 <?php else : ?>
-    <div>
-        <h5>Belum ada data Surat Masuk untuk tahanan ini.</h5>
-    </div>
+
 <?php endif; ?>
 
 
@@ -156,12 +169,24 @@
                     <td><?php echo htmlspecialchars($data['nama_jenissurat'], ENT_QUOTES); ?></td>
                     <td><?php echo htmlspecialchars($data['asal_surat'], ENT_QUOTES); ?></td>
 
-                    <td class="text-center">
-                        <div class="btn-group btn-group-sm text-center" role="group" aria-label="Basic example">
+                    <td class="text-left">
+                        <div class="btn-group btn-group-sm text-left " role="group" aria-label="Basic example">
                             <a href="<?php echo base_url('SuratMasuk/show/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
-                            <a href="<?php echo base_url('SuratMasuk/edit/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
-                            <a href="<?php echo base_url('SuratMasuk/tahanan/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Tahanan"><i class="bi bi-person-plus-fill text-white"></i></a>
-                            <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                            <?php if ($data['target_role_id'] == $role_id && $role_id <> '6' && $data['tolak'] == '0') : ?>
+                                <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Disposisi Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
+                                <?php if (cek_staff()) : ?>
+                                    <a href="<?php echo base_url('SuratMasuk/edit/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
+                                    <a href="<?php echo base_url('SuratMasuk/tahanan/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Tahanan"><i class="bi bi-person-plus-fill text-white"></i></a>
+                                <?php endif; ?>
+                                <!-- <a href="<?php echo base_url('SuratMasuk/tolak/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Tolak Surat" style="background-color:brown"><i class="bi bi-box-arrow-left text-white"></i></a> -->
+                                <!-- <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a> -->
+                            <?php endif; ?>
+                            <?php if (cek_staff()) : ?>
+                                <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                            <?php endif; ?>
+                            <?php if ($data['target_role_id'] == $role_id && $role_id == '6') : ?>
+                                <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Proses Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
+                            <?php endif; ?>
                         </div>
                     </td>
                 </tr>

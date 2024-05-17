@@ -52,4 +52,11 @@ class User_Model extends CI_Model
         $this->db->where('username', $username);
         return $this->db->update('user', $data);
     }
+
+    public function role($id)
+    {
+        $this->db->select('user.*, user_role.role, user_role.id as role_id');
+        $this->db->join('user_role', 'on user_role.id = user.role_id');
+        return $this->db->where('user.id', $id)->get('user')->row_array();
+    }
 }

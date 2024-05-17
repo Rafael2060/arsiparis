@@ -32,7 +32,9 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-4 d-flex flex-row-reverse">
-            <a style="height:80%" href="<?= base_url('User/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+            <?php if (cek_staff()) : ?>
+                <a style="height:80%" href="<?= base_url('User/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -60,8 +62,15 @@
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                                 <a href="<?php echo base_url('User/show/') . $data['id']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
-                                <a href="<?php echo base_url('User/edit/') . $data['id']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
-                                <a onclick="javascript:hapususer('<?php echo $data['id'] ?>','<?php echo $data['name'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                                <?php if (cek_self($data['id'])) : ?>
+                                    <a href="<?php echo base_url('User/edit/') . $data['id']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
+                                <?php endif; ?>
+                                <?php if (cek_self($data['id'])) : ?>
+                                    <a href="<?php echo base_url('User/editPassword/') . $data['id']; ?>" type="button" class="btn bg-gradient btn-secondary"><i class="bi bi-key text-white"></i></a>
+                                <?php endif; ?>
+                                <?php if (cek_administrator($data['id'])) : ?>
+                                    <a onclick="javascript:hapususer('<?php echo $data['id'] ?>','<?php echo $data['name'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
