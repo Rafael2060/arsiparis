@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class SuratKeluar extends CI_Controller
+class Verifikasi extends CI_Controller
 {
     public function __construct()
     {
@@ -12,15 +12,17 @@ class SuratKeluar extends CI_Controller
 
     public function index()
     {
+
         $cari                           = $this->input->get('cari');
+        $id_tahanan                     = $this->input->get('id_tahanan');
         $no_surat                       = $this->input->get('no_surat');
         $no_agenda                      = $this->input->get('no_agenda');
-        $tanggal_dikirim_awal           = $this->input->get('tanggal_dikirim_awal');
-        $tanggal_dikirim_akhir          = $this->input->get('tanggal_dikirim_akhir');
+        $tanggal_verifikasi_awal        = $this->input->get('tanggal_verifikasi_awal');
+        $tanggal_verifikasi_akhir       = $this->input->get('tanggal_verifikasi_akhir');
         $id_jenissurat                  = $this->input->get('id_jenissurat');
 
-        $config['base_url']             = base_url('SuratKeluar/?') . 'no_surat=' . $no_surat . '&no_agenda=' . $no_agenda . '&tanggal_dikirim_awal=' . $tanggal_dikirim_awal . '&tanggal_dikirim_akhir=' . $tanggal_dikirim_akhir . '&id_jenissurat=' . $id_jenissurat;
-        $config['total_rows']           = $this->SuratKeluar_model->total($no_surat, $no_agenda, $tanggal_dikirim_awal, $tanggal_dikirim_akhir, $id_jenissurat);
+        $config['base_url']             = base_url('Verifikasi/?') . 'no_surat=' . $no_surat . '&no_agenda=' . $no_agenda . '&tanggal_verifikasi_awal=' . $tanggal_verifikasi_awal . '&tanggal_verifikasi_akhir=' . $tanggal_verifikasi_akhir . '&id_jenissurat=' . $id_jenissurat;
+        $config['total_rows']           = $this->Verifikasi_model->total($no_surat, $no_agenda, $tanggal_verifikasi_awal, $tanggal_verifikasi_akhir, $id_jenissurat);
         // dd($config['total_rows']);
         $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
@@ -44,48 +46,57 @@ class SuratKeluar extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['suratkeluars']       = $this->SuratKeluar_model->suratkeluar($no_surat, $no_agenda, $tanggal_dikirim_awal, $tanggal_dikirim_akhir, $id_jenissurat, $config['per_page'], $offset);
-        $data['jenissurats']        = $this->JenisSurat_model->jenissurat('keluar');
+        $data['verifikasis']        = $this->Verifikasi_model->verifikasi($no_surat, $no_agenda, $tanggal_verifikasi_awal, $tanggal_verifikasi_akhir, $id_jenissurat, $id_tahanan, $config['per_page'], $offset);
+
         $data['offset']             = $offset;
         $data['parameter']          = array(
             'no_surat' => $no_surat,
             'no_agenda' => $no_agenda,
-            'tanggal_dikirim_awal'  => $tanggal_dikirim_awal,
-            'tanggal_dikirim_akhir' => $tanggal_dikirim_akhir,
-            'id_jenissurat' => $id_jenissurat,
+            'tanggal_verifikasi_awal' => $tanggal_verifikasi_awal,
+            'tanggal_verifikasi_akhir' => $tanggal_verifikasi_akhir,
+
         );
-        // dd($data['suratkeluars']);
-        $data['title']              = 'Surat Keluar';
+        // dd($data['verifikasis']);
+        $data['title']              = 'Verifikasi Surat';
         $data['total']              = $config['total_rows'];
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratkeluar/suratkeluar');
+        $this->load->view('verifikasi/verifikasi');
         $this->load->view('admin/footer');
     }
 
     public function create()
     {
-        $data['title']              = 'Tambah Data Surat Keluar';
-        $data['jenissurats']        =  $this->JenisSurat_model->jenissurat('keluar');
+        $id                     = $this->input->get('id');
+        $data['id_suratkeluar'] = $this->input->get('id_suratkeluar');
+        $data['title']          = 'Verifikasi Surat Keluar';
+        $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
+        $data['roles']          = $this->Role_model->role();
+        $data['tahanans']       = $this->SuratKeluar_model->showTahanan($id);
+        $data['role_id']        = $this->session->userdata('role_id');
 
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratkeluar/create');
+        if ($this->session->userdata('role_id') == '6') {
+            $this->load->view('verifikasi/createFinal');
+        } else {
+            $this->load->view('verifikasi/create');
+        }
         $this->load->view('admin/footer');
     }
 
     public function edit()
     {
         $id                     = $this->uri->segment(3);
-        $data['suratkeluar']     = $this->SuratKeluar_model->show($id);
-        $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
+        $data['suratkeluar']     = $this->Verifikasi_model->show($id);
+        $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('masuk');
 
         $data['title']          = 'Edit Data Surat Keluar';
 
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratkeluar/edit');
+        $this->load->view('verifikasi/edit');
         $this->load->view('admin/footer');
     }
 
@@ -95,9 +106,9 @@ class SuratKeluar extends CI_Controller
         $no_surat           = $this->input->post('no_surat');
         $no_agenda          = $this->input->post('no_agenda');
         $tanggal_surat      = date('Y-m-d', strtotime($this->input->post('tanggal_surat')));
-        $tanggal_dikirim    = date('Y-m-d', strtotime($this->input->post('tanggal_dikirim')));
+        $tanggal_verifikasi = date('Y-m-d', strtotime($this->input->post('tanggal_verifikasi')));
         $id_jenissurat      = $this->input->post('id_jenissurat');
-        $tujuan_surat       = $this->input->post('tujuan_surat');
+        $asal_surat         = $this->input->post('asal_surat');
         $perihal            = $this->input->post('perihal');
         $lampiran           = $this->input->post('lampiran');
 
@@ -105,12 +116,12 @@ class SuratKeluar extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $data['title']          = 'Edit Data Surat Keluar';
-            $id                     = $id_suratkeluar;
-            $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
+            $id                     =  $this->input->post('id_suratkeluar');
+            $data['suratkeluar']     =  $this->Verifikasi_model->show($id);
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('suratkeluar/edit');
+            $this->load->view('verifikasi/edit');
             $this->load->view('admin/footer');
         } else {
 
@@ -118,19 +129,19 @@ class SuratKeluar extends CI_Controller
                 'no_surat' => $no_surat,
                 'no_agenda' => $no_agenda,
                 'tanggal_surat' => $tanggal_surat,
-                'tanggal_dikirim' => $tanggal_dikirim,
+                'tanggal_verifikasi' => $tanggal_verifikasi,
                 'id_jenissurat' => $id_jenissurat,
-                'tujuan_surat' => $tujuan_surat,
+                'asal_surat' => $asal_surat,
                 'perihal' => $perihal,
                 'lampiran' => $lampiran,
 
             );
 
-            $this->SuratKeluar_model->update($id_suratkeluar, $data);
+            $this->Verifikasi_model->update($id_suratkeluar, $data);
 
 
             if (!empty($_FILES['user_file'])) {
-                $config['upload_path']          = './uploads/keluar/';
+                $config['upload_path']          = './uploads/masuk/';
                 $config['allowed_types']        = 'gif|jpg|png|jpeg';
                 $config['max_size']             = 2200;
                 $config['max_width']            = 5000;
@@ -152,125 +163,129 @@ class SuratKeluar extends CI_Controller
                         'file' => $id_suratkeluar . '.' . $file_ext
                     );
 
-                    $this->SuratKeluar_model->update($id_suratkeluar, $data);
+                    $this->Verifikasi_model->update($id_suratkeluar, $data);
                     $pesanUpload = 'File berhasil di-upload.';
                 }
             } else {
                 $pesanUpload = 'Tidak ada file yang di upload.';
             }
 
-            $pesan      = "Data Surat Keluar sudah diperbarui." . ' ' . $pesanUpload;
+            $pesan      = "Data Surat Masuk sudah diperbarui." . ' ' . $pesanUpload;
             // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('SuratKeluar'));
+            redirect(base_url('suratkeluar'));
         }
     }
 
     public function store()
     {
 
-        $no_surat           = $this->input->post('no_surat');
-        $no_agenda          = $this->input->post('no_agenda');
-        $tanggal_surat      = date('Y-m-d', strtotime($this->input->post('tanggal_surat')));
-        $tanggal_dikirim   = date('Y-m-d', strtotime($this->input->post('tanggal_dikirim')));
-        $id_jenissurat      = $this->input->post('id_jenissurat');
-        $tujuan_surat      = $this->input->post('tujuan_surat');
+        $id_suratkeluar     = $this->input->post('id_suratkeluar');
 
-        $perihal            = $this->input->post('perihal');
-        $lampiran           = $this->input->post('lampiran');
-
-        $role_id            = $this->session->userdata('role_id');
+        $target_role_id     = $this->input->post('target_role_id');
+        $catatan            = $this->input->post('catatan');
+        $target             = $this->input->post('target');
         $user_id            = $this->session->userdata('id');
+        $role_id            = $this->session->userdata('role_id');
+        $tolak              = $this->input->post('tolak');
 
-        $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Keluar tidak boleh kosong.'));
+        if ($tolak == '1') {
+            $statusSelesai = '1';
+        } else {
+            $statusSelesai = '0';
+        }
+
+
+        $tanggal_verifikasi  = date('Y-m-d', strtotime($this->input->post('tanggal_verifikasi')));
+        if ($tanggal_verifikasi == '1970-01-01') {
+            $tanggal_verifikasi = date('Y-m-d', time());
+        }
+        // dd($this->input->post('tanggal_verifikasi'));
+
+        $this->form_validation->set_rules('tanggal_verifikasi', 'Tanggal verifikasi', 'required', array('required' => 'Kolom tanggal verifikasi tidak boleh kosong.'));
 
         if ($this->form_validation->run() == FALSE) {
-            $data['title']          = 'Tambah Data Surat Keluar';
-            $data['jenissurats']        =  $this->JenisSurat_model->jenissurat('keluar');
+            $id                     = $this->input->post('id_suratkeluar');
+            $data['id_suratkeluar'] = $this->input->get('id_suratkeluar');
+            $data['title']          = 'Verifikasi Surat Keluar';
+            $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
+            $data['roles']          = $this->Role_model->role();
+            $data['tahanans']       = $this->SuratKeluar_model->showTahanan($id);
 
             $this->load->view('admin/header', $data);
-            $this->load->view('suratkeluar/create');
+            if ($this->session->userdata('role_id') == '6') {
+                $this->load->view('verifikasi/createFinal');
+            } else {
+                $this->load->view('verifikasi/create');
+            }
             $this->load->view('admin/footer');
         } else {
 
-            $data = array(
-                'no_surat' => $no_surat,
-                'no_agenda' => $no_agenda,
-                'tanggal_surat' => $tanggal_surat,
-                'tanggal_dikirim' => $tanggal_dikirim,
-                'id_jenissurat' => $id_jenissurat,
-                'tujuan_surat' => $tujuan_surat,
+            if ($role_id == '6') {
+                $data = array(
+                    'id_suratkeluar' => $id_suratkeluar,
+                    'tanggal_verifikasi' => $tanggal_verifikasi,
+                    'catatan' => $catatan,
+                    'target_role_id' => $target_role_id,
+                    'user_id' => $user_id,
+                    'role_id' => $role_id,
+                    'tolak' => $tolak,
+                    'dibaca' => '1',
+                    'status' => '1',
+                );
+            } else {
 
-                'perihal' => $perihal,
-                'lampiran' => $lampiran,
-
-            );
-
-            $lastId = $this->SuratKeluar_model->store($data);
+                $data = array(
+                    'id_suratkeluar' => $id_suratkeluar,
+                    'tanggal_verifikasi' => $tanggal_verifikasi,
+                    'catatan' => $catatan,
+                    'target_role_id' => $target_role_id,
+                    'user_id' => $user_id,
+                    'role_id' => $role_id,
+                    'tolak' => $tolak,
+                    'dibaca' => '1',
+                    'status' => $statusSelesai,
+                );
+            }
+            $this->Verifikasi_model->store($data);
 
             $data2 = array(
-                'tanggal_verifikasi' => date('Y-m-d', time()),
-                'id_keluar' => $lastId,
                 'dibaca' => '1',
-                'role_id' => $role_id,
-                'target_role_id' => $role_id,
-                'user_id' => $user_id,
+                'status' => '1',
             );
+            $this->Verifikasi_model->update($id_suratkeluar, $data2);
 
-            $this->Verfikasi_model->store($data2);
-
-            if ($_FILES['user_file']) {
-                $config['upload_path']          = './uploads/keluar/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                $config['max_size']             = 2200;
-                $config['max_width']            = 5000;
-                $config['max_height']           = 5000;
-                $config['file_name']            = $lastId;
-                $config['overwrite']            = TRUE;
-
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-
-                if (!$this->upload->do_upload('user_file')) {
-                    // $pesanUpload = array('error' => $this->upload->display_errors());
-                    $pesanUpload = $this->upload->display_errors();
-                } else {
-                    // $data = array('upload_data' => $this->upload->data());
-                    $filename = $_FILES["user_file"]["name"];
-                    $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
-                    $data = array(
-                        'file' => $lastId . '.' . $file_ext
-                    );
-
-                    $this->SuratKeluar_model->update($lastId, $data);
-                    $pesanUpload = 'File berhasil di-upload.';
-                }
+            if ($tolak == '1') {
+                $statusTolak = 'Ditolak';
             } else {
-                $pesanUpload = 'Tidak ada file yang di upload.';
+                $statusTolak = 'Diterima';
             }
-
-            $pesan      = "Data Surat Keluar sudah disimpan." . ' ' . $pesanUpload;
-            // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            if ($role_id == '6') {
+                $pesan      = "Proses Data Surat Keluar sudah selesai dengan status " . $statusTolak . ".";
+            } else {
+                $pesan      = "Data Surat Keluar sudah diteruskan ke " . $target;
+            }
+            $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('SuratKeluar'));
+            redirect(base_url('suratkeluar'));
         }
     }
 
     public function show()
     {
         $id                 = $this->uri->segment(3);
-        $data['suratmasuk'] = $this->SuratKeluar_model->show($id);
+        $data['suratkeluar'] = $this->Verifikasi_model->show($id);
 
-        $data['title']      = 'Tampil Data Surat Masuk';
+        $data['title']      = 'Tampil Data Surat Keluar';
 
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratkeluar/show');
+        $this->load->view('verifikasi/show');
         $this->load->view('admin/footer');
     }
 
@@ -282,13 +297,13 @@ class SuratKeluar extends CI_Controller
 
         pesan("Data Surat Keluar sudah dihapus.", 'message', 'success');
 
-        redirect(base_url('SuratKeluar'));
+        redirect(base_url('suratkeluar'));
     }
 
     public function unique2($data1, $data2)
     {
         $data3 = explode(",", $data2);
-        $result = $this->SuratKeluar_model->unique($data1, $data3[0], $data3[1], $data3[2]);
+        $result = $this->Verifikasi_model->unique($data1, $data3[0], $data3[1], $data3[2]);
         if (count($result) == 0) {
             return TRUE;
         } else {
@@ -300,8 +315,8 @@ class SuratKeluar extends CI_Controller
     {
         $id                             = $this->uri->segment(3);
         $cari                           = $this->input->get('cari');
-        $config['base_url']             = base_url('SuratKeluar/tahanan/' . $id);
-        $config['total_rows']           = $this->SuratKeluar_Tahanan_model->total($id);
+        $config['base_url']             = base_url('verifikasi/tahanan/' . $id);
+        $config['total_rows']           = $this->verifikasi_Tahanan_model->total($id);
         $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
@@ -321,21 +336,19 @@ class SuratKeluar extends CI_Controller
         $config['last_tag_close']   = '</li>';
         $config['first_tag_open']   = '<li>';
         $config['first_tag_close']  = '</li>';
-        $config['first_link']       = 'First';
-        $config['last_link']        = 'Last';
 
         $this->pagination->initialize($config);
 
-        $data['suratkeluar']            = $this->SuratKeluar_model->show($id);
+        $data['suratkeluar']             = $this->Verifikasi_model->show($id);
         // $data['tahanans']               = $this->Tahanan_model->tahanan($cari, $config['per_page'], $offset);
-        $data['suratkeluar_tahanans']   = $this->SuratKeluar_Tahanan_model->suratkeluar_tahanan($id, $config['per_page'], $offset);
+        $data['suratmasuk_tahanans']    = $this->verifikasi_Tahanan_model->verifikasi_tahanan($id, $config['per_page'], $offset);
         $data['offset']                 = $offset;
         // dd($data['tahanans']);
-        $data['title']                  = 'Surat Keluar > Tambah Data Tahanan';
+        $data['title']                  = 'Surat Masuk > Tambah Data Tahanan';
         $data['total']                  = $config['total_rows'];
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratkeluar_tahanan/suratkeluar_tahanan');
+        $this->load->view('suratmasuk_tahanan/suratmasuk_tahanan');
         $this->load->view('admin/footer');
     }
 
@@ -344,8 +357,8 @@ class SuratKeluar extends CI_Controller
         $id_tahanan                     = $this->input->get('id_tahanan');
         $no_surat                       = $this->input->get('no_surat');
         $no_agenda                      = $this->input->get('no_agenda');
-        $tanggal_dikirim_awal           = $this->input->get('tanggal_dikirim_awal');
-        $tanggal_dikirim_akhir          = $this->input->get('tanggal_dikirim_akhir');
+        $tanggal_verifikasi_awal        = $this->input->get('tanggal_verifikasi_awal');
+        $tanggal_verifikasi_akhir       = $this->input->get('tanggal_verifikasi_akhir');
         $id_jenissurat                  = $this->input->get('id_jenissurat');
         // Load plugin PHPExcel nya
         include APPPATH . 'third_party/PHPExcel/PHPExcel.php';
@@ -404,15 +417,15 @@ class SuratKeluar extends CI_Controller
         $excel->getActiveSheet()->getStyle('E3')->applyFromArray($style_col);
 
         // Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
-        $suratkeluars = $this->SuratKeluar_model->suratkeluar($no_surat, $no_agenda, $tanggal_dikirim_awal, $tanggal_dikirim_akhir, $id_jenissurat);
+        $verfikasis = $this->Verifikasi_model->verifikasi($no_surat, $no_agenda, $tanggal_verifikasi_awal, $tanggal_verifikasi_akhir, $id_jenissurat);
         $no = 1; // Untuk penomoran tabel, di awal set dengan 1
         $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
-        foreach ($suratkeluars as $data) { // Lakukan looping pada variabel siswa
+        foreach ($verfikasis as $data) { // Lakukan looping pada variabel siswa
             $excel->setActiveSheetIndex(0)->setCellValue('A' . $numrow, $no);
             $excel->setActiveSheetIndex(0)->setCellValue('B' . $numrow, $data['no_surat']);
             $excel->setActiveSheetIndex(0)->setCellValue('C' . $numrow, $data['no_agenda']);
             $excel->setActiveSheetIndex(0)->setCellValue('D' . $numrow, $data['tanggal_surat']);
-            $excel->setActiveSheetIndex(0)->setCellValue('E' . $numrow, $data['tanggal_dikirim']);
+            $excel->setActiveSheetIndex(0)->setCellValue('E' . $numrow, $data['tanggal_verfikasi']);
 
             // Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)
             $excel->getActiveSheet()->getStyle('A' . $numrow)->applyFromArray($style_row);
