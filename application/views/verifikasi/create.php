@@ -5,7 +5,7 @@
 
 
 
-<form action="<?php echo base_url('Disposisi/store'); ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('Verifikasi/store'); ?>" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
         <table class="table table-striped">
             <tbody>
@@ -13,23 +13,23 @@
                     <td style="width:20%">Nomor Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo htmlentities($suratmasuk['no_surat'], ENT_QUOTES); ?></span>
-                        <input type="hidden" name="id_suratmasuk" id="id_suratmasuk" value="<?= $suratmasuk['id_suratmasuk'] ?>">
-                        <input type="hidden" name="id_disposisi" id="id_disposisi" value="<?= $id_disposisi ?>">
+                        <span><?php echo htmlentities($suratkeluar['no_surat'], ENT_QUOTES); ?></span>
+                        <input type="hidden" name="id_suratkeluar" id="id_suratkeluar" value="<?= $suratkeluar['id_suratkeluar'] ?>">
+                        <input type="hidden" name="id_verifikasi" id="id_verifikasi" value="<?= $id_verifikasi ?>">
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Nomor Agenda</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo htmlentities($suratmasuk['no_agenda'], ENT_QUOTES); ?></span>
+                        <span><?php echo htmlentities($suratkeluar['no_agenda'], ENT_QUOTES); ?></span>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Asal Surat</td>
+                    <td style="width:20%">Tujuan Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo htmlentities($suratmasuk['asal_surat'], ENT_QUOTES); ?></span>
+                        <span><?php echo htmlentities($suratkeluar['tujuan_surat'], ENT_QUOTES); ?></span>
                     </td>
                 </tr>
 
@@ -37,14 +37,14 @@
                     <td style="width:20%">Tanggal Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?= date('d-m-Y', strtotime($suratmasuk['tanggal_surat'])) ?></span>
+                        <span><?= date('d-m-Y', strtotime($suratkeluar['tanggal_surat'])) ?></span>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Tanggal Diterima</td>
+                    <td style="width:20%">Tanggal Dikirim</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?= date('d-m-Y', strtotime($suratmasuk['tanggal_diterima'])) ?></span>
+                        <span><?= date('d-m-Y', strtotime($suratkeluar['tanggal_dikirim'])) ?></span>
                     </td>
                 </tr>
 
@@ -53,7 +53,7 @@
                     <td style="width:20%">Jenis Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?= $suratmasuk['nama_jenissurat']; ?></span>
+                        <span><?= $suratkeluar['nama_jenissurat']; ?></span>
                     </td>
                 </tr>
 
@@ -61,7 +61,7 @@
                     <td style="width:20%">Perihal</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo htmlentities($suratmasuk['perihal'], ENT_QUOTES); ?></span>
+                        <span><?php echo htmlentities($suratkeluar['perihal'], ENT_QUOTES); ?></span>
                     </td>
                 </tr>
 
@@ -69,7 +69,7 @@
                     <td style="width:20%">Lampiran</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo htmlentities($suratmasuk['lampiran'], ENT_QUOTES); ?></span>
+                        <span><?php echo htmlentities($suratkeluar['lampiran'], ENT_QUOTES); ?></span>
                     </td>
                 </tr>
 
@@ -77,9 +77,9 @@
                     <td style="width:20%">File surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <?php if (!$suratmasuk['file'] == '') : ?>
+                        <?php if (!$suratkeluar['file'] == '') : ?>
                             <?php $random = rand(10, 100); ?>
-                            <a href="<?= base_url() . '/uploads/masuk/' . $suratmasuk['file'] . '?t=' . $random; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
+                            <a href="<?= base_url() . '/uploads/keluar/' . $suratkeluar['file'] . '?t=' . $random; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -95,14 +95,14 @@
                 </tr>
 
                 <tr>
-                    <td style="width:20%">Tanggal Disposisi</td>
+                    <td style="width:20%">Tanggal Verifikasi</td>
                     <td style="width:5%">:</td>
                     <td>
 
-                        <input type="text" class="form-control" class="ml-1" autocomplete="off" id="tanggal_disposisi" name="tanggal_disposisi" width="276" value="<?= set_value('tanggal_disposisi') ?>" />
-                        <small class="text-danger"> <?php echo form_error('tanggal_disposisi'); ?></small>
+                        <input type="text" class="form-control" class="ml-1" autocomplete="off" id="tanggal_verifikasi" name="tanggal_verifikasi" width="276" value="<?= set_value('tanggal_verifikasi') ?>" />
+                        <small class="text-danger"> <?php echo form_error('tanggal_verifikasi'); ?></small>
                         <script>
-                            $('#tanggal_disposisi').datepicker({
+                            $('#tanggal_verifikasi').datepicker({
                                 uiLibrary: 'bootstrap4',
                                 format: 'dd-mm-yyyy'
                             });
@@ -111,7 +111,7 @@
                 </tr>
 
                 <tr>
-                    <td style="width:20%">Tujuan Disposisi</td>
+                    <td style="width:20%">Tujuan Verifikasi</td>
                     <td style="width:5%">:</td>
                     <td>
                         <select class="form-control" name="target_role_id" id="target_role_id">
@@ -129,11 +129,11 @@
                 </tr>
 
                 <tr>
-                    <td style="width:20%">Terima / Tolak Surat</td>
+                    <td style="width:20%">Verifikasi / Tolak Surat</td>
                     <td style="width:5%">:</td>
                     <td>
                         <select class="form-control" name="tolak" id="tolak">
-                            <option value="0" selected>TERIMA SURAT</option>
+                            <option value="0" selected>VERIFIKASI SURAT</option>
                             <option value="1">TOLAK SURAT</option>
                         </select>
                     </td>
@@ -151,8 +151,8 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratMasuk'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
-                        <a onclick="javascript:disposisisurat('<?php echo $suratmasuk['id_suratmasuk'] ?>','<?php echo $suratmasuk['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#modalSimpan" class="btn btn-outline-primary">DISPOSISI</a>
+                        <a href="<?php echo base_url('SuratKeluar'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a onclick="javascript:verifikasisurat('<?php echo $suratkeluar['id_suratkeluar'] ?>','<?php echo $suratkeluar['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#modalSimpan" class="btn btn-outline-primary">PROSES</a>
                     </td>
                 </tr>
 
@@ -164,17 +164,17 @@
         <div id="formHapus" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Disposisi Surat Masuk</h5>
+                    <h5 class="modal-title">Verifikasi Surat Masuk</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <input type="hidden" name="idHapus" id="idHapus" value="">
                 <input type="hidden" name="target" id="target" value="">
                 <div class="modal-body">
-                    Disposisi surat ke ?
+                    Teruskan verifikasi surat ke ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">DISPOSISI</button>
+                    <button type="submit" class="btn btn-success">VERIFIKASI</button>
                 </div>
             </div>
         </div>
@@ -184,7 +184,7 @@
 </form>
 
 <script>
-    function disposisisurat(id, name) {
+    function verifikasisurat(id, name) {
         // alert(id);
         // alert(name);
         // var jq = $.noConflict(true);
@@ -196,7 +196,7 @@
         $("#namaHapus").val(name);
         $("#target").html(target);
         $("#target").val(target);
-        $("#formHapus .modal-body").html('Disposisi suratmasuk ke <strong>' + target + '</strong> ?');
+        $("#formHapus .modal-body").html('Teruskan verifikasi Surat Keluar ke <strong>' + target + '</strong> ?');
 
     }
 </script>

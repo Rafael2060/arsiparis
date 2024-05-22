@@ -107,7 +107,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratMasuk'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a href="<?php echo base_url('SuratKeluar'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
                         <button type="submit" class="btn btn-outline-primary">SIMPAN</button>
                     </td>
                 </tr>

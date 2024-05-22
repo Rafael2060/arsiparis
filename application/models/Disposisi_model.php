@@ -94,6 +94,13 @@ class Disposisi_Model extends CI_Model
         return $this->db->update('disposisi', $data);
     }
 
+
+    public function updateStatusBaca($id, $data)
+    {
+        $this->db->where('id_disposisi', $id);
+        return $this->db->update('disposisi', $data);
+    }
+
     public function unique($formData, $oldFormData, $tableField, $table)
     {
         $this->db->where($tableField, $formData);

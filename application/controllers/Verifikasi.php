@@ -68,7 +68,7 @@ class Verifikasi extends CI_Controller
     public function create()
     {
         $id                     = $this->input->get('id');
-        $data['id_suratkeluar'] = $this->input->get('id_suratkeluar');
+        $data['id_verifikasi']  = $this->input->get('id_verifikasi');
         $data['title']          = 'Verifikasi Surat Keluar';
         $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
         $data['roles']          = $this->Role_model->role();
@@ -183,7 +183,7 @@ class Verifikasi extends CI_Controller
     {
 
         $id_suratkeluar     = $this->input->post('id_suratkeluar');
-
+        $id_verifikasi      = $this->input->post('id_verifikasi');
         $target_role_id     = $this->input->post('target_role_id');
         $catatan            = $this->input->post('catatan');
         $target             = $this->input->post('target');
@@ -209,6 +209,7 @@ class Verifikasi extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $id                     = $this->input->post('id_suratkeluar');
             $data['id_suratkeluar'] = $this->input->get('id_suratkeluar');
+
             $data['title']          = 'Verifikasi Surat Keluar';
             $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
             $data['roles']          = $this->Role_model->role();
@@ -245,22 +246,22 @@ class Verifikasi extends CI_Controller
                     'user_id' => $user_id,
                     'role_id' => $role_id,
                     'tolak' => $tolak,
-                    'dibaca' => '1',
+                    'dibaca' => '0',
                     'status' => $statusSelesai,
                 );
             }
             $this->Verifikasi_model->store($data);
 
             $data2 = array(
-                'dibaca' => '1',
+
                 'status' => '1',
             );
-            $this->Verifikasi_model->update($id_suratkeluar, $data2);
+            $this->Verifikasi_model->update($id_verifikasi, $data2);
 
             if ($tolak == '1') {
                 $statusTolak = 'Ditolak';
             } else {
-                $statusTolak = 'Diterima';
+                $statusTolak = 'Diverifikasi';
             }
             if ($role_id == '6') {
                 $pesan      = "Proses Data Surat Keluar sudah selesai dengan status " . $statusTolak . ".";

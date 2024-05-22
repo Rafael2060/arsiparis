@@ -94,6 +94,12 @@ class Verifikasi_Model extends CI_Model
         return $this->db->update('verifikasi', $data);
     }
 
+    public function updateStatusBaca($id, $data)
+    {
+        $this->db->where('id_verifikasi', $id);
+        return $this->db->update('verifikasi', $data);
+    }
+
     public function unique($formData, $oldFormData, $tableField, $table)
     {
         $this->db->where($tableField, $formData);

@@ -171,7 +171,7 @@
 
                     <td class="text-left">
                         <div class="btn-group btn-group-sm text-left " role="group" aria-label="Basic example">
-                            <a href="<?php echo base_url('SuratMasuk/show/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
+                            <a href="<?php echo base_url('SuratMasuk/show/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
                             <?php if ($data['target_role_id'] == $role_id && $role_id <> '6' && $data['tolak'] == '0') : ?>
                                 <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Disposisi Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
                                 <?php if (cek_staff()) : ?>
