@@ -136,7 +136,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <!-- <tr>
                     <td style="width:20%">Jenis Surat</td>
                     <td style="width:5%">:</td>
                     <td>
@@ -148,7 +148,9 @@
                             <?php endforeach; ?>
                         </select>
                     </td>
-                </tr>
+                </tr> -->
+
+                <input type="hidden" name="id_jenissurat" value="22">
 
                 <tr>
                     <td></td>

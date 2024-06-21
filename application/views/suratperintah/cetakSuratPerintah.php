@@ -32,6 +32,10 @@
     tembusan {
         font-size: 10px;
     }
+
+    tembusan>i>ol {
+        font-size: 10px;
+    }
 </style>
 
 <table width="100%">
@@ -272,7 +276,7 @@
 <table width="100%">
     <tr>
         <td width="500px">
-            <tembusan> <i> <small><?php echo $suratperintah['tembusan'] ?></small></i> </tembusan>
+            <tembusan> <i> <?php echo $suratperintah['tembusan'] ?></i> </tembusan>
         </td>
     </tr>
     <tr>
