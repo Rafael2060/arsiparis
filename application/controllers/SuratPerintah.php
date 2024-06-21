@@ -68,7 +68,7 @@ class SuratPerintah extends CI_Controller
 
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratPerintah/create');
+        $this->load->view('suratperintah/create');
         $this->load->view('admin/footer');
     }
 
@@ -83,7 +83,7 @@ class SuratPerintah extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratPerintah/edit');
+        $this->load->view('suratperintah/edit');
         $this->load->view('admin/footer');
     }
 
@@ -98,7 +98,7 @@ class SuratPerintah extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratPerintah/tte');
+        $this->load->view('suratperintah/tte');
         $this->load->view('admin/footer');
     }
 
@@ -146,7 +146,7 @@ class SuratPerintah extends CI_Controller
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('suratPerintah/edit');
+            $this->load->view('suratperintah/edit');
             $this->load->view('admin/footer');
         } else {
 
@@ -206,7 +206,7 @@ class SuratPerintah extends CI_Controller
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('suratPerintah/create');
+            $this->load->view('suratperintah/create');
             $this->load->view('admin/footer');
         } else {
 
@@ -260,7 +260,7 @@ class SuratPerintah extends CI_Controller
         // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2);
 
 
-        $this->load->view('suratPerintah/cetakSuratPerintah', $data);
+        $this->load->view('suratperintah/cetakSuratPerintah', $data);
     }
 
     public function delete()
@@ -475,7 +475,7 @@ class SuratPerintah extends CI_Controller
     {
 
 
-        $this->load->view('suratPerintah/cetakSuratPengantar');
+        $this->load->view('suratperintah/cetakSuratPengantar');
     }
 
     public function cetak($id)
