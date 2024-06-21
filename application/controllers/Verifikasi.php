@@ -190,11 +190,20 @@ class Verifikasi extends CI_Controller
         $user_id            = $this->session->userdata('id');
         $role_id            = $this->session->userdata('role_id');
         $tolak              = $this->input->post('tolak');
+        $akhiri             = $this->input->post('akhiri');
 
         if ($tolak == '1') {
             $statusSelesai = '1';
         } else {
             $statusSelesai = '0';
+        }
+
+        if ($akhiri == NULL) {
+            $statusSelesai = '0';
+        } elseif ($akhiri == '0') {
+            $statusSelesai = '0';
+        } else {
+            $statusSelesai = '1';
         }
 
 

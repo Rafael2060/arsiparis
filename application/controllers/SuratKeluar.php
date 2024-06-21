@@ -93,6 +93,21 @@ class SuratKeluar extends CI_Controller
         $this->load->view('admin/footer');
     }
 
+    public function editTTE()
+    {
+        $id                     = $this->uri->segment(3);
+        $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
+        $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
+
+        $data['title']          = 'Edit Data Surat Keluar';
+
+        // dd($data['user']);
+
+        $this->load->view('admin/header', $data);
+        $this->load->view('suratkeluar/editTTE');
+        $this->load->view('admin/footer');
+    }
+
     public function update()
     {
         $id_suratkeluar     = $this->input->post('id_suratkeluar');
@@ -135,7 +150,7 @@ class SuratKeluar extends CI_Controller
 
             if (!empty($_FILES['user_file'])) {
                 $config['upload_path']          = './uploads/keluar/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
                 $config['max_size']             = 2200;
                 $config['max_width']            = 5000;
                 $config['max_height']           = 5000;
@@ -170,6 +185,48 @@ class SuratKeluar extends CI_Controller
 
             redirect(base_url('SuratKeluar'));
         }
+    }
+
+    public function updateTTE()
+    {
+        $id_suratkeluar     = $this->input->post('id_suratkeluar');
+
+        if (!empty($_FILES['user_file'])) {
+            $config['upload_path']          = './uploads/keluar/';
+            $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
+            $config['max_size']             = 2200;
+            $config['max_width']            = 5000;
+            $config['max_height']           = 5000;
+            $config['file_name']            = $id_suratkeluar;
+            $config['overwrite']            = TRUE;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if (!$this->upload->do_upload('user_file')) {
+                // $pesanUpload = array('error' => $this->upload->display_errors());
+                $pesanUpload = $this->upload->display_errors();
+            } else {
+                // $data = array('upload_data' => $this->upload->data());
+                $filename = $_FILES["user_file"]["name"];
+                $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
+                $data = array(
+                    'file' => $id_suratkeluar . '.' . $file_ext
+                );
+
+                $this->SuratKeluar_model->update($id_suratkeluar, $data);
+                $pesanUpload = 'File berhasil di-upload.';
+            }
+        } else {
+            $pesanUpload = 'Tidak ada file yang di upload.';
+        }
+
+        $pesan      = "Data TTE Surat Keluar sudah diperbarui." . ' ' . $pesanUpload;
+        // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+
+        pesan($pesan, 'message', 'success');
+
+        redirect(base_url('SuratKeluar'));
     }
 
 
@@ -228,7 +285,7 @@ class SuratKeluar extends CI_Controller
 
             if ($_FILES['user_file']) {
                 $config['upload_path']          = './uploads/keluar/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
                 $config['max_size']             = 2200;
                 $config['max_width']            = 5000;
                 $config['max_height']           = 5000;
@@ -278,8 +335,11 @@ class SuratKeluar extends CI_Controller
 
         $data['title']          = 'Tampil Data Surat Keluar';
 
+        $role_id                = $this->session->userdata('role_id');
+        // dd($role_id);
         $data2 = array('dibaca' => '1');
-        $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2);
+        $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2, $role_id);
+
 
         $this->load->view('admin/header', $data);
         $this->load->view('suratkeluar/show');
@@ -478,5 +538,49 @@ class SuratKeluar extends CI_Controller
         header('Cache-Control: max-age=0');
         $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
         $write->save('php://output');
+    }
+
+    public function cetakNotaDinas()
+    {
+        $this->load->view('suratkeluar/cetakNotaDinas');
+    }
+
+    public function cetakSuratPerintah()
+    {
+
+        $namafile   = time();
+        $this->cetakQRCode($namafile);
+
+        $this->load->view('suratkeluar/cetakSuratPerintah');
+    }
+
+    public function cetakSuratPengantar()
+    {
+
+
+        $this->load->view('suratkeluar/cetakSuratPengantar');
+    }
+
+    public function cetakQRCode($namafile)
+    {
+        $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+
+        $config['cacheable']    = true; //boolean, the default is true
+        $config['cachedir']     = './assets/'; //string, the default is application/cache/
+        $config['errorlog']     = './assets/'; //string, the default is application/logs/
+        $config['imagedir']     = './assets/qrcode/'; //direktori penyimpanan qr code
+        $config['quality']      = true; //boolean, the default is true
+        $config['size']         = '1024'; //interger, the default is 1024
+        $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
+        $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+
+        $image_name = $namafile . '.png'; //buat name dari qr code sesuai dengan nim
+
+        $params['data'] = $namafile; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
     }
 }

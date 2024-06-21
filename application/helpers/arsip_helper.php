@@ -163,6 +163,34 @@ function cek_staff()
     }
 }
 
+function cek_kasattahti()
+{
+    $ci         = get_instance();
+    $role_id    = $ci->session->userdata('role_id');
+
+
+    // var_dump($role_id . '-' . $id . '-' . $cekId);
+    if ($role_id == 1 || $role_id == 4) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function cek_kapolres()
+{
+    $ci         = get_instance();
+    $role_id    = $ci->session->userdata('role_id');
+
+
+    // var_dump($role_id . '-' . $id . '-' . $cekId);
+    if ($role_id == 1 || $role_id == 6) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function cek_self($cekId)
 {
     $ci         = get_instance();

@@ -139,6 +139,19 @@
                     </td>
                 </tr>
 
+                <?php if (cek_kasattahti()) : ?>
+                    <tr>
+                        <td style="width:20%">Selesaikan Proses Surat</td>
+                        <td style="width:5%">:</td>
+                        <td>
+                            <select class="form-control" name="akhiri" id="akhiri">
+                                <option value="0" selected>BELUM SELESAI</option>
+                                <option value="1">SELESAI</option>
+                            </select>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
                 <tr>
                     <td style="width:20%">Catatan</td>
                     <td style="width:5%">:</td>
@@ -164,7 +177,7 @@
         <div id="formHapus" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Verifikasi Surat Masuk</h5>
+                    <h5 class="modal-title">Verifikasi Surat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <input type="hidden" name="idHapus" id="idHapus" value="">
@@ -196,7 +209,7 @@
         $("#namaHapus").val(name);
         $("#target").html(target);
         $("#target").val(target);
-        $("#formHapus .modal-body").html('Teruskan verifikasi Surat Keluar ke <strong>' + target + '</strong> ?');
+        $("#formHapus .modal-body").html('Teruskan verifikasi Surat Keluar ke <strong>' + target + '</strong> ? <br><br> Khusus untuk Kasattahti dan Kapolres, jika anda mengakhiri proses surat, maka surat akan berakhir di tahap ini, surat tidak akan diteruskan ke bidang selanjutnya.');
 
     }
 </script>

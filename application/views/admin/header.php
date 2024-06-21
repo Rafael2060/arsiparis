@@ -158,6 +158,21 @@
                         </a>
                     </li>
                     <li>
+                        <a href="<?= base_url('SuratPerintah'); ?>">
+                            <i class="bi bi-circle"></i><span>Surat Perintah</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('SuratNotaDinas'); ?>">
+                            <i class="bi bi-circle"></i><span>Surat Nota Dinas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('SuratPengantar'); ?>">
+                            <i class="bi bi-circle"></i><span>Surat Pengantar</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?= base_url('JenisSurat'); ?>">
                             <i class="bi bi-circle"></i><span>Jenis Surat</span>
                         </a>
@@ -165,6 +180,21 @@
 
                 </ul>
             </li><!-- End Components Nav -->
+
+            <!-- <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#buatsurat-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-pen-fill"></i><span>Buat Surat</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="buatsurat-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="<?= base_url('SuratPerintah'); ?>">
+                            <i class="bi bi-circle"></i><span>Surat Perintah</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>End Components Nav -->
 
 
 

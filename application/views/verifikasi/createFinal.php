@@ -80,7 +80,7 @@
                     <td>
                         <?php if (!$suratkeluar['file'] == '') : ?>
                             <?php $random = rand(10, 100); ?>
-                            <a href="<?= base_url() . '/uploads/masuk/' . $suratkeluar['file'] . '?t=' . $random; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
+                            <a href="<?= base_url() . '/uploads/keluar/' . $suratkeluar['file'] . '?t=' . $random; ?>" target="_blank" rel="noopener noreferrer">Lihat File</a>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -181,7 +181,7 @@
         $("#namaHapus").val(name);
         $("#target").html(target);
         $("#target").val(target);
-        $("#formHapus .modal-body").html('Akhiri proses surat masuk dengan status <strong>' + target + '</strong> ?');
+        $("#formHapus .modal-body").html('Akhiri proses surat keluar dengan status <strong>' + target + '</strong> ?');
 
     }
 </script>
