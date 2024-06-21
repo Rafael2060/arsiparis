@@ -58,7 +58,7 @@ class SuratNotaDinas extends CI_Controller
         $data['role_id']            = $this->session->userdata('role_id');
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratNotaDinas/suratnotadinas');
+        $this->load->view('suratnotadinas/suratnotadinas');
         $this->load->view('admin/footer');
     }
 
