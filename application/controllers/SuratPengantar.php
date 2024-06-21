@@ -499,7 +499,7 @@ class SuratPengantar extends CI_Controller
 
         $image_name = $namafile . '.png'; //buat name dari qr code sesuai dengan nim
 
-        $alamat                 = base_url() . 'cekSuratPengantar/show/?id=' . $namafile;
+        $alamat                 = base_url() . 'CekSuratPengantar/show/?id=' . $namafile;
         $params['data']         = $alamat; //data yang akan di jadikan QR CODE
         $params['level']        = 'H'; //H=High
         $params['size']         = 10;

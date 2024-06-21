@@ -503,7 +503,7 @@ class SuratPerintah extends CI_Controller
 
         $image_name = $namafile . '.png'; //buat name dari qr code sesuai dengan nim
 
-        $alamat                 = base_url() . 'cekSuratPerintah/show/?id=' . $namafile;
+        $alamat                 = base_url() . 'CekSuratPerintah/show/?id=' . $namafile;
         $params['data']         = $alamat; //data yang akan di jadikan QR CODE
         $params['level']        = 'H'; //H=High
         $params['size']         = 10;
