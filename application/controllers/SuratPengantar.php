@@ -58,7 +58,7 @@ class SuratPengantar extends CI_Controller
         $data['role_id']            = $this->session->userdata('role_id');
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratPengantar/suratpengantar');
+        $this->load->view('suratpengantar/suratpengantar');
         $this->load->view('admin/footer');
     }
 
@@ -69,7 +69,7 @@ class SuratPengantar extends CI_Controller
 
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratPengantar/create');
+        $this->load->view('suratpengantar/create');
         $this->load->view('admin/footer');
     }
 
@@ -84,7 +84,7 @@ class SuratPengantar extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratPengantar/edit');
+        $this->load->view('suratpengantar/edit');
         $this->load->view('admin/footer');
     }
 
@@ -99,7 +99,7 @@ class SuratPengantar extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratPengantar/tte');
+        $this->load->view('suratpengantar/tte');
         $this->load->view('admin/footer');
     }
 
@@ -153,7 +153,7 @@ class SuratPengantar extends CI_Controller
             $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('SuratPengantar/edit');
+            $this->load->view('suratpengantar/edit');
             $this->load->view('admin/footer');
         } else {
             $namafile = '';
@@ -220,7 +220,7 @@ class SuratPengantar extends CI_Controller
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('SuratPengantar/create');
+            $this->load->view('suratpengantar/create');
             $this->load->view('admin/footer');
         } else {
 
@@ -279,7 +279,7 @@ class SuratPengantar extends CI_Controller
         // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2, $role_id);
 
 
-        $this->load->view('SuratPengantar/cetakSuratPengantar', $data);
+        $this->load->view('suratpengantar/cetakSuratPengantar', $data);
     }
 
     public function delete()
@@ -480,7 +480,7 @@ class SuratPengantar extends CI_Controller
         // dd($id);
         $data['suratperintah']  = $this->SuratPengantar_model->cetaksuratperintah($id);
         // dd($data['suratperintah']);
-        $this->load->view('SuratPengantar/cetakSuratPerintah', $data);
+        $this->load->view('suratpengantar/cetakSuratPerintah', $data);
     }
 
     public function cetakQRCode($namafile)

@@ -69,7 +69,7 @@ class SuratNotaDinas extends CI_Controller
 
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratNotaDinas/create');
+        $this->load->view('suratnotadinas/create');
         $this->load->view('admin/footer');
     }
 
@@ -84,7 +84,7 @@ class SuratNotaDinas extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratNotaDinas/edit');
+        $this->load->view('suratnotadinas/edit');
         $this->load->view('admin/footer');
     }
 
@@ -99,7 +99,7 @@ class SuratNotaDinas extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratNotaDinas/tte');
+        $this->load->view('suratnotadinas/tte');
         $this->load->view('admin/footer');
     }
 
@@ -151,7 +151,7 @@ class SuratNotaDinas extends CI_Controller
             $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('SuratNotaDinas/edit');
+            $this->load->view('suratnotadinas/edit');
             $this->load->view('admin/footer');
         } else {
             $namafile = '';
@@ -214,7 +214,7 @@ class SuratNotaDinas extends CI_Controller
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('SuratNotaDinas/create');
+            $this->load->view('suratnotadinas/create');
             $this->load->view('admin/footer');
         } else {
 
@@ -269,7 +269,7 @@ class SuratNotaDinas extends CI_Controller
         // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2);
 
 
-        $this->load->view('SuratNotaDinas/cetakSuratNotaDinas', $data);
+        $this->load->view('suratnotadinas/cetakSuratNotaDinas', $data);
     }
 
     public function delete()
@@ -470,7 +470,7 @@ class SuratNotaDinas extends CI_Controller
         // dd($id);
         $data['suratperintah']  = $this->SuratNotaDinas_model->cetaksuratperintah($id);
         // dd($data['suratperintah']);
-        $this->load->view('SuratNotaDinas/cetakSuratPerintah', $data);
+        $this->load->view('suratnotadinas/cetakSuratPerintah', $data);
     }
 
     public function cetakQRCode($namafile)
