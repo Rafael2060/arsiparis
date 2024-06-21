@@ -1,11 +1,22 @@
-<script src="<?php echo base_url('assets/js/jquery-3.3.1.min.js') ?>"></script>
-<link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+<!-- Gijgo Calendar -->
 <script src="<?php echo base_url('assets/js/gijgo.min.js') ?>" type="text/javascript"></script>
 <link href="<?php echo base_url('assets/css/gijgo.min.css') ?>" rel="stylesheet" type="text/css">
 
+
 <!-- include summernote css/js -->
 <link href="<?php echo base_url('assets/summernote/summernote2.css') ?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/summernote/summernote-bs4.css') ?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/summernote/summernote-list-styles-bs4.css') ?>" rel="stylesheet">
+
 <script src="<?php echo base_url('assets/summernote/summernote.min.js') ?>" defer></script>
+<script src="<?php echo base_url('assets/summernote/summernote-bs4.js') ?>" defer></script>
+<script src="<?php echo base_url('assets/summernote/summernote-list-styles-bs4.js') ?>" defer></script>
+
 
 <form action="<?php echo base_url('SuratPerintah/update'); ?>" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
@@ -159,18 +170,43 @@
     $(document).ready(function() {
         $('#pertimbangan').summernote({
             height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
+                ['misc', ['codeview']]
+            ]
         });
         $('#dasar').summernote({
             height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
+                ['misc', ['codeview']]
+            ]
         });
         $('#kepada').summernote({
             height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
+                ['misc', ['codeview']]
+            ]
         });
         $('#untuk').summernote({
             height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
+                ['misc', ['codeview']]
+            ]
         });
         $('#tembusan').summernote({
             height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
+                ['misc', ['codeview']]
+            ]
         });
 
     });
