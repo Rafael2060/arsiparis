@@ -489,7 +489,8 @@ class SuratNotaDinas extends CI_Controller
 
         $image_name = $namafile . '.png'; //buat name dari qr code sesuai dengan nim
 
-        $params['data'] = $namafile; //data yang akan di jadikan QR CODE
+        $alamat                 = base_url() . 'cekSuratNotaDinas/show/?id=' . $namafile;
+        $params['data']         = $alamat; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/

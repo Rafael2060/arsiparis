@@ -20,6 +20,13 @@ class SuratPengantar_Model extends CI_Model
         return $this->db->where('id_suratpengantar', $id)->get('suratpengantar')->row_array();
     }
 
+    public function showFromQRCode($id)
+    {
+        $this->db->select('*');
+        $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratpengantar.id_jenissurat');
+        return $this->db->where('qrcode', $id)->get('suratpengantar')->row_array();
+    }
+
     public function showVerifikasi($id)
     {
         $this->db->select('verifikasi.*,
