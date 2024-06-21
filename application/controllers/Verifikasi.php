@@ -116,8 +116,9 @@ class Verifikasi extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $data['title']          = 'Edit Data Surat Keluar';
+            $data['id_verifikasi']  = $this->input->get('id_verifikasi');
             $id                     =  $this->input->post('id_suratkeluar');
-            $data['suratkeluar']     =  $this->Verifikasi_model->show($id);
+            $data['suratkeluar']    =  $this->Verifikasi_model->show($id);
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
@@ -218,7 +219,7 @@ class Verifikasi extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $id                     = $this->input->post('id_suratkeluar');
             $data['id_suratkeluar'] = $this->input->get('id_suratkeluar');
-
+            $data['id_verifikasi']  = $this->input->get('id_verifikasi');
             $data['title']          = 'Verifikasi Surat Keluar';
             $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
             $data['roles']          = $this->Role_model->role();
