@@ -175,7 +175,7 @@ class Verifikasi extends CI_Controller
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('suratkeluar'));
+            redirect(base_url('SuratKeluar'));
         }
     }
 
@@ -281,7 +281,7 @@ class Verifikasi extends CI_Controller
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('suratkeluar'));
+            redirect(base_url('SuratKeluar'));
         }
     }
 
@@ -307,7 +307,7 @@ class Verifikasi extends CI_Controller
 
         pesan("Data Surat Keluar sudah dihapus.", 'message', 'success');
 
-        redirect(base_url('suratkeluar'));
+        redirect(base_url('SuratKeluar'));
     }
 
     public function unique2($data1, $data2)
