@@ -276,8 +276,10 @@ class SuratMasuk extends CI_Controller
 
         // dd($data['disposisis']);
 
+        $role_id                = $this->session->userdata('role_id');
+
         $data2 = array('dibaca' => '1');
-        $this->Verifikasi_model->updateStatusBaca($id_disposisi, $data2);
+        $this->Disposisi_model->updateStatusBaca($id_disposisi, $data2, $role_id);
 
         $this->load->view('admin/header', $data);
         $this->load->view('suratmasuk/show');

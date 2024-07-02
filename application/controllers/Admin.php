@@ -29,8 +29,13 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Dasboard';
-        $this->load->view('admin/header', $data);
+        $data['title']              = 'Dasboard';
+        $data['totalsuratmasuk']    = $this->SuratMasuk_model->totalsuratmasuk();
+        $data['totalsuratkeluar']   = $this->SuratKeluar_model->totalsuratkeluar();
+        $data['totaltahanan']       = $this->Tahanan_model->totaltahanan();
+
+
+        $this->load->view('admin/headerAdmin', $data);
         $this->load->view('admin/index');
         $this->load->view('admin/footer');
     }

@@ -245,7 +245,7 @@ class Disposisi extends CI_Controller
                     'user_id' => $user_id,
                     'role_id' => $role_id,
                     'tolak' => $tolak,
-                    'dibaca' => '1',
+                    'dibaca' => '0',
                     'status' => $statusSelesai,
                 );
             }

@@ -140,4 +140,9 @@ class SuratKeluar_Model extends CI_Model
         $this->db->where_not_in('nama_jenissurat', $oldFormData);
         return $this->db->get($table)->result_array();
     }
+
+    public function totalsuratkeluar()
+    {
+        return count($this->db->get('suratkeluar')->result_array());
+    }
 }

@@ -95,9 +95,9 @@ class Disposisi_Model extends CI_Model
     }
 
 
-    public function updateStatusBaca($id, $data)
+    public function updateStatusBaca($id, $data, $role)
     {
-        $this->db->where('id_disposisi', $id);
+        $this->db->where('id_disposisi', $id)->where('target_role_id', $role);
         return $this->db->update('disposisi', $data);
     }
 

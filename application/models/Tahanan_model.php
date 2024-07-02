@@ -56,4 +56,9 @@ class Tahanan_Model extends CI_Model
         $this->db->where_not_in('nama_tahanan', $oldFormData);
         return $this->db->get($table)->result_array();
     }
+
+    public function totaltahanan()
+    {
+        return count($this->db->get('tahanan')->result_array());
+    }
 }
