@@ -137,7 +137,7 @@ class SuratMasuk extends CI_Controller
 
             if (!empty($_FILES['user_file'])) {
                 $config['upload_path']          = './uploads/masuk/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
                 $config['max_size']             = 2200;
                 $config['max_width']            = 5000;
                 $config['max_height']           = 5000;
@@ -227,7 +227,7 @@ class SuratMasuk extends CI_Controller
 
             if ($_FILES['user_file']) {
                 $config['upload_path']          = './uploads/masuk/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
                 $config['max_size']             = 2200;
                 $config['max_width']            = 5000;
                 $config['max_height']           = 5000;
