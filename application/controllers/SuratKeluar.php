@@ -25,7 +25,7 @@ class SuratKeluar extends CI_Controller
         $config['base_url']             = base_url('SuratKeluar/?') . 'no_surat=' . $no_surat . '&no_agenda=' . $no_agenda . '&tanggal_dikirim_awal=' . $tanggal_dikirim_awal . '&tanggal_dikirim_akhir=' . $tanggal_dikirim_akhir . '&id_jenissurat=' . $id_jenissurat;
         $config['total_rows']           = $this->SuratKeluar_model->total($no_surat, $no_agenda, $tanggal_dikirim_awal, $tanggal_dikirim_akhir, $id_jenissurat);
         // dd($config['total_rows']);
-        $config['per_page']             = 5;
+        $config['per_page']             = 2;
         $config['page_query_string']    = TRUE;
         $offset = html_escape($this->input->get('per_page'));
 

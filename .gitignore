@@ -36,3 +36,4 @@ application/config/database.php
 
 config.php
 database.php
+*.pdf

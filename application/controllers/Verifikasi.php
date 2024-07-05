@@ -199,10 +199,12 @@ class Verifikasi extends CI_Controller
             $statusSelesai = '0';
         }
 
-        if ($akhiri == NULL) {
-            $statusSelesai = '0';
-        } elseif ($akhiri == '0') {
-            $statusSelesai = '0';
+        if ($akhiri == '0') {
+            if ($tolak == '1') {
+                $statusSelesai = '1';
+            } else {
+                $statusSelesai = '0';
+            }
         } else {
             $statusSelesai = '1';
         }
@@ -224,6 +226,7 @@ class Verifikasi extends CI_Controller
             $data['suratkeluar']    = $this->SuratKeluar_model->show($id);
             $data['roles']          = $this->Role_model->role();
             $data['tahanans']       = $this->SuratKeluar_model->showTahanan($id);
+            $data['role_id']        = $this->session->userdata('role_id');
 
             $this->load->view('admin/header', $data);
             if ($this->session->userdata('role_id') == '6') {

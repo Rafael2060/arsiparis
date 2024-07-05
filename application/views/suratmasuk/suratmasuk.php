@@ -161,36 +161,39 @@
         </thead>
         <tbody>
             <?php foreach ($suratmasuks as $key => $data) :  ?>
-                <tr>
-                    <th scope="row"><?php echo $key + 1 + $offset; ?></th>
-                    <td><?php echo htmlspecialchars($data['no_surat'], ENT_QUOTES); ?></td>
-                    <?php $tanggal = date("d-m-Y", strtotime($data['tanggal_diterima'])); ?>
-                    <td><?php echo htmlspecialchars($tanggal, ENT_QUOTES); ?></td>
-                    <td><?php echo htmlspecialchars($data['nama_jenissurat'], ENT_QUOTES); ?></td>
-                    <td><?php echo htmlspecialchars($data['asal_surat'], ENT_QUOTES); ?></td>
+                <?php if ($role_id <= $data['target_role_id'] && $data['tolak'] == '0' || $role_id == '2') : ?>
+                    <tr>
+                        <th scope="row"><?php echo $key + 1 + $offset; ?></th>
+                        <td><?php echo htmlspecialchars($data['no_surat'], ENT_QUOTES); ?></td>
+                        <?php $tanggal = date("d-m-Y", strtotime($data['tanggal_diterima'])); ?>
+                        <td><?php echo htmlspecialchars($tanggal, ENT_QUOTES); ?></td>
+                        <td><?php echo htmlspecialchars($data['nama_jenissurat'], ENT_QUOTES); ?></td>
+                        <td><?php echo htmlspecialchars($data['asal_surat'], ENT_QUOTES); ?></td>
 
-                    <td class="text-left">
-                        <div class="btn-group btn-group-sm text-left " role="group" aria-label="Basic example">
-                            <a href="<?php echo base_url('SuratMasuk/show/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
-                            <?php if ($data['target_role_id'] == $role_id && $role_id <> '6' && $data['tolak'] == '0') : ?>
-                                <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Disposisi Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
-                                <?php if (cek_staff()) : ?>
-                                    <a href="<?php echo base_url('SuratMasuk/edit/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
-                                    <a href="<?php echo base_url('SuratMasuk/tahanan/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Tahanan"><i class="bi bi-person-plus-fill text-white"></i></a>
+                        <td class="text-left">
+                            <div class="btn-group btn-group-sm text-left " role="group" aria-label="Basic example">
+                                <?php if ($role_id <= $data['target_role_id'] && $data['tolak'] == '0' || $role_id == '2') : ?>
+                                    <a href="<?php echo base_url('SuratMasuk/show/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
                                 <?php endif; ?>
-                                <!-- <a href="<?php echo base_url('SuratMasuk/tolak/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Tolak Surat" style="background-color:brown"><i class="bi bi-box-arrow-left text-white"></i></a> -->
-                                <!-- <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a> -->
-                            <?php endif; ?>
-                            <?php if (cek_staff()) : ?>
-                                <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
-                            <?php endif; ?>
-                            <?php if ($data['target_role_id'] == $role_id && $role_id == '6') : ?>
-                                <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Proses Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
-                            <?php endif; ?>
-                        </div>
-                    </td>
-                </tr>
-
+                                <?php if ($data['target_role_id'] == $role_id && $role_id <> '6' && $data['tolak'] == '0') : ?>
+                                    <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Disposisi Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
+                                    <?php if (cek_staff()) : ?>
+                                        <a href="<?php echo base_url('SuratMasuk/edit/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
+                                        <a href="<?php echo base_url('SuratMasuk/tahanan/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Tahanan"><i class="bi bi-person-plus-fill text-white"></i></a>
+                                    <?php endif; ?>
+                                    <!-- <a href="<?php echo base_url('SuratMasuk/tolak/') . $data['id_suratmasuk']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Tolak Surat" style="background-color:brown"><i class="bi bi-box-arrow-left text-white"></i></a> -->
+                                    <!-- <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a> -->
+                                <?php endif; ?>
+                                <?php if (cek_staff()) : ?>
+                                    <a onclick="javascript:hapussuratmasuk('<?php echo $data['id_suratmasuk'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                                <?php endif; ?>
+                                <?php if ($data['target_role_id'] == $role_id && $role_id == '6') : ?>
+                                    <a href="<?php echo base_url('Disposisi/create/?id=') . $data['id_suratmasuk'] . '&id_disposisi=' . $data['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Proses Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
+                                <?php endif; ?>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             <?php endforeach; ?>
 
         </tbody>

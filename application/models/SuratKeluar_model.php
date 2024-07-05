@@ -108,7 +108,7 @@ class SuratKeluar_Model extends CI_Model
         //dd($tanggal_awal);
         $this->db->select('suratkeluar.*, 
         jenissurat.nama_jenissurat, jenissurat.tipe,
-        verifikasi.id_verifikasi, verifikasi.tanggal_verifikasi, verifikasi.dibaca, verifikasi.role_id as verifikasi_role_id, verifikasi.target_role_id, verifikasi.catatan, verifikasi.tolak');
+        verifikasi.id_verifikasi, verifikasi.tanggal_verifikasi, verifikasi.dibaca, verifikasi.role_id as verifikasi_role_id, verifikasi.target_role_id, verifikasi.catatan, verifikasi.tolak, verifikasi.status');
         $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratkeluar.id_jenissurat');
         $this->db->join('verifikasi', 'on verifikasi.id_suratkeluar = suratkeluar.id_suratkeluar and verifikasi.status=' . $status, 'left');
         $this->db->like('no_surat', $no_surat);
