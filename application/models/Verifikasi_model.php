@@ -96,7 +96,7 @@ class Verifikasi_Model extends CI_Model
 
     public function updateStatusBaca($id, $data, $role)
     {
-        $this->db->where('id_verifikasi', $id)->where('target_role_id', $role);
+        $this->db->where('id_suratkeluar', $id)->where('target_role_id', $role);
         return $this->db->update('verifikasi', $data);
     }
 

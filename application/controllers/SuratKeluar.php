@@ -331,6 +331,7 @@ class SuratKeluar extends CI_Controller
         $data['tahanans']       = $this->SuratKeluar_model->showTahanan($id);
         $data['roles']          = $this->Role_model->role();
         $id_verifikasi          = $this->input->get('id_verifikasi');
+        $id_suratkeluar         = $this->input->get('id_suratkeluar');
 
 
         $data['title']          = 'Tampil Data Surat Keluar';
@@ -338,7 +339,7 @@ class SuratKeluar extends CI_Controller
         $role_id                = $this->session->userdata('role_id');
         // dd($role_id);
         $data2 = array('dibaca' => '1');
-        $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2, $role_id);
+        $this->Verifikasi_model->updateStatusBaca($id_suratkeluar, $data2, $role_id);
 
 
         $this->load->view('admin/header', $data);

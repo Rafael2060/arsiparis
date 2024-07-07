@@ -193,21 +193,12 @@ class Verifikasi extends CI_Controller
         $tolak              = $this->input->post('tolak');
         $akhiri             = $this->input->post('akhiri');
 
-        if ($tolak == '1') {
+        if ($tolak == '1' || $akhiri == '0') {
             $statusSelesai = '1';
         } else {
             $statusSelesai = '0';
         }
 
-        if ($akhiri == '0') {
-            if ($tolak == '1') {
-                $statusSelesai = '1';
-            } else {
-                $statusSelesai = '0';
-            }
-        } else {
-            $statusSelesai = '1';
-        }
 
 
         $tanggal_verifikasi  = date('Y-m-d', strtotime($this->input->post('tanggal_verifikasi')));
