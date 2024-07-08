@@ -199,8 +199,6 @@ class Verifikasi extends CI_Controller
             $statusSelesai = '0';
         }
 
-
-
         $tanggal_verifikasi  = date('Y-m-d', strtotime($this->input->post('tanggal_verifikasi')));
         if ($tanggal_verifikasi == '1970-01-01') {
             $tanggal_verifikasi = date('Y-m-d', time());
@@ -228,55 +226,70 @@ class Verifikasi extends CI_Controller
             $this->load->view('admin/footer');
         } else {
 
-            if ($role_id == '6') {
-                $data = array(
-                    'id_suratkeluar' => $id_suratkeluar,
-                    'tanggal_verifikasi' => $tanggal_verifikasi,
-                    'catatan' => $catatan,
-                    'target_role_id' => $target_role_id,
-                    'user_id' => $user_id,
-                    'role_id' => $role_id,
-                    'tolak' => $tolak,
-                    'dibaca' => '1',
+            if ($tolak == '0') {
+                if ($role_id == '6') {
+                    $data = array(
+                        'id_suratkeluar' => $id_suratkeluar,
+                        'tanggal_verifikasi' => $tanggal_verifikasi,
+                        'catatan' => $catatan,
+                        'target_role_id' => $target_role_id,
+                        'user_id' => $user_id,
+                        'role_id' => $role_id,
+                        'tolak' => $tolak,
+                        'dibaca' => '1',
+                        'status' => '1',
+                    );
+                } else {
+
+                    $data = array(
+                        'id_suratkeluar' => $id_suratkeluar,
+                        'tanggal_verifikasi' => $tanggal_verifikasi,
+                        'catatan' => $catatan,
+                        'target_role_id' => $target_role_id,
+                        'user_id' => $user_id,
+                        'role_id' => $role_id,
+                        'tolak' => $tolak,
+                        'dibaca' => '0',
+                        'status' => $statusSelesai,
+                    );
+                }
+                $this->Verifikasi_model->store($data);
+
+                $data2 = array(
+
                     'status' => '1',
                 );
+                $this->Verifikasi_model->update($id_verifikasi, $data2);
+
+                if ($tolak == '1') {
+                    $statusTolak = 'Ditolak';
+                } else {
+                    $statusTolak = 'Diverifikasi';
+                }
+                if ($role_id == '6') {
+                    $pesan      = "Proses Data Surat Keluar sudah selesai dengan status " . $statusTolak . ".";
+                } else {
+                    $pesan      = "Data Surat Keluar sudah diteruskan ke " . $target;
+                }
+                $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+
+                pesan($pesan, 'message', 'success');
+
+                redirect(base_url('SuratKeluar'));
             } else {
 
-                $data = array(
-                    'id_suratkeluar' => $id_suratkeluar,
-                    'tanggal_verifikasi' => $tanggal_verifikasi,
-                    'catatan' => $catatan,
-                    'target_role_id' => $target_role_id,
-                    'user_id' => $user_id,
-                    'role_id' => $role_id,
-                    'tolak' => $tolak,
-                    'dibaca' => '0',
-                    'status' => $statusSelesai,
-                );
+                $this->db->where('id_suratkeluar', $id_suratkeluar)->where_not_in('target_role_id', '2')->delete('verifikasi');
+
+                $dataUpdate = array('status' => '0');
+                $this->db->where('id_suratkeluar', $id_suratkeluar)->update('verifikasi', $dataUpdate);
+
+                $pesan          = "Data Surat Keluar sudah ditolak, dan dikembalikan ke staff untuk diperbaiki.";
+                $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+
+                pesan($pesan, 'message', 'success');
+
+                redirect(base_url('SuratKeluar'));
             }
-            $this->Verifikasi_model->store($data);
-
-            $data2 = array(
-
-                'status' => '1',
-            );
-            $this->Verifikasi_model->update($id_verifikasi, $data2);
-
-            if ($tolak == '1') {
-                $statusTolak = 'Ditolak';
-            } else {
-                $statusTolak = 'Diverifikasi';
-            }
-            if ($role_id == '6') {
-                $pesan      = "Proses Data Surat Keluar sudah selesai dengan status " . $statusTolak . ".";
-            } else {
-                $pesan      = "Data Surat Keluar sudah diteruskan ke " . $target;
-            }
-            $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-
-            pesan($pesan, 'message', 'success');
-
-            redirect(base_url('SuratKeluar'));
         }
     }
 
