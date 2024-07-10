@@ -193,7 +193,7 @@ class Verifikasi extends CI_Controller
         $tolak              = $this->input->post('tolak');
         $akhiri             = $this->input->post('akhiri');
 
-        if ($tolak == '1' || $akhiri == '0') {
+        if ($tolak == '1' || $akhiri == '1') {
             $statusSelesai = '1';
         } else {
             $statusSelesai = '0';

@@ -174,6 +174,7 @@
                                 <?php if ($role_id <= $data['target_role_id'] && $data['tolak'] == '0' || $role_id == '2') : ?>
                                     <a href="<?php echo base_url('SuratKeluar/show/?id=') . $data['id_suratkeluar'] . '&id_verifikasi=' . $data['id_verifikasi'] . '&id_suratkeluar=' . $data['id_suratkeluar']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
                                 <?php endif; ?>
+
                                 <?php if ($data['target_role_id'] == $role_id && $role_id <> '6' && $data['tolak'] == '0' && $data['status'] == '0') : ?>
                                     <a href="<?php echo base_url('Verifikasi/create/?id=') . $data['id_suratkeluar'] . '&id_verifikasi=' . $data['id_verifikasi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Proses Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
 
