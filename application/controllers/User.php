@@ -18,6 +18,10 @@ class User extends CI_Controller
 
     public function index()
     {
+        if ($this->session->userdata('role_id') <> '1') {
+            redirect('Admin');
+        }
+
         $cari                           = $this->input->get('cari');
         $config['base_url']             = base_url('User/');
         $config['total_rows']           = $this->User_model->total();
@@ -56,6 +60,10 @@ class User extends CI_Controller
 
     public function create()
     {
+        if ($this->session->userdata('role_id') <> '1') {
+            redirect('Admin');
+        }
+
         $data['title']  = 'Tambah Data User';
         $data['role']   = $this->Role_model->role();
         // dd($data['user']);
@@ -67,6 +75,10 @@ class User extends CI_Controller
 
     public function store()
     {
+        if ($this->session->userdata('role_id') <> '1') {
+            redirect('Admin');
+        }
+
         $id         = $this->input->post('id');
         $name       = $this->input->post('name');
         $username   = $this->input->post('username');

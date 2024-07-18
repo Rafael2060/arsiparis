@@ -8,6 +8,10 @@ class SuratMasuk extends CI_Controller
         parent::__construct();
         is_logged_in();
 
+        if ($this->session->userdata('role_id') == '1') {
+            redirect('Admin');
+        }
+
         //$this->output->cache(2);
     }
 

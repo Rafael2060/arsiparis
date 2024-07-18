@@ -30,7 +30,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td><a href="<?php echo base_url('User'); ?>" type="button" class="btn btn-outline-primary">Kembali</a> </td>
+                <td><a href="<?php echo base_url('Admin'); ?>" type="button" class="btn btn-outline-primary">Kembali</a> </td>
             </tr>
 
         </tbody>
