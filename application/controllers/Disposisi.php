@@ -77,7 +77,7 @@ class Disposisi extends CI_Controller
 
 
         $this->load->view('admin/header', $data);
-        if ($this->session->userdata('role_id') == '6') {
+        if ($this->session->userdata('role_id') == '4') {
             $this->load->view('disposisi/createFinal');
         } else {
             $this->load->view('disposisi/create');
@@ -223,7 +223,7 @@ class Disposisi extends CI_Controller
             $this->load->view('admin/footer');
         } else {
 
-            if ($role_id == '6') {
+            if ($role_id == '4') {
                 $data = array(
                     'id_suratmasuk' => $id_suratmasuk,
                     'tanggal_disposisi' => $tanggal_disposisi,
@@ -262,7 +262,7 @@ class Disposisi extends CI_Controller
             } else {
                 $statusTolak = 'Diterima';
             }
-            if ($role_id == '6') {
+            if ($role_id == '4') {
                 $pesan      = "Proses Data Surat Masuk sudah selesai dengan status " . $statusTolak . ".";
             } else {
                 $pesan      = "Data Surat Masuk sudah di disposisikan ke " . $target;

@@ -3,6 +3,24 @@
 <script src="<?php echo base_url('assets/js/gijgo.min.js') ?>" type="text/javascript"></script>
 <link href="<?php echo base_url('assets/css/gijgo.min.css') ?>" rel="stylesheet" type="text/css">
 
+<div class="text-left mb-2">
+    <div class="btn-group btn-group d-flex justify-content-end " role="group" aria-label="Basic example">
+
+        <?php if ($suratmasuk['target_role_id'] == $role_id && $role_id <> '6' && $suratmasuk['tolak'] == '0') : ?>
+            <a href="<?php echo base_url('Disposisi/create/?id=') . $suratmasuk['id_suratmasuk'] . '&id_disposisi=' . $suratmasuk['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Disposisi Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
+            <?php if (cek_staff()) : ?>
+                <a href="<?php echo base_url('SuratMasuk/edit/') . $suratmasuk['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
+                <a href="<?php echo base_url('SuratMasuk/tahanan/') . $suratmasuk['id_suratmasuk']; ?>" type="button" class="btn bg-gradient btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Tahanan"><i class="bi bi-person-plus-fill text-white"></i></a>
+            <?php endif; ?>
+            <!-- <a href="<?php echo base_url('SuratMasuk/tolak/') . $suratmasuk['id_suratmasuk']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Tolak Surat" style="background-color:brown"><i class="bi bi-box-arrow-left text-white"></i></a> -->
+            <!-- <a onclick="javascript:hapussuratmasuk('<?php echo $suratmasuk['id_suratmasuk'] ?>','<?php echo $suratmasuk['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a> -->
+        <?php endif; ?>
+
+        <?php if ($suratmasuk['target_role_id'] == $role_id && $role_id == '6') : ?>
+            <a href="<?php echo base_url('Disposisi/create/?id=') . $suratmasuk['id_suratmasuk'] . '&id_disposisi=' . $suratmasuk['id_disposisi']; ?>" type="button" class="btn bg-gradient " data-toggle="tooltip" data-placement="top" title="Proses Surat" style="background-color:blueviolet"><i class="bi bi-forward-fill text-white"></i></a>
+        <?php endif; ?>
+    </div>
+</div>
 <form action="<?php echo base_url('SuratMasuk/store'); ?>" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
         <table class="table table-striped">

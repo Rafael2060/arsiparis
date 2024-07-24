@@ -272,13 +272,16 @@ class SuratMasuk extends CI_Controller
     {
         $id                   = $this->input->get('id');
         $data['suratmasuk']   = $this->SuratMasuk_model->show($id);
+        // $data['suratmasuk']   = $this->SuratMasuk_model->suratmasukId($id, '0');
+
         $data['disposisis']   = $this->SuratMasuk_model->showDisposisi($id);
         $data['tahanans']     = $this->SuratMasuk_model->showTahanan($id);
         $data['roles']        = $this->Role_model->role();
         $id_disposisi         = $this->input->get('id_disposisi');
         $data['title']        = 'Tampil Data Surat Masuk';
+        $data['role_id']            = $this->session->userdata('role_id');
 
-        // dd($data['disposisis']);
+        // dd($data['suratmasuk']);
 
         $role_id                = $this->session->userdata('role_id');
 

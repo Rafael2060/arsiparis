@@ -148,7 +148,11 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <?php if ($this->session->userdata('role_id') <> '1') : ?>
+            <?php if ($this->session->userdata('role_id') == '1') : ?>
+                <a class="nav-link collapsed" href="<?= base_url('JenisSurat'); ?>">
+                    <i class="bi bi-menu-button-wide"></i><span>Jenis Surat</span><i class=""></i>
+                </a>
+            <?php elseif ($this->session->userdata('role_id') == '2') : ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#surat-nav" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-menu-button-wide"></i><span>Surat</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -197,6 +201,46 @@
 
                     </ul>
 
+
+                </li><!-- End Components Nav -->
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="<?= base_url('Tahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Tahanan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('KategoriTahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li><!-- End Forms Nav -->
+            <?php elseif ($this->session->userdata('role_id') == '3') : ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#surat-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Surat</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="surat-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="<?= base_url('SuratMasuk'); ?>">
+                                <i class="bi bi-circle"></i><span>Surat Masuk</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('SuratKeluar'); ?>">
+                                <i class="bi bi-circle"></i><span>Surat Keluar</span>
+                            </a>
+                        </li>
+                    </ul>
+
                     <a class="nav-link collapsed" href="<?= base_url('JenisSurat'); ?>">
                         <i class="bi bi-menu-button-wide"></i><span>Jenis Surat</span><i class=""></i>
                     </a>
@@ -222,7 +266,126 @@
                     </ul>
                 </li><!-- End Forms Nav -->
 
-            <?php else : ?>
+                <!-- Menu Kasattahti -->
+            <?php elseif ($this->session->userdata('role_id') == '4') : ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#surat-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Surat</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="surat-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="<?= base_url('SuratMasuk'); ?>">
+                                <i class="bi bi-circle"></i><span>Surat Masuk</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('SuratKeluar'); ?>">
+                                <i class="bi bi-circle"></i><span>Surat Keluar</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </li><!-- End Components Nav -->
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="<?= base_url('Tahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Tahanan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('KategoriTahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li><!-- End Forms Nav -->
+
+                <!-- Menu Sekretariat  -->
+            <?php elseif ($this->session->userdata('role_id') == '5') : ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#surat-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Surat</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="surat-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                        <li>
+                            <a href="<?= base_url('SuratKeluar'); ?>">
+                                <i class="bi bi-circle"></i><span>Surat Keluar</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </li><!-- End Components Nav -->
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="<?= base_url('Tahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Tahanan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('KategoriTahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li><!-- End Forms Nav -->
+
+                <!-- Menu Kapolres  -->
+            <?php elseif ($this->session->userdata('role_id') == '6') : ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#surat-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Surat</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="surat-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                        <li>
+                            <a href="<?= base_url('SuratKeluar'); ?>">
+                                <i class="bi bi-circle"></i><span>Surat Keluar</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+                </li><!-- End Components Nav -->
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="<?= base_url('Tahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Tahanan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url('KategoriTahanan'); ?>">
+                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li><!-- End Forms Nav -->
+            <?php endif; ?>
+
+            <?php if ($this->session->userdata('role_id') == '1') : ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="<?php echo base_url('User'); ?>">
                         <i class="bi bi-person"></i>
@@ -230,19 +393,6 @@
                     </a>
                 </li><!-- End Profile Page Nav -->
             <?php endif; ?>
-
-
-            <!-- <li class="nav-heading">Pages</li> -->
-
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="<?php echo base_url('User'); ?>">
-                    <i class="bi bi-person"></i>
-                    <span>User</span>
-                </a>
-            </li> -->
-
-            <!-- End Profile Page Nav -->
-
         </ul>
 
     </aside><!-- End Sidebar-->

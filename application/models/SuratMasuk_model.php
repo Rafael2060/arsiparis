@@ -15,10 +15,13 @@ class SuratMasuk_Model extends CI_Model
 
     public function show($id)
     {
-        $this->db->select('*');
+        $this->db->select('suratmasuk.*, 
+        jenissurat.nama_jenissurat, jenissurat.tipe,
+        disposisi.id_disposisi, disposisi.tanggal_disposisi, disposisi.dibaca, disposisi.role_id as disposisi_role_id, disposisi.target_role_id, disposisi.catatan, disposisi.tolak');
         $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratmasuk.id_jenissurat');
+        $this->db->join('disposisi', 'on disposisi.id_suratmasuk = suratmasuk.id_suratmasuk and disposisi.status=0', 'left');
 
-        return $this->db->where('id_suratmasuk', $id)->get('suratmasuk')->row_array();
+        return $this->db->where('suratmasuk.id_suratmasuk', $id)->get('suratmasuk')->row_array();
     }
 
     public function showDisposisi($id)
@@ -123,6 +126,22 @@ class SuratMasuk_Model extends CI_Model
         // $this->db->group_by('suratmasuk.id_suratmasuk');
         $this->db->limit($limit);
         $this->db->offset($offset);
+        return $this->db->get('suratmasuk')->result_array();
+    }
+
+    public function suratmasukId($id, $status = null)
+    {
+
+        //dd($id);
+        $this->db->select('suratmasuk.*, 
+        jenissurat.nama_jenissurat, jenissurat.tipe,
+        disposisi.id_disposisi, disposisi.tanggal_disposisi, disposisi.dibaca, disposisi.role_id as disposisi_role_id, disposisi.target_role_id, disposisi.catatan, disposisi.tolak');
+        $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratmasuk.id_jenissurat');
+        $this->db->join('disposisi', 'on disposisi.id_suratmasuk = suratmasuk.id_suratmasuk and disposisi.status=' . $status, 'left');
+        $this->db->where('suratmasuk.id_suratmasuk', $id);
+        $this->db->order_by('suratmasuk.created', 'desc');
+
+
         return $this->db->get('suratmasuk')->result_array();
     }
 
