@@ -209,7 +209,7 @@
         $("#namaHapus").val(name);
         $("#target").html(target);
         $("#target").val(target);
-        $("#formHapus .modal-body").html('Teruskan verifikasi Surat Keluar ke <strong>' + target + '</strong> ? <br><br> Khusus untuk Kasattahti dan Kapolres, jika anda mengakhiri proses surat, maka surat akan berakhir di tahap ini, surat tidak akan diteruskan ke bidang selanjutnya.');
+        $("#formHapus .modal-body").html('Teruskan verifikasi Surat Keluar ke <strong>' + target + '</strong> ? <br><br> Khusus untuk Kasattahti, jika anda mengakhiri proses surat, maka surat akan berakhir di tahap ini, surat tidak akan diteruskan ke bidang selanjutnya.');
 
     }
 </script>

@@ -75,7 +75,11 @@ class JenisSurat_Model extends CI_Model
 
     public function store($data)
     {
-        return $this->db->insert('jenissurat', $data);
+        if ($this->db->query('insert into jenissurat (nama_jenissurat, tipe) values("' . $data['nama_jenissurat'] . '","' . $data['tipe'] . '")')) {
+            return "Disimpan";
+        } else {
+            return "Error";
+        }
     }
 
     public function update($id, $data)

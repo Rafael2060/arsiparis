@@ -52,6 +52,7 @@ class Auth extends CI_Controller
                         'name' => $user['name'],
                         'role_id' => $user['role_id'],
                         'role' => $user['role'],
+                        'image' => $user['image'],
                         'token' => $token
                     ];
 

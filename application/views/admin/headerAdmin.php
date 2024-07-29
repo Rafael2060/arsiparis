@@ -73,7 +73,7 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="<?php echo base_url('assets/img/profile-img.jpg') ?>" alt="Profile" class="rounded-circle">
+                        <img style="width:auto;height:auto" src="<?php echo base_url('assets/img/') . $this->session->userdata('image') ?>" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $this->session->userdata('username'); ?></span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -89,6 +89,10 @@
                             <a class="dropdown-item d-flex align-items-center" href="<?php echo base_url('User/show/') . $this->session->userdata('id') ?>">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="<?php echo base_url('User/edit/') . $this->session->userdata('id') ?>">
+                                <i class="bi bi-person"></i>
+                                <span>Edit Profile</span>
                             </a>
                         </li>
                         <li>
@@ -205,24 +209,7 @@
                 </li><!-- End Components Nav -->
 
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="<?= base_url('Tahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Tahanan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('KategoriTahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
-                            </a>
-                        </li>
 
-                    </ul>
-                </li><!-- End Forms Nav -->
             <?php elseif ($this->session->userdata('role_id') == '3') : ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#surat-nav" data-bs-toggle="collapse" href="#">
@@ -247,24 +234,7 @@
                 </li><!-- End Components Nav -->
 
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="<?= base_url('Tahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Tahanan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('KategoriTahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
-                            </a>
-                        </li>
 
-                    </ul>
-                </li><!-- End Forms Nav -->
 
                 <!-- Menu Kasattahti -->
             <?php elseif ($this->session->userdata('role_id') == '4') : ?>
@@ -289,24 +259,7 @@
                 </li><!-- End Components Nav -->
 
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="<?= base_url('Tahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Tahanan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('KategoriTahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
-                            </a>
-                        </li>
 
-                    </ul>
-                </li><!-- End Forms Nav -->
 
                 <!-- Menu Sekretariat -->
             <?php elseif ($this->session->userdata('role_id') == '5') : ?>
@@ -327,24 +280,7 @@
                 </li><!-- End Components Nav -->
 
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="tahanan-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="<?= base_url('Tahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Tahanan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('KategoriTahanan'); ?>">
-                                <i class="bi bi-circle"></i><span>Kategori Tahanan</span>
-                            </a>
-                        </li>
 
-                    </ul>
-                </li><!-- End Forms Nav -->
 
                 <!-- Menu Kapolres -->
             <?php elseif ($this->session->userdata('role_id') == '6') : ?>
@@ -365,6 +301,10 @@
                 </li><!-- End Components Nav -->
 
 
+
+            <?php endif; ?>
+
+            <?php if ($this->session->userdata('role_id') == '3') : ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#tahanan-nav" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-journal-text"></i><span>Tahanan</span><i class="bi bi-chevron-down ms-auto"></i>

@@ -16,7 +16,7 @@ class JenisSurat extends CI_Controller
         $tipe                           = $this->input->get('tipe');
         $config['base_url']             = base_url('JenisSurat/?cari=') . $cari;
         $config['total_rows']           = $this->JenisSurat_model->total($cari, $tipe);
-        $config['per_page']             = 3;
+        $config['per_page']             = 10;
         $config['page_query_string']    = TRUE;
         // $config['enable_query_strings'] = TRUE;
         $config['reuse_query_string']   = FALSE;
@@ -114,7 +114,7 @@ class JenisSurat extends CI_Controller
         $nama_jenissurat    = $this->input->post('nama_jenissurat');
         $tipe               = $this->input->post('tipe');
 
-        $this->form_validation->set_rules('nama_jenissurat', 'Nama Jenis Surat', 'required|is_unique[jenissurat.nama_jenissurat]', array('required' => 'Kolom nama jenis surat tidak boleh kosong.', 'is_unique' => 'Nama jenis surat ini sudah dipakai.'));
+        $this->form_validation->set_rules('nama_jenissurat', 'Nama Jenis Surat', 'required', array('required' => 'Kolom nama jenis surat tidak boleh kosong.', 'is_unique' => 'Nama jenis surat ini sudah dipakai.'));
 
         if ($this->form_validation->run() == FALSE) {
             $data['title']          = 'Tambah Data Jenis Surat';
@@ -129,9 +129,13 @@ class JenisSurat extends CI_Controller
                 'tipe' => $tipe,
 
             );
-            $this->JenisSurat_model->store($data);
+            $message = $this->JenisSurat_model->store($data);
 
-            $pesan      = "Data Jenis Surat sudah diperbarui.";
+            if ($message == 'Disimpan') {
+                $pesan      = "Data Jenis Surat sudah disimpan.";
+            } else {
+                $pesan      = "Data Jenis Surat sudah ada.";
+            }
             // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
             pesan($pesan, 'message', 'success');

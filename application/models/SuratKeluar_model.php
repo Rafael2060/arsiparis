@@ -15,9 +15,13 @@ class SuratKeluar_Model extends CI_Model
 
     public function show($id)
     {
-        $this->db->select('*');
+        $this->db->select('suratkeluar.*, 
+        jenissurat.nama_jenissurat, jenissurat.tipe,
+        verifikasi.id_verifikasi, verifikasi.tanggal_verifikasi, verifikasi.dibaca, verifikasi.role_id as verifikasi_role_id, verifikasi.target_role_id, verifikasi.catatan, verifikasi.tolak, verifikasi.status');
         $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratkeluar.id_jenissurat');
-        return $this->db->where('id_suratkeluar', $id)->get('suratkeluar')->row_array();
+        $this->db->join('verifikasi', 'on verifikasi.id_suratkeluar = suratkeluar.id_suratkeluar and verifikasi.status=0', 'left');
+
+        return $this->db->where('suratkeluar.id_suratkeluar', $id)->get('suratkeluar')->row_array();
     }
 
     public function showVerifikasi($id)

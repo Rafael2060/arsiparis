@@ -26,23 +26,35 @@
                 <tr>
                     <td>Image</td>
                     <td>:</td>
-                    <td><?php echo $user['image']; ?></td>
-                </tr>
-                <tr>
-                    <td>Jabatan</td>
-                    <td>:</td>
                     <td>
-                        <select class="form-control" name="role" id="role">
-                            <?php foreach ($role as $data) : ?>
-                                <option value="<?php echo $data['id']; ?>" <?php
-                                                                            if ($user['role_id'] == $data['id']) {
-                                                                                echo 'selected';
-                                                                            } ?>><?php echo $data['role']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?php echo $user['image']; ?>
+                        <img style="width: 100px;height:auto;" src="<?php echo base_url('assets/img/') . $user['image'] ?>" alt="">
+                        <input type="file" name="user_file" id="user_file" size="20" />
+                        <small class="text-danger"> <?php echo form_error('user_file'); ?></small>
                     </td>
                 </tr>
+
+                <?php if ($this->session->userdata('role_id') == '1') : ?>
+                    <tr>
+                        <td>Jabatan</td>
+                        <td>:</td>
+                        <td>
+                            <select class="form-control" name="role" id="role">
+                                <?php foreach ($role as $data) : ?>
+                                    <option value="<?php echo $data['id']; ?>" <?php
+                                                                                if ($user['role_id'] == $data['id']) {
+                                                                                    echo 'selected';
+                                                                                } ?>><?php echo $data['role']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                <?php else : ?>
+                    <input type="hidden" name="role" value="<?php echo $user['role_id']; ?>">
+                <?php endif; ?>
+
                 <tr>
+
                     <td></td>
                     <td></td>
                     <td>

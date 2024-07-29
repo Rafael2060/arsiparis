@@ -337,6 +337,7 @@ class SuratKeluar extends CI_Controller
         $data['roles']          = $this->Role_model->role();
         $id_verifikasi          = $this->input->get('id_verifikasi');
         $id_suratkeluar         = $this->input->get('id_suratkeluar');
+        $data['role_id']            = $this->session->userdata('role_id');
 
 
         $data['title']          = 'Tampil Data Surat Keluar';

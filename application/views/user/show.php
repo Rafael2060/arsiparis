@@ -20,7 +20,10 @@
             <tr>
                 <td>Image</td>
                 <td>:</td>
-                <td><?php echo $user['image']; ?></td>
+                <td>
+                    <img style="width: 100px;height:auto;" src="<?php echo base_url('assets/img/') . $user['image'] ?>" alt="">
+                </td>
+
             </tr>
             <tr>
                 <td>Jabatan</td>
