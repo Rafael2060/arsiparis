@@ -57,7 +57,7 @@ class SuratBiasa extends CI_Controller
         $data['role_id']            = $this->session->userdata('role_id');
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratBiasa/suratbiasa');
+        $this->load->view('suratbiasa/suratbiasa');
         $this->load->view('admin/footer');
     }
 
@@ -68,7 +68,7 @@ class SuratBiasa extends CI_Controller
 
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratBiasa/create');
+        $this->load->view('suratbiasa/create');
         $this->load->view('admin/footer');
     }
 
@@ -83,7 +83,7 @@ class SuratBiasa extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratBiasa/edit');
+        $this->load->view('suratbiasa/edit');
         $this->load->view('admin/footer');
     }
 
@@ -98,7 +98,7 @@ class SuratBiasa extends CI_Controller
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('SuratBiasa/tte');
+        $this->load->view('suratbiasa/tte');
         $this->load->view('admin/footer');
     }
 
@@ -146,7 +146,7 @@ class SuratBiasa extends CI_Controller
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('SuratBiasa/edit');
+            $this->load->view('suratbiasa/edit');
             $this->load->view('admin/footer');
         } else {
 
@@ -206,7 +206,7 @@ class SuratBiasa extends CI_Controller
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('SuratBiasa/create');
+            $this->load->view('suratbiasa/create');
             $this->load->view('admin/footer');
         } else {
 
@@ -260,7 +260,7 @@ class SuratBiasa extends CI_Controller
         // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2);
 
 
-        $this->load->view('SuratBiasa/cetakSuratBiasa', $data);
+        $this->load->view('suratbiasa/cetakSuratBiasa', $data);
     }
 
     public function delete()
@@ -457,7 +457,7 @@ class SuratBiasa extends CI_Controller
 
     public function cetakNotaDinas()
     {
-        $this->load->view('SuratBiasa/cetakNotaDinas');
+        $this->load->view('suratbiasa/cetakNotaDinas');
     }
 
     public function cetakSuratBiasa()
@@ -468,14 +468,14 @@ class SuratBiasa extends CI_Controller
 
         $data['suratbiasa']  = $this->SuratBiasa_model->suratbiasa();
 
-        $this->load->view('SuratBiasa/cetakSuratBiasa');
+        $this->load->view('suratbiasa/cetakSuratBiasa');
     }
 
     public function cetakSuratPengantar()
     {
 
 
-        $this->load->view('SuratBiasa/cetakSuratPengantar');
+        $this->load->view('suratbiasa/cetakSuratPengantar');
     }
 
     public function cetak($id)
@@ -484,7 +484,7 @@ class SuratBiasa extends CI_Controller
         // dd($id);
         $data['suratbiasa']  = $this->SuratBiasa_model->cetaksuratbiasa($id);
         // dd($data['suratbiasa']);
-        $this->load->view('SuratBiasa/cetakSuratBiasa', $data);
+        $this->load->view('suratbiasa/cetakSuratBiasa', $data);
     }
 
     public function cetakQRCode($namafile)
