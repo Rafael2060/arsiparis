@@ -117,7 +117,7 @@ class SuratBiasa extends CI_Controller
 
         $pesan      = "TTE Surat sudah ditambahkan.";
         pesan($pesan, 'message', 'success');
-        redirect(base_url('suratbiasa'));
+        redirect(base_url('SuratBiasa'));
     }
 
     public function update()
@@ -174,7 +174,7 @@ class SuratBiasa extends CI_Controller
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('suratbiasa'));
+            redirect(base_url('SuratBiasa'));
         }
     }
 
@@ -239,7 +239,7 @@ class SuratBiasa extends CI_Controller
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('suratbiasa'));
+            redirect(base_url('SuratBiasa'));
         }
     }
 
@@ -270,7 +270,7 @@ class SuratBiasa extends CI_Controller
 
         pesan("Data Surat Biasa sudah dihapus.", 'message', 'success');
 
-        redirect(base_url('suratbiasa'));
+        redirect(base_url('SuratBiasa'));
     }
 
     public function unique2($data1, $data2)
