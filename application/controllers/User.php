@@ -108,7 +108,40 @@ class User extends CI_Controller
             );
             $this->User_model->store($data);
 
-            $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">Data user baru sudah disimpan.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+            if (!empty($_FILES['user_file'])) {
+                $config['upload_path']          = './assets/img/';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
+                $config['max_size']             = 2200;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $config['file_name']            = $id;
+                $config['overwrite']            = TRUE;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('user_file')) {
+                    // $pesanUpload = array('error' => $this->upload->display_errors());
+                    $pesanUpload = $this->upload->display_errors();
+                } else {
+                    // $data = array('upload_data' => $this->upload->data());
+                    $filename = $_FILES["user_file"]["name"];
+                    $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $data = array(
+                        'image' => $id . '.' . $file_ext
+                    );
+
+                    $this->User_model->update($id, $data);
+                    $pesanUpload = 'File berhasil di-upload.';
+                }
+            } else {
+                $pesanUpload = 'Tidak ada file yang di upload.';
+            }
+            $pesan = "Data user sudah disimpan." . $pesanUpload;
+
+            pesan($pesan, 'message', 'success');
+
+            // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">Data user baru sudah disimpan.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
             redirect(base_url('User'));
         }
     }

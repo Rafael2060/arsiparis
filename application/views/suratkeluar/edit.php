@@ -20,7 +20,7 @@
                     <td style="width:20%">Nomor Agenda</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <input class="form-control" type="text" name="no_agenda" id="no_agenda" value="<?php echo htmlentities($suratkeluar['no_agenda'], ENT_QUOTES); ?>">
+                        <input class="form-control" type="number" name="no_agenda" id="no_agenda" value="<?php echo htmlentities($suratkeluar['no_agenda'], ENT_QUOTES); ?>">
                         <small class="text-danger"> <?php echo form_error('no_agenda'); ?></small>
                     </td>
                 </tr>

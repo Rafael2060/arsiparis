@@ -32,10 +32,11 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-4 d-flex flex-row-reverse">
-        <a style="height:70%" href="<?= base_url('Tahanan/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+        <?php if (cek_staff()) : ?>
+            <a style="height:70%" href="<?= base_url('Tahanan/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+        <?php endif; ?>
     </div>
 </div>
-
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -67,10 +68,12 @@
                     <td class="text-center ">
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a href="<?php echo base_url('Tahanan/show/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
-                            <a href="<?php echo base_url('Tahanan/edit/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
-                            <a href="<?php echo base_url('Tahanan/suratmasuk/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-primary"><i class="bi bi-box-arrow-in-right text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Surat Masuk"></i></a>
-                            <a href="<?php echo base_url('Tahanan/suratkeluar/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-secondary"><i class="bi bi-box-arrow-right text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Surat Keluar"></i></a>
-                            <a onclick="javascript:hapusTahanan('<?php echo $data['id_tahanan'] ?>','<?php echo $data['nama_tahanan'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                            <?php if (cek_staff()) : ?>
+                                <a href="<?php echo base_url('Tahanan/edit/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
+                                <a href="<?php echo base_url('Tahanan/suratmasuk/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-primary"><i class="bi bi-box-arrow-in-right text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Surat Masuk"></i></a>
+                                <a href="<?php echo base_url('Tahanan/suratkeluar/') . $data['id_tahanan']; ?>" type="button" class="btn bg-gradient btn-secondary"><i class="bi bi-box-arrow-right text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Surat Keluar"></i></a>
+                                <a onclick="javascript:hapusTahanan('<?php echo $data['id_tahanan'] ?>','<?php echo $data['nama_tahanan'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                            <?php endif; ?>
                         </div>
                     </td>
                 </tr>

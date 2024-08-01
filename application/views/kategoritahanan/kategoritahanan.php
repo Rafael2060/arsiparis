@@ -55,8 +55,10 @@
                     <td class="text-center ">
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <a href="<?php echo base_url('KategoriTahanan/show/') . $data['id_kategori']; ?>" type="button" class="btn bg-gradient btn-info"> <i class="bi bi-eye text-white"></i> </a>
-                            <a href="<?php echo base_url('KategoriTahanan/edit/') . $data['id_kategori']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
-                            <a onclick="javascript:hapusKategoriTahanan('<?php echo $data['id_kategori'] ?>','<?php echo $data['nama_kategori'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                            <?php if (cek_staff()) : ?>
+                                <a href="<?php echo base_url('KategoriTahanan/edit/') . $data['id_kategori']; ?>" type="button" class="btn bg-gradient btn-warning"><i class="bi bi-pen text-white"></i></a>
+                                <a onclick="javascript:hapusKategoriTahanan('<?php echo $data['id_kategori'] ?>','<?php echo $data['nama_kategori'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                            <?php endif; ?>
                         </div>
                     </td>
                 </tr>

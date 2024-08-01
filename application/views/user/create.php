@@ -30,7 +30,9 @@
                 <tr>
                     <td>Image</td>
                     <td>:</td>
-                    <td></td>
+                    <td><input type="file" name="user_file" id="user_file" size="20" />
+                        <small class="text-danger"> <?php echo form_error('user_file'); ?></small>
+                    </td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
