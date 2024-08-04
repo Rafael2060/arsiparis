@@ -32,7 +32,9 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-4 d-flex flex-row-reverse">
-        <a style="height:70%" href="<?= base_url('KategoriTahanan/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+        <?php if (cek_kaurmintu()) : ?>
+            <a style="height:70%" href="<?= base_url('KategoriTahanan/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+        <?php endif; ?>
     </div>
 </div>
 
