@@ -163,6 +163,20 @@ function cek_staff()
     }
 }
 
+function cek_kaurmintu()
+{
+    $ci         = get_instance();
+    $role_id    = $ci->session->userdata('role_id');
+
+
+    // var_dump($role_id . '-' . $id . '-' . $cekId);
+    if ($role_id == 1 || $role_id == 3) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function cek_kasattahti()
 {
     $ci         = get_instance();
