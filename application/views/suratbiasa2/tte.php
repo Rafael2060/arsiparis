@@ -7,16 +7,16 @@
 <link href="<?php echo base_url('assets/summernote/summernote2.css') ?>" rel="stylesheet">
 <script src="<?php echo base_url('assets/summernote/summernote.min.js') ?>" defer></script>
 
-<form action="<?php echo base_url('SuratPerintah/updatette'); ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('SuratBiasa/updatette'); ?>" method="post" enctype="multipart/form-data">
     <div class="modal fade" id="basicModal" tabindex="-1">
-        <form id="formHapus" action="<?php echo base_url('SuratPerintah/delete') ?>" method="post" enctype="multipart/form-data">
+        <form id="formHapus" action="<?php echo base_url('SuratBiasa/delete') ?>" method="post" enctype="multipart/form-data">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">TTE Surat</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <input type="hidden" name="id_suratperintah" id="id_suratperintah" value="<?= $suratperintah['id_suratperintah'] ?>">
+                    <input type="hidden" name="id_suratbiasa" id="id_suratbiasa" value="<?= $suratbiasa['id_suratbiasa'] ?>">
                     <div class="modal-body">
                         <p>TTE Surat ini ?</p>
                     </div>
@@ -36,36 +36,36 @@
                     <td style="width:20%">Nomor Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <input type="hidden" name="id_suratperintah" id="id_suratperintah" value="<?= $suratperintah['id_suratperintah'] ?>">
-                        <p><?php echo htmlentities($suratperintah['no_surat'], ENT_QUOTES); ?></p>
+                        <input type="hidden" name="id_suratbiasa" id="id_suratbiasa" value="<?= $suratbiasa['id_suratbiasa'] ?>">
+                        <p><?php echo htmlentities($suratbiasa['no_surat'], ENT_QUOTES); ?></p>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Pertimbangan</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['pertimbangan']; ?></span>
+                        <span><?php echo $suratbiasa['pertimbangan']; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Dasar</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['dasar']; ?></span>
+                        <span><?php echo $suratbiasa['dasar']; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Kepada</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['kepada']; ?></span>
+                        <span><?php echo $suratbiasa['kepada']; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Untuk</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['untuk']; ?></span>
+                        <span><?php echo $suratbiasa['untuk']; ?></span>
                     </td>
                 </tr>
 
@@ -73,7 +73,7 @@
                     <td style="width:20%">Kota surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['kota']; ?></span>
+                        <span><?php echo $suratbiasa['kota']; ?></span>
                     </td>
                 </tr>
 
@@ -81,7 +81,7 @@
                     <td style="width:20%">Tanggal Surat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo date('d-M-Y', strtotime($suratperintah['tanggal'])); ?></span>
+                        <span><?php echo date('d-M-Y', strtotime($suratbiasa['tanggal'])); ?></span>
                     </td>
                 </tr>
 
@@ -89,7 +89,7 @@
                     <td style="width:20%">Atas Nama (an)</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['an']; ?></span>
+                        <span><?php echo $suratbiasa['an']; ?></span>
                     </td>
                 </tr>
 
@@ -97,21 +97,21 @@
                     <td style="width:20%">Jabatan</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['jabatan']; ?></span>
+                        <span><?php echo $suratbiasa['jabatan']; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Nama Pejabat</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['nama_pejabat']; ?></span>
+                        <span><?php echo $suratbiasa['nama_pejabat']; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">NRP</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['nrp']; ?></span>
+                        <span><?php echo $suratbiasa['nrp']; ?></span>
                     </td>
                 </tr>
 
@@ -119,35 +119,32 @@
                     <td style="width:20%">Tembusan</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratperintah['tembusan']; ?></span>
+                        <span><?php echo $suratbiasa['tembusan']; ?></span>
                     </td>
                 </tr>
 
-                <!-- <tr>
+                <tr>
                     <td style="width:20%">Jenis Surat</td>
                     <td style="width:5%">:</td>
                     <td>
                         <select class="form-control" name="id_jenissurat" id="id_jenissurat">
                             <?php foreach ($jenissurats as $data) : ?>
-                                <option disabled value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == $suratperintah['id_jenissurat']) {
+                                <option disabled value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == $suratbiasa['id_jenissurat']) {
                                                                                             echo 'selected';
                                                                                         } ?>><?= $data['nama_jenissurat']; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </td>
-                </tr> -->
-
-                <input type="hidden" name="id_jenissurat" value="22">
-
+                </tr>
 
                 <tr>
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratPerintah'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a href="<?php echo base_url('SuratBiasa'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
                         <!-- <button type="submit" class="btn btn-outline-primary">PERBARUI</button> -->
                         <?php if (cek_kasattahti() || cek_kapolres()) : ?>
-                            <!-- <a href="<?php echo base_url('SuratPerintah/tte/') . $suratperintah['id_suratperintah']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
+                            <!-- <a href="<?php echo base_url('SuratBiasa/tte/') . $suratbiasa['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
                             <a data-bs-toggle="modal" data-bs-target="#basicModal" type="button" class="btn bg-gradient btn-success text-white">TTE</a>
                         <?php endif; ?>
                     </td>
@@ -186,7 +183,7 @@
         // $("#formHapus").attr("action", "/pelayanan");
         $("#idHapus").val(id);
         $("#namaHapus").val(name);
-        $("#formHapus .modal-body").html('Hapus data surat perintah <strong>' + name + '</strong> ?');
+        $("#formHapus .modal-body").html('Hapus data surat biasa <strong>' + name + '</strong> ?');
 
     }
 </script>

@@ -38,6 +38,18 @@ class SuratBiasa_Model extends CI_Model
         return $this->db->where('id_suratkeluar', $id)->get('verifikasi')->result_array();
     }
 
+    public function showTahanan($id)
+    {
+        $this->db->select('suratkeluar.*,
+        jenissurat.nama_jenissurat, jenissurat.tipe,
+        suratkeluar_tahanan.id_tahanan,
+        tahanan.nama_tahanan');
+        $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratkeluar.id_jenissurat');
+        $this->db->join('suratkeluar_tahanan', 'on suratkeluar_tahanan.id_suratkeluar = suratkeluar.id_suratkeluar');
+        $this->db->join('tahanan', 'on tahanan.id_tahanan = suratkeluar_tahanan.id_tahanan');
+        return $this->db->where('suratkeluar.id_suratkeluar', $id)->get('suratkeluar')->result_object();
+    }
+
     public function total($no_surat = null, $no_agenda = null, $tanggal_awal = null, $tanggal_akhir = null, $id_jenissurat = null)
     {
         if ($tanggal_awal == '' || $tanggal_akhir == '') {
@@ -51,16 +63,17 @@ class SuratBiasa_Model extends CI_Model
         if ($id_jenissurat == '' || $id_jenissurat == null) {
             $queryIdJenis = array();
         } else {
-            $queryIdJenis = array('suratbiasa.id_jenissurat' => $id_jenissurat);
+            $queryIdJenis = array('suratkeluar.id_jenissurat' => $id_jenissurat);
         }
 
-        $this->db->select('suratbiasa.*, jenissurat.nama_jenissurat, jenissurat.tipe');
-        $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratbiasa.id_jenissurat');
+        $this->db->select('suratkeluar.*, jenissurat.nama_jenissurat, jenissurat.tipe');
+        $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratkeluar.id_jenissurat');
         $this->db->like('no_surat', $no_surat);
+        $this->db->like('no_agenda', $no_agenda);
         $this->db->where($queryIdJenis);
         $this->db->where($rangeTanggal);
 
-        return $this->db->get('suratbiasa')->num_rows();
+        return $this->db->get('suratkeluar')->num_rows();
     }
 
     public function suratbiasa($no_surat = null, $tanggal_awal = null, $tanggal_akhir = null, $id_jenissurat = null, $limit = null, $offset = null)
@@ -104,17 +117,6 @@ class SuratBiasa_Model extends CI_Model
         return $this->db->get('suratbiasa')->row_array();
     }
 
-    public function showTahanan($id)
-    {
-        $this->db->select('suratkeluar.*,
-        jenissurat.nama_jenissurat, jenissurat.tipe,
-        suratkeluar_tahanan.id_tahanan,
-        tahanan.nama_tahanan');
-        $this->db->join('jenissurat', 'on jenissurat.id_jenissurat = suratkeluar.id_jenissurat');
-        $this->db->join('suratkeluar_tahanan', 'on suratkeluar_tahanan.id_suratkeluar = suratkeluar.id_suratkeluar');
-        $this->db->join('tahanan', 'on tahanan.id_tahanan = suratkeluar_tahanan.id_tahanan');
-        return $this->db->where('suratkeluar.id_suratkeluar', $id)->get('suratkeluar')->result_object();
-    }
 
     public function store($data)
     {

@@ -134,19 +134,10 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td style="width:20%">Jenis Surat</td>
-                    <td style="width:5%">:</td>
-                    <td>
-                        <select class="form-control" name="id_jenissurat" id="id_jenissurat">
-                            <?php foreach ($jenissurats as $data) : ?>
-                                <option value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == $suratnotadinas['id_jenissurat']) {
-                                                                                    echo 'selected';
-                                                                                } ?>><?= $data['nama_jenissurat']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-                </tr>
+
+
+                <input type="hidden" name="id_jenissurat" id="id_jenissurat" value="23">
+
 
                 <tr>
                     <td></td>

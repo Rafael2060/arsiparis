@@ -4,11 +4,11 @@
 <link href="<?php echo base_url('assets/css/gijgo.min.css') ?>" rel="stylesheet" type="text/css">
 
 <div class="modal fade" id="basicModal" tabindex="-1">
-    <form id="formHapus" action="<?php echo base_url('SuratNotaDinas/delete') ?>" method="post" enctype="multipart/form-data">
+    <form id="formHapus" action="<?php echo base_url('SuratBiasa/delete') ?>" method="post" enctype="multipart/form-data">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Surat Nota Dinas</h5>
+                    <h5 class="modal-title">Hapus Data Surat Biasa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <input type="hidden" name="idHapus" id="idHapus" value="">
@@ -26,11 +26,11 @@
 </div><!-- End Basic Modal-->
 
 <div class="modal fade" id="modalCari" tabindex="-1">
-    <form id="formCari" action="<?php echo base_url('SuratNotaDinas') ?>" method="get">
+    <form id="formCari" action="<?php echo base_url('SuratBiasa') ?>" method="get">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cari Data Surat Nota Dinas</h5>
+                    <h5 class="modal-title">Cari Data Surat Biasa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -100,7 +100,7 @@
 <div class="row d-flex justify-content-between">
     <div class=" col-sm-12 col-md-4">
         <div class="input-group mb-3">
-            <form class="search-form d-flex align-items-center" action="<?php echo base_url('SuratNotaDinas'); ?>" method="get">
+            <form class="search-form d-flex align-items-center" action="<?php echo base_url('SuratBiasa'); ?>" method="get">
                 <!-- <input name="cari" type="text" class="form-control" placeholder="Cari..." aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
@@ -113,9 +113,9 @@
     </div>
     <div class="col-sm-12 col-md-4 d-flex flex-row-reverse">
         <?php if (cek_staff()) : ?>
-            <a style="height:70%" href="<?= base_url('SuratNotaDinas/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
+            <a style="height:70%" href="<?= base_url('SuratBiasa/create'); ?>" target="_self" class="btn btn-primary" rel="noopener noreferrer">TAMBAH</a>
         <?php endif; ?>
-        <!-- <a style="height:70%" href="<?= base_url('SuratNotaDinas/export/?') . 'no_surat=' . $parameter['no_surat'] . '&tanggal_awal=' . $parameter['tanggal_awal'] . '&tanggal_akhir=' . $parameter['tanggal_akhir'] . '&id_jenissurat=' . $parameter['id_jenissurat']; ?>" target="_self" class="btn btn-success" rel="noopener noreferrer">CETAK</a> -->
+        <!-- <a style="height:70%" href="<?= base_url('SuratBiasa/export/?') . 'no_surat=' . $parameter['no_surat'] . '&tanggal_awal=' . $parameter['tanggal_awal'] . '&tanggal_akhir=' . $parameter['tanggal_akhir'] . '&id_jenissurat=' . $parameter['id_jenissurat']; ?>" target="_self" class="btn btn-success" rel="noopener noreferrer">CETAK</a> -->
     </div>
 </div>
 
@@ -131,7 +131,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($suratnotadinass as $key => $data) : ?>
+            <?php foreach ($suratbiasas as $key => $data) : ?>
                 <tr>
                     <th scope="row"><?php echo $key + 1 + $offset; ?></th>
                     <td><?php echo htmlspecialchars($data['no_surat'], ENT_QUOTES); ?></td>
@@ -141,20 +141,20 @@
 
                     <td class="text-left">
                         <div class="btn-group btn-group-sm text-left " role="group" aria-label="Basic example">
-                            <a target="_blank" href="<?php echo base_url('SuratNotaDinas/show/?id=') . $data['id_suratnotadinas']; ?>" type="button" class="btn bg-gradient btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Print"> <i class="bi bi-printer text-white"></i> </a>
+                            <a target="_blank" href="<?php echo base_url('SuratBiasa/show/?id=') . $data['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Print"> <i class="bi bi-printer text-white"></i> </a>
 
                             <?php if (cek_staff()) : ?>
-                                <a href="<?php echo base_url('SuratNotaDinas/edit/') . $data['id_suratnotadinas']; ?>" type="button" class="btn bg-gradient btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="bi bi-pen text-white"></i></a>
+                                <a href="<?php echo base_url('SuratBiasa/edit/') . $data['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="bi bi-pen text-white"></i></a>
                             <?php endif; ?>
 
-                            <?php if (cek_kasattahti() || cek_kapolres()) : ?>
+                            <?php if (cek_kasattahti()) : ?>
                                 <?php if ($data['qrcode'] == '') : ?>
-                                    <a href="<?php echo base_url('SuratNotaDinas/tte/') . $data['id_suratnotadinas']; ?>" type="button" class="btn bg-gradient btn-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="TTE"><i class="bi bi-patch-check text-white"></i></a>
+                                    <a href="<?php echo base_url('SuratBiasa/tte/') . $data['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="TTE"><i class="bi bi-patch-check text-white"></i></a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
                             <?php if (cek_staff()) : ?>
-                                <a onclick="javascript:hapussuratnotadinas('<?php echo $data['id_suratnotadinas'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
+                                <a onclick="javascript:hapussuratbiasa('<?php echo $data['id_suratbiasa'] ?>','<?php echo $data['no_surat'] ?>')" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" class="btn bg-gradient bg-danger"><i class="bi bi-trash text-white"></i></a>
                             <?php endif; ?>
 
                         </div>
@@ -173,7 +173,7 @@
 <small>Total data : <?= $total; ?></small>
 
 <script>
-    function hapussuratnotadinas(id, name) {
+    function hapussuratbiasa(id, name) {
         // alert(id);
         // alert(name);
         // var jq = $.noConflict(true);
@@ -181,7 +181,7 @@
         // $("#formHapus").attr("action", "/pelayanan");
         $("#idHapus").val(id);
         $("#namaHapus").val(name);
-        $("#formHapus .modal-body").html('Hapus data surat nota dinas <strong>' + name + '</strong> ?');
+        $("#formHapus .modal-body").html('Hapus data surat biasa <strong>' + name + '</strong> ?');
 
     }
 </script>

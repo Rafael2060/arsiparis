@@ -9,7 +9,7 @@
 
 <form action="<?php echo base_url('SuratBiasa/updatette'); ?>" method="post" enctype="multipart/form-data">
     <div class="modal fade" id="basicModal" tabindex="-1">
-        <form id="formHapus" action="<?php echo base_url('SuratBiasa/delete') ?>" method="post" enctype="multipart/form-data">
+        <form id="formHapus" action="<?php echo base_url('SuratBiasa/updatette') ?>" method="post" enctype="multipart/form-data">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -29,6 +29,7 @@
         </form>
 
     </div><!-- End Basic Modal-->
+
     <div class="table-responsive">
         <table class="table table-striped">
             <tbody>
@@ -41,17 +42,24 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Pertimbangan</td>
+                    <td style="width:20%">Klasifikasi</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratbiasa['pertimbangan']; ?></span>
+                        <span><?php echo $suratbiasa['klasifikasi']; ?></span>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Dasar</td>
+                    <td style="width:20%">Lampiran</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratbiasa['dasar']; ?></span>
+                        <span><?php echo $suratbiasa['lampiran']; ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20%">Perihal</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <span><?php echo $suratbiasa['perihal']; ?></span>
                     </td>
                 </tr>
                 <tr>
@@ -62,15 +70,31 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Untuk</td>
+                    <td style="width:20%">Di (tempat)</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <span><?php echo $suratbiasa['untuk']; ?></span>
+                        <span><?php echo $suratbiasa['di']; ?></span>
                     </td>
                 </tr>
 
                 <tr>
-                    <td style="width:20%">Kota surat</td>
+                    <td style="width:20%">Rujukan</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <span><?php echo $suratbiasa['rujukan']; ?></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">Sehubungan</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <span><?php echo $suratbiasa['sehubungan']; ?></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">Kota</td>
                     <td style="width:5%">:</td>
                     <td>
                         <span><?php echo $suratbiasa['kota']; ?></span>
@@ -123,7 +147,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <!-- <tr>
                     <td style="width:20%">Jenis Surat</td>
                     <td style="width:5%">:</td>
                     <td>
@@ -135,16 +159,18 @@
                             <?php endforeach; ?>
                         </select>
                     </td>
-                </tr>
+                </tr> -->
+
+                <input type="hidden" name="id_jenissurat" value="54">
 
                 <tr>
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratBiasa'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a href="<?php echo base_url('SuratPerintah'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
                         <!-- <button type="submit" class="btn btn-outline-primary">PERBARUI</button> -->
                         <?php if (cek_kasattahti() || cek_kapolres()) : ?>
-                            <!-- <a href="<?php echo base_url('SuratBiasa/tte/') . $suratbiasa['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
+                            <!-- <a href="<?php echo base_url('SuratBiasa/tte/') . $suratbiasa['id_suratperintah']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
                             <a data-bs-toggle="modal" data-bs-target="#basicModal" type="button" class="btn bg-gradient btn-success text-white">TTE</a>
                         <?php endif; ?>
                     </td>
@@ -157,16 +183,10 @@
 
 <script>
     $(document).ready(function() {
-        $('#pertimbangan').summernote({
+        $('#rujukan').summernote({
             height: 150,
         });
-        $('#dasar').summernote({
-            height: 150,
-        });
-        $('#kepada').summernote({
-            height: 150,
-        });
-        $('#untuk').summernote({
+        $('#sehubungan').summernote({
             height: 150,
         });
         $('#tembusan').summernote({
@@ -183,7 +203,7 @@
         // $("#formHapus").attr("action", "/pelayanan");
         $("#idHapus").val(id);
         $("#namaHapus").val(name);
-        $("#formHapus .modal-body").html('Hapus data surat biasa <strong>' + name + '</strong> ?');
+        $("#formHapus .modal-body").html('Hapus data nota dinas <strong>' + name + '</strong> ?');
 
     }
 </script>

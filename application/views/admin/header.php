@@ -311,11 +311,11 @@
                                             <i class="bi bi-circle"></i><span>Surat Nota Dinas</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="<?= base_url('SuratPengantar'); ?>">
                                             <i class="bi bi-circle"></i><span>Surat Pengantar</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <a href="<?= base_url('SuratBiasa'); ?>">
                                             <i class="bi bi-circle"></i><span>Surat Biasa</span>

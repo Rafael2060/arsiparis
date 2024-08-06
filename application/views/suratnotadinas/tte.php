@@ -132,28 +132,18 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td style="width:20%">Jenis Surat</td>
-                    <td style="width:5%">:</td>
-                    <td>
-                        <select class="form-control" name="id_jenissurat" id="id_jenissurat">
-                            <?php foreach ($jenissurats as $data) : ?>
-                                <option disabled value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == $suratnotadinas['id_jenissurat']) {
-                                                                                            echo 'selected';
-                                                                                        } ?>><?= $data['nama_jenissurat']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-                </tr>
+
+
+                <input type="hidden" name="id_jenissurat" id="id_jenissurat" value="23">
 
                 <tr>
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratPerintah'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a href="<?php echo base_url('SuratNotaDinas'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
                         <!-- <button type="submit" class="btn btn-outline-primary">PERBARUI</button> -->
                         <?php if (cek_kasattahti() || cek_kapolres()) : ?>
-                            <!-- <a href="<?php echo base_url('SuratNotaDinas/tte/') . $suratnotadinas['id_suratperintah']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
+                            <!-- <a href="<?php echo base_url('SuratNotaDinas/tte/') . $suratnotadinas['id_suratnotadinas']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
                             <a data-bs-toggle="modal" data-bs-target="#basicModal" type="button" class="btn bg-gradient btn-success text-white">TTE</a>
                         <?php endif; ?>
                     </td>

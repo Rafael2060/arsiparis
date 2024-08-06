@@ -8,7 +8,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Surat Biasa</h5>
+                    <h5 class="modal-title">Hapus Data Surat Perintah</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <input type="hidden" name="idHapus" id="idHapus" value="">
@@ -30,7 +30,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Cari Data Surat Biasa</h5>
+                    <h5 class="modal-title">Cari Data Surat Perintah</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -100,7 +100,7 @@
 <div class="row d-flex justify-content-between">
     <div class=" col-sm-12 col-md-4">
         <div class="input-group mb-3">
-            <form class="search-form d-flex align-items-center" action="<?php echo base_url('SuratBiasa'); ?>" method="get">
+            <form class="search-form d-flex align-items-center" action="<?php echo base_url('SuratNotaDinas'); ?>" method="get">
                 <!-- <input name="cari" type="text" class="form-control" placeholder="Cari..." aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
@@ -147,7 +147,7 @@
                                 <a href="<?php echo base_url('SuratBiasa/edit/') . $data['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="bi bi-pen text-white"></i></a>
                             <?php endif; ?>
 
-                            <?php if (cek_kasattahti()) : ?>
+                            <?php if (cek_kasattahti() || cek_kapolres()) : ?>
                                 <?php if ($data['qrcode'] == '') : ?>
                                     <a href="<?php echo base_url('SuratBiasa/tte/') . $data['id_suratbiasa']; ?>" type="button" class="btn bg-gradient btn-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="TTE"><i class="bi bi-patch-check text-white"></i></a>
                                 <?php endif; ?>
@@ -181,7 +181,7 @@
         // $("#formHapus").attr("action", "/pelayanan");
         $("#idHapus").val(id);
         $("#namaHapus").val(name);
-        $("#formHapus .modal-body").html('Hapus data surat biasa <strong>' + name + '</strong> ?');
+        $("#formHapus .modal-body").html('Hapus data surat nota dinas <strong>' + name + '</strong> ?');
 
     }
 </script>

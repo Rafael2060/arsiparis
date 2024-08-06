@@ -12,6 +12,7 @@ class SuratBiasa extends CI_Controller
 
     public function index()
     {
+        $id                             = $this->input->get('id');
         $no_surat                       = $this->input->get('no_surat');
         $tanggal_awal                   = $this->input->get('tanggal_awal');
         $tanggal_akhir                  = $this->input->get('tanggal_akhir');
@@ -42,7 +43,7 @@ class SuratBiasa extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['suratbiasas']     = $this->SuratBiasa_model->suratbiasa($no_surat, $tanggal_awal, $tanggal_akhir, $id_jenissurat, $config['per_page'], $offset);
+        $data['suratbiasas']        = $this->SuratBiasa_model->suratbiasa($no_surat, $tanggal_awal, $tanggal_akhir, $id_jenissurat, $config['per_page'], $offset);
         $data['jenissurats']        = $this->JenisSurat_model->jenissurat('keluar');
         $data['offset']             = $offset;
         $data['parameter']          = array(
@@ -75,7 +76,7 @@ class SuratBiasa extends CI_Controller
     public function edit()
     {
         $id                     = $this->uri->segment(3);
-        $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
+        $data['suratbiasa'] = $this->SuratBiasa_model->show($id);
         $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
         $data['title']          = 'Edit Data Surat Biasa';
@@ -90,8 +91,8 @@ class SuratBiasa extends CI_Controller
     public function tte()
     {
         $id                     = $this->uri->segment(3);
-        $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
-        $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
+        $data['suratbiasa'] = $this->SuratBiasa_model->show($id);
+        $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
 
         $data['title']          = 'TTE Surat Biasa';
 
@@ -122,14 +123,17 @@ class SuratBiasa extends CI_Controller
 
     public function update()
     {
-        $id_suratbiasa   = $this->input->post('id_suratbiasa');
+        $id_suratbiasa  = $this->input->post('id_suratbiasa');
+        $id_jenissurat      = $this->input->post('id_jenissurat');
         $no_surat           = $this->input->post('no_surat');
         $tanggal            = date('Y-m-d', strtotime($this->input->post('tanggal')));
-        $id_jenissurat      = $this->input->post('id_jenissurat');
-        $pertimbangan       = $this->input->post('pertimbangan');
-        $dasar              = $this->input->post('dasar');
+        $klasifikasi        = $this->input->post('klasifikasi');
+        $lampiran           = $this->input->post('lampiran');
+        $perihal            = $this->input->post('perihal');
         $kepada             = $this->input->post('kepada');
-        $untuk              = $this->input->post('untuk');
+        $di                 = $this->input->post('di');
+        $rujukan            = $this->input->post('rujukan');
+        $sehubungan         = $this->input->post('sehubungan');
         $kota               = $this->input->post('kota');
         $an                 = $this->input->post('an');
         $jabatan            = $this->input->post('jabatan');
@@ -137,34 +141,41 @@ class SuratBiasa extends CI_Controller
         $nrp                = $this->input->post('nrp');
         $tembusan           = $this->input->post('tembusan');
 
+        $role_id            = $this->session->userdata('role_id');
+        $user_id            = $this->session->userdata('id');
+
         $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Biasa tidak boleh kosong.'));
 
         if ($this->form_validation->run() == FALSE) {
             $data['title']          = 'Edit Data Surat Biasa';
             $id                     = $id_suratbiasa;
-            $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
-            $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
+            $data['suratperintah']  = $this->SuratBiasa_model->show($id);
+            $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
             $this->load->view('suratbiasa/edit');
             $this->load->view('admin/footer');
         } else {
-
+            $namafile = '';
             $data = array(
-                'no_surat' => $no_surat,
-                'tanggal' => $tanggal,
                 'id_jenissurat' => $id_jenissurat,
-                'pertimbangan' => $pertimbangan,
-                'dasar' => $dasar,
+                'no_surat' => $no_surat,
+                'klasifikasi' => $klasifikasi,
+                'lampiran' => $lampiran,
                 'kepada' => $kepada,
-                'untuk' => $untuk,
+                'di' => $di,
+                'perihal' => $perihal,
+                'rujukan' => $rujukan,
+                'sehubungan' => $sehubungan,
                 'kota' => $kota,
                 'an' => $an,
+                'tanggal' => $tanggal,
                 'jabatan' => $jabatan,
-                'nama_pejabat' => $nama_pejabat,
                 'nama_pejabat' => $nama_pejabat,
                 'nrp' => $nrp,
                 'tembusan' => $tembusan,
+                'qrcode' => $namafile,
+                'user_id' => $user_id,
             );
 
             $this->SuratBiasa_model->update($id_suratbiasa, $data);
@@ -182,13 +193,16 @@ class SuratBiasa extends CI_Controller
     public function store()
     {
 
+        $id_jenissurat      = $this->input->post('id_jenissurat');
         $no_surat           = $this->input->post('no_surat');
         $tanggal            = date('Y-m-d', strtotime($this->input->post('tanggal')));
-        $id_jenissurat      = $this->input->post('id_jenissurat');
-        $pertimbangan       = $this->input->post('pertimbangan');
-        $dasar              = $this->input->post('dasar');
+        $klasifikasi        = $this->input->post('klasifikasi');
+        $lampiran           = $this->input->post('lampiran');
+        $perihal            = $this->input->post('perihal');
         $kepada             = $this->input->post('kepada');
-        $untuk              = $this->input->post('untuk');
+        $di                 = $this->input->post('di');
+        $rujukan            = $this->input->post('rujukan');
+        $sehubungan         = $this->input->post('sehubungan');
         $kota               = $this->input->post('kota');
         $an                 = $this->input->post('an');
         $jabatan            = $this->input->post('jabatan');
@@ -215,21 +229,24 @@ class SuratBiasa extends CI_Controller
             // $this->cetakQRCode($namafile);
 
             $data = array(
-                'no_surat' => $no_surat,
-                'tanggal' => $tanggal,
                 'id_jenissurat' => $id_jenissurat,
-                'pertimbangan' => $pertimbangan,
-                'dasar' => $dasar,
+                'no_surat' => $no_surat,
+                'klasifikasi' => $klasifikasi,
+                'lampiran' => $lampiran,
                 'kepada' => $kepada,
-                'untuk' => $untuk,
+                'di' => $di,
+                'perihal' => $perihal,
+                'rujukan' => $rujukan,
+                'sehubungan' => $sehubungan,
                 'kota' => $kota,
                 'an' => $an,
+                'tanggal' => $tanggal,
                 'jabatan' => $jabatan,
                 'nama_pejabat' => $nama_pejabat,
-                'nama_pejabat' => $nama_pejabat,
                 'nrp' => $nrp,
-                'qrcode' => $namafile,
                 'tembusan' => $tembusan,
+                'qrcode' => $namafile,
+                'user_id' => $user_id,
             );
 
             $lastId = $this->SuratBiasa_model->store($data);
@@ -246,8 +263,8 @@ class SuratBiasa extends CI_Controller
     public function show()
     {
         $id                     = $this->input->get('id');
-        $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
-        // dd($data['suratbiasa']);
+        $data['suratbiasa'] = $this->SuratBiasa_model->show($id);
+        // dd($data['suratperintah']);
         $data['verifikasis']    = $this->SuratBiasa_model->showVerifikasi($id);
         $data['tahanans']       = $this->SuratBiasa_model->showTahanan($id);
         $data['roles']          = $this->Role_model->role();
@@ -256,8 +273,10 @@ class SuratBiasa extends CI_Controller
 
         $data['title']          = 'Tampil Surat Biasa';
 
+        // $role_id                = $this->session->userdata('role_id');
+        // dd($role_id);
         // $data2 = array('dibaca' => '1');
-        // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2);
+        // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2, $role_id);
 
 
         $this->load->view('suratbiasa/cetakSuratBiasa', $data);
@@ -455,36 +474,13 @@ class SuratBiasa extends CI_Controller
         $write->save('php://output');
     }
 
-    public function cetakNotaDinas()
-    {
-        $this->load->view('suratbiasa/cetakNotaDinas');
-    }
-
-    public function cetakSuratBiasa()
-    {
-
-        // $namafile   = time();
-        // $this->cetakQRCode($namafile);
-
-        $data['suratbiasa']  = $this->SuratBiasa_model->suratbiasa();
-
-        $this->load->view('suratbiasa/cetakSuratBiasa');
-    }
-
-    public function cetakSuratPengantar()
-    {
-
-
-        $this->load->view('suratbiasa/cetakSuratPengantar');
-    }
-
     public function cetak($id)
     {
         // $id     = $this->input->get('id');
         // dd($id);
-        $data['suratbiasa']  = $this->SuratBiasa_model->cetaksuratbiasa($id);
-        // dd($data['suratbiasa']);
-        $this->load->view('suratbiasa/cetakSuratBiasa', $data);
+        $data['suratperintah']  = $this->SuratBiasa_model->cetaksuratperintah($id);
+        // dd($data['suratperintah']);
+        $this->load->view('suratbiasa/cetakSuratPerintah', $data);
     }
 
     public function cetakQRCode($namafile)

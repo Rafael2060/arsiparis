@@ -22,47 +22,72 @@
         <table class="table table-striped">
             <tbody>
                 <tr>
-                    <td style="width:20%">Nomor Surat</td>
+                    <td style="width:20%">Nomor Biasa</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <input type="hidden" name="id_suratbiasa" id="id_suratbiasa" value="">
+                        <input type="hidden" name="id_suratnotadinas" id="id_suratnotadinas" value="">
                         <input autofocus class="form-control" type="text" name="no_surat" id="no_surat" value="">
                         <small class="text-danger"> <?php echo form_error('no_surat'); ?></small>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Pertimbangan</td>
+                    <td style="width:20%">Klasifikasi</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <textarea class="form-control" type="text" name="pertimbangan" id="pertimbangan"></textarea>
-                        <small class="text-danger"> <?php echo form_error('pertimbangan'); ?></small>
-                        <small> <i> Tekan tombol shift+enter untuk menambah baris.</i></small>
+                        <input class="form-control" type="text" name="klasifikasi" id="klasifikasi" />
+                        <small class="text-danger"> <?php echo form_error('klasifikasi'); ?></small>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Dasar</td>
+                    <td style="width:20%">Lampiran</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <textarea style="background-color: white!important;" class="form-control" type="text" name="dasar" id="dasar"></textarea>
-                        <small class="text-danger"> <?php echo form_error('dasar'); ?></small>
-                        <small> <i> Tekan tombol shift+enter untuk menambah baris.</i></small>
+                        <input class="form-control" type="text" name="lampiran" id="lampiran" />
+                        <small class="text-danger"> <?php echo form_error('lampiran'); ?></small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20%">Perihal</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <input class="form-control" type="text" name="perihal" id="perihal" />
+                        <small class="text-danger"> <?php echo form_error('perihal'); ?></small>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%">Kepada</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <textarea class="form-control" type="text" name="kepada" id="kepada"></textarea>
+                        <input class="form-control" type="text" name="kepada" id="kepada" />
                         <small class="text-danger"> <?php echo form_error('kepada'); ?></small>
-                        <small> <i> Tekan tombol shift+enter untuk menambah baris.</i></small>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:20%">Untuk</td>
+                    <td style="width:20%">Di</td>
                     <td style="width:5%">:</td>
                     <td>
-                        <textarea class="form-control" type="text" name="untuk" id="untuk"></textarea>
-                        <small class="text-danger"> <?php echo form_error('untuk'); ?></small>
+                        <input style="background-color: white!important;" class="form-control" type="text" name="di" id="di" />
+                        <small class="text-danger"> <?php echo form_error('di'); ?></small>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">Rujukan</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <textarea class="form-control" type="text" name="rujukan" id="rujukan"></textarea>
+                        <small class="text-danger"> <?php echo form_error('rujukan'); ?></small>
+                        <small> <i> Tekan tombol shift+enter untuk menambah baris.</i></small>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:20%">Sehubungan</td>
+                    <td style="width:5%">:</td>
+                    <td>
+                        <textarea class="form-control" type="text" name="sehubungan" id="sehubungan"></textarea>
+                        <small class="text-danger"> <?php echo form_error('sehubungan'); ?></small>
                         <small> <i> Tekan tombol shift+enter untuk menambah baris.</i></small>
                     </td>
                 </tr>
@@ -142,7 +167,7 @@
                     <td>
                         <select class="form-control" name="id_jenissurat" id="id_jenissurat">
                             <?php foreach ($jenissurats as $data) : ?>
-                                <option value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == 22) {
+                                <option value="<?= $data['id_jenissurat']; ?>" <?php if ($data['id_jenissurat'] == 24) {
                                                                                     echo 'selected';
                                                                                 } ?>><?= $data['nama_jenissurat']; ?></option>
                             <?php endforeach; ?>
@@ -168,7 +193,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#pertimbangan').summernote({
+        $('#rujukan').summernote({
             height: 150,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -176,7 +201,7 @@
                 ['misc', ['codeview']]
             ]
         });
-        $('#dasar').summernote({
+        $('#sehubungan').summernote({
             height: 150,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -184,22 +209,7 @@
                 ['misc', ['codeview']]
             ]
         });
-        $('#kepada').summernote({
-            height: 150,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
-                ['misc', ['codeview']]
-            ]
-        });
-        $('#untuk').summernote({
-            height: 150,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['para', ['ul', 'ol', 'listStyles', 'paragraph']],
-                ['misc', ['codeview']]
-            ]
-        });
+
         $('#tembusan').summernote({
             height: 150,
             toolbar: [

@@ -149,7 +149,7 @@ class SuratPengantar extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $data['title']          = 'Edit Data Surat Pengantar';
             $id                     = $id_suratpengantar;
-            $data['suratperintah']  = $this->SuratPengantar_model->show($id);
+            $data['suratpengantar']  = $this->SuratPengantar_model->show($id);
             $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
@@ -264,7 +264,7 @@ class SuratPengantar extends CI_Controller
     {
         $id                     = $this->input->get('id');
         $data['suratpengantar'] = $this->SuratPengantar_model->show($id);
-        // dd($data['suratperintah']);
+        // dd($data['suratpengantar']);
         $data['verifikasis']    = $this->SuratPengantar_model->showVerifikasi($id);
         $data['tahanans']       = $this->SuratPengantar_model->showTahanan($id);
         $data['roles']          = $this->Role_model->role();
@@ -478,9 +478,9 @@ class SuratPengantar extends CI_Controller
     {
         // $id     = $this->input->get('id');
         // dd($id);
-        $data['suratperintah']  = $this->SuratPengantar_model->cetaksuratperintah($id);
-        // dd($data['suratperintah']);
-        $this->load->view('suratpengantar/cetakSuratPerintah', $data);
+        $data['suratpengantar']  = $this->SuratPengantar_model->cetaksuratpengantar($id);
+        // dd($data['suratpengantar']);
+        $this->load->view('suratpengantar/cetakSuratPengantar', $data);
     }
 
     public function cetakQRCode($namafile)

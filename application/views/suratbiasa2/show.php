@@ -3,7 +3,7 @@
 <script src="<?php echo base_url('assets/js/gijgo.min.js') ?>" type="text/javascript"></script>
 <link href="<?php echo base_url('assets/css/gijgo.min.css') ?>" rel="stylesheet" type="text/css">
 
-<form action="<?php echo base_url('SuratMasuk/store'); ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('#'); ?>" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
         <table class="table table-striped">
             <tbody>

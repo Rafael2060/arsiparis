@@ -165,10 +165,10 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="<?php echo base_url('SuratPerintah'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
+                        <a href="<?php echo base_url('SuratPengantar'); ?>" type="button" class="btn btn-outline-secondary">KEMBALI</a>
                         <!-- <button type="submit" class="btn btn-outline-primary">PERBARUI</button> -->
                         <?php if (cek_kasattahti() || cek_kapolres()) : ?>
-                            <!-- <a href="<?php echo base_url('SuratPengantar/tte/') . $suratpengantar['id_suratperintah']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
+                            <!-- <a href="<?php echo base_url('SuratPengantar/tte/') . $suratpengantar['id_suratpengantar']; ?>" type="button" class="btn bg-gradient btn-info">TTE</a> -->
                             <a data-bs-toggle="modal" data-bs-target="#basicModal" type="button" class="btn bg-gradient btn-success text-white">TTE</a>
                         <?php endif; ?>
                     </td>

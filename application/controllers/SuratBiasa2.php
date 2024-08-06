@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class SuratNotaDinas extends CI_Controller
+class SuratBiasa extends CI_Controller
 {
     public function __construct()
     {
@@ -12,14 +12,13 @@ class SuratNotaDinas extends CI_Controller
 
     public function index()
     {
-        $id                             = $this->input->get('id');
         $no_surat                       = $this->input->get('no_surat');
         $tanggal_awal                   = $this->input->get('tanggal_awal');
         $tanggal_akhir                  = $this->input->get('tanggal_akhir');
         $id_jenissurat                  = $this->input->get('id_jenissurat');
 
-        $config['base_url']             = base_url('SuratNotaDinas/?') . 'no_surat=' . $no_surat . '&tanggal_awal' . $tanggal_awal . '&tanggal_akhir' . $tanggal_akhir . '&id_jenissurat=' . $id_jenissurat;
-        $config['total_rows']           = $this->SuratNotaDinas_model->total($no_surat, $tanggal_awal, $tanggal_akhir, $id_jenissurat);
+        $config['base_url']             = base_url('SuratBiasa/?') . 'no_surat=' . $no_surat . '&tanggal_awal' . $tanggal_awal . '&tanggal_akhir' . $tanggal_akhir . '&id_jenissurat=' . $id_jenissurat;
+        $config['total_rows']           = $this->SuratBiasa_model->total($no_surat, $tanggal_awal, $tanggal_akhir, $id_jenissurat);
         // dd($config['total_rows']);
         $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
@@ -43,7 +42,7 @@ class SuratNotaDinas extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['suratnotadinass']    = $this->SuratNotaDinas_model->suratnotadinas($no_surat, $tanggal_awal, $tanggal_akhir, $id_jenissurat, $config['per_page'], $offset);
+        $data['suratbiasas']     = $this->SuratBiasa_model->suratbiasa($no_surat, $tanggal_awal, $tanggal_akhir, $id_jenissurat, $config['per_page'], $offset);
         $data['jenissurats']        = $this->JenisSurat_model->jenissurat('keluar');
         $data['offset']             = $offset;
         $data['parameter']          = array(
@@ -53,59 +52,59 @@ class SuratNotaDinas extends CI_Controller
             'id_jenissurat' => $id_jenissurat,
         );
         // dd($data['suratkeluars']);
-        $data['title']              = 'Surat Nota Dinas';
+        $data['title']              = 'Surat Biasa';
         $data['total']              = $config['total_rows'];
         $data['role_id']            = $this->session->userdata('role_id');
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratnotadinas/suratnotadinas');
+        $this->load->view('suratbiasa/suratbiasa');
         $this->load->view('admin/footer');
     }
 
     public function create()
     {
-        $data['title']              = 'Tambah Data Surat Nota Dinas';
+        $data['title']              = 'Tambah Data Surat Biasa';
         $data['jenissurats']        =  $this->JenisSurat_model->jenissurat('keluar');
 
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratnotadinas/create');
+        $this->load->view('suratbiasa/create');
         $this->load->view('admin/footer');
     }
 
     public function edit()
     {
         $id                     = $this->uri->segment(3);
-        $data['suratnotadinas'] = $this->SuratNotaDinas_model->show($id);
+        $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
         $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
-        $data['title']          = 'Edit Data Surat Nota Dinas';
+        $data['title']          = 'Edit Data Surat Biasa';
 
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratnotadinas/edit');
+        $this->load->view('suratbiasa/edit');
         $this->load->view('admin/footer');
     }
 
     public function tte()
     {
         $id                     = $this->uri->segment(3);
-        $data['suratnotadinas'] = $this->SuratNotaDinas_model->show($id);
-        $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
+        $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
+        $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
-        $data['title']          = 'TTE Surat Nota Dinas';
+        $data['title']          = 'TTE Surat Biasa';
 
         // dd($data['user']);
 
         $this->load->view('admin/header', $data);
-        $this->load->view('suratnotadinas/tte');
+        $this->load->view('suratbiasa/tte');
         $this->load->view('admin/footer');
     }
 
     public function updatette()
     {
-        $id_suratnotadinas   = $this->input->post('id_suratnotadinas');
+        $id_suratbiasa   = $this->input->post('id_suratbiasa');
 
         $namafile   = time();
         $this->cetakQRCode($namafile);
@@ -114,24 +113,23 @@ class SuratNotaDinas extends CI_Controller
             'qrcode' => $namafile . '.png',
         );
 
-        $this->SuratNotaDinas_model->update($id_suratnotadinas, $data);
+        $this->SuratBiasa_model->update($id_suratbiasa, $data);
 
         $pesan      = "TTE Surat sudah ditambahkan.";
         pesan($pesan, 'message', 'success');
-        redirect(base_url('SuratNotaDinas'));
+        redirect(base_url('SuratBiasa'));
     }
 
     public function update()
     {
-        $id_suratnotadinas  = $this->input->post('id_suratnotadinas');
-        $id_jenissurat      = $this->input->post('id_jenissurat');
+        $id_suratbiasa   = $this->input->post('id_suratbiasa');
         $no_surat           = $this->input->post('no_surat');
         $tanggal            = date('Y-m-d', strtotime($this->input->post('tanggal')));
+        $id_jenissurat      = $this->input->post('id_jenissurat');
+        $pertimbangan       = $this->input->post('pertimbangan');
+        $dasar              = $this->input->post('dasar');
         $kepada             = $this->input->post('kepada');
-        $dari               = $this->input->post('dari');
-        $perihal            = $this->input->post('perihal');
-        $rujukan            = $this->input->post('rujukan');
-        $sehubungan         = $this->input->post('sehubungan');
+        $untuk              = $this->input->post('untuk');
         $kota               = $this->input->post('kota');
         $an                 = $this->input->post('an');
         $jabatan            = $this->input->post('jabatan');
@@ -139,49 +137,44 @@ class SuratNotaDinas extends CI_Controller
         $nrp                = $this->input->post('nrp');
         $tembusan           = $this->input->post('tembusan');
 
-        $role_id            = $this->session->userdata('role_id');
-        $user_id            = $this->session->userdata('id');
-
-        $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Nota Dinas tidak boleh kosong.'));
+        $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Biasa tidak boleh kosong.'));
 
         if ($this->form_validation->run() == FALSE) {
-            $data['title']          = 'Edit Data Surat Nota Dinas';
-            $id                     = $id_suratnotadinas;
-            $data['suratnotadinas']  = $this->SuratNotaDinas_model->show($id);
-            $data['jenissurats']    = $this->JenisSurat_model->jenissurat('keluar');
+            $data['title']          = 'Edit Data Surat Biasa';
+            $id                     = $id_suratbiasa;
+            $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
+            $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('suratnotadinas/edit');
+            $this->load->view('suratbiasa/edit');
             $this->load->view('admin/footer');
         } else {
-            $namafile = '';
+
             $data = array(
-                'id_jenissurat' => $id_jenissurat,
                 'no_surat' => $no_surat,
+                'tanggal' => $tanggal,
+                'id_jenissurat' => $id_jenissurat,
+                'pertimbangan' => $pertimbangan,
+                'dasar' => $dasar,
                 'kepada' => $kepada,
-                'dari' => $dari,
-                'perihal' => $perihal,
-                'rujukan' => $rujukan,
-                'sehubungan' => $sehubungan,
+                'untuk' => $untuk,
                 'kota' => $kota,
                 'an' => $an,
-                'tanggal' => $tanggal,
                 'jabatan' => $jabatan,
+                'nama_pejabat' => $nama_pejabat,
                 'nama_pejabat' => $nama_pejabat,
                 'nrp' => $nrp,
                 'tembusan' => $tembusan,
-                'qrcode' => $namafile,
-                'user_id' => $user_id,
             );
 
-            $this->SuratNotaDinas_model->update($id_suratnotadinas, $data);
+            $this->SuratBiasa_model->update($id_suratbiasa, $data);
 
-            $pesan      = "Data Surat Nota Dinas sudah diperbarui.";
+            $pesan      = "Data Surat Biasa sudah diperbarui.";
             // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('SuratNotaDinas'));
+            redirect(base_url('SuratBiasa'));
         }
     }
 
@@ -189,14 +182,13 @@ class SuratNotaDinas extends CI_Controller
     public function store()
     {
 
-        $id_jenissurat      = $this->input->post('id_jenissurat');
         $no_surat           = $this->input->post('no_surat');
         $tanggal            = date('Y-m-d', strtotime($this->input->post('tanggal')));
+        $id_jenissurat      = $this->input->post('id_jenissurat');
+        $pertimbangan       = $this->input->post('pertimbangan');
+        $dasar              = $this->input->post('dasar');
         $kepada             = $this->input->post('kepada');
-        $dari               = $this->input->post('dari');
-        $perihal            = $this->input->post('perihal');
-        $rujukan            = $this->input->post('rujukan');
-        $sehubungan         = $this->input->post('sehubungan');
+        $untuk              = $this->input->post('untuk');
         $kota               = $this->input->post('kota');
         $an                 = $this->input->post('an');
         $jabatan            = $this->input->post('jabatan');
@@ -207,14 +199,14 @@ class SuratNotaDinas extends CI_Controller
         $role_id            = $this->session->userdata('role_id');
         $user_id            = $this->session->userdata('id');
 
-        $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Nota Dinas tidak boleh kosong.'));
+        $this->form_validation->set_rules('no_surat', 'Nomor Surat', 'required', array('required' => 'Kolom Nomor Surat Biasa tidak boleh kosong.'));
 
         if ($this->form_validation->run() == FALSE) {
-            $data['title']          = 'Tambah Data Surat Nota Dinas';
+            $data['title']          = 'Tambah Data Surat Biasa';
             $data['jenissurats']    =  $this->JenisSurat_model->jenissurat('keluar');
 
             $this->load->view('admin/header', $data);
-            $this->load->view('suratnotadinas/create');
+            $this->load->view('suratbiasa/create');
             $this->load->view('admin/footer');
         } else {
 
@@ -223,69 +215,68 @@ class SuratNotaDinas extends CI_Controller
             // $this->cetakQRCode($namafile);
 
             $data = array(
-                'id_jenissurat' => $id_jenissurat,
                 'no_surat' => $no_surat,
+                'tanggal' => $tanggal,
+                'id_jenissurat' => $id_jenissurat,
+                'pertimbangan' => $pertimbangan,
+                'dasar' => $dasar,
                 'kepada' => $kepada,
-                'dari' => $dari,
-                'perihal' => $perihal,
-                'rujukan' => $rujukan,
-                'sehubungan' => $sehubungan,
+                'untuk' => $untuk,
                 'kota' => $kota,
                 'an' => $an,
-                'tanggal' => $tanggal,
                 'jabatan' => $jabatan,
                 'nama_pejabat' => $nama_pejabat,
+                'nama_pejabat' => $nama_pejabat,
                 'nrp' => $nrp,
-                'tembusan' => $tembusan,
                 'qrcode' => $namafile,
-                'user_id' => $user_id,
+                'tembusan' => $tembusan,
             );
 
-            $lastId = $this->SuratNotaDinas_model->store($data);
+            $lastId = $this->SuratBiasa_model->store($data);
 
-            $pesan      = "Data Surat Nota Dinas sudah disimpan.";
+            $pesan      = "Data Surat Biasa sudah disimpan.";
             // $this->session->set_flashdata('message', '<div style="width:100%" class="alert alert-success alert-dismissible fade show" role="alert">' . $pesan . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
             pesan($pesan, 'message', 'success');
 
-            redirect(base_url('SuratNotaDinas'));
+            redirect(base_url('SuratBiasa'));
         }
     }
 
     public function show()
     {
         $id                     = $this->input->get('id');
-        $data['suratnotadinas'] = $this->SuratNotaDinas_model->show($id);
-        // dd($data['suratnotadinas']);
-        $data['verifikasis']    = $this->SuratNotaDinas_model->showVerifikasi($id);
-        $data['tahanans']       = $this->SuratNotaDinas_model->showTahanan($id);
+        $data['suratbiasa']  = $this->SuratBiasa_model->show($id);
+        // dd($data['suratbiasa']);
+        $data['verifikasis']    = $this->SuratBiasa_model->showVerifikasi($id);
+        $data['tahanans']       = $this->SuratBiasa_model->showTahanan($id);
         $data['roles']          = $this->Role_model->role();
         $id_verifikasi          = $this->input->get('id_verifikasi');
 
 
-        $data['title']          = 'Tampil Surat Nota Dinas';
+        $data['title']          = 'Tampil Surat Biasa';
 
         // $data2 = array('dibaca' => '1');
         // $this->Verifikasi_model->updateStatusBaca($id_verifikasi, $data2);
 
 
-        $this->load->view('suratnotadinas/cetakSuratNotaDinas', $data);
+        $this->load->view('suratbiasa/cetakSuratBiasa', $data);
     }
 
     public function delete()
     {
-        $id_suratnotadinas      = $this->input->post('idHapus');
-        $this->db->where('id_suratnotadinas', $id_suratnotadinas)->delete('suratnotadinas');
+        $id_suratbiasa      = $this->input->post('idHapus');
+        $this->db->where('id_suratbiasa', $id_suratbiasa)->delete('suratbiasa');
 
-        pesan("Data Surat Nota Dinas sudah dihapus.", 'message', 'success');
+        pesan("Data Surat Biasa sudah dihapus.", 'message', 'success');
 
-        redirect(base_url('SuratNotaDinas'));
+        redirect(base_url('SuratBiasa'));
     }
 
     public function unique2($data1, $data2)
     {
         $data3 = explode(",", $data2);
-        $result = $this->SuratNotaDinas_model->unique($data1, $data3[0], $data3[1], $data3[2]);
+        $result = $this->SuratBiasa_model->unique($data1, $data3[0], $data3[1], $data3[2]);
         if (count($result) == 0) {
             return TRUE;
         } else {
@@ -297,7 +288,7 @@ class SuratNotaDinas extends CI_Controller
     {
         $id                             = $this->uri->segment(3);
         $cari                           = $this->input->get('cari');
-        $config['base_url']             = base_url('SuratNotaDinas/tahanan/' . $id);
+        $config['base_url']             = base_url('SuratBiasa/tahanan/' . $id);
         $config['total_rows']           = $this->SuratKeluar_Tahanan_model->total($id);
         $config['per_page']             = 5;
         $config['page_query_string']    = TRUE;
@@ -323,7 +314,7 @@ class SuratNotaDinas extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $data['suratkeluar']            = $this->SuratNotaDinas_model->show($id);
+        $data['suratkeluar']            = $this->SuratBiasa_model->show($id);
         // $data['tahanans']               = $this->Tahanan_model->tahanan($cari, $config['per_page'], $offset);
         $data['suratkeluar_tahanans']   = $this->SuratKeluar_Tahanan_model->suratkeluar_tahanan($id, $config['per_page'], $offset);
         $data['offset']                 = $offset;
@@ -410,7 +401,7 @@ class SuratNotaDinas extends CI_Controller
         $excel->getActiveSheet()->getStyle('H3')->applyFromArray($style_col);
         $excel->getActiveSheet()->getStyle('I3')->applyFromArray($style_col);
         // Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
-        $suratkeluars = $this->SuratNotaDinas_model->suratkeluar($no_surat, $no_agenda, $tanggal_dikirim_awal, $tanggal_dikirim_akhir, $id_jenissurat, $id_tahanan, '0', $tolak);
+        $suratkeluars = $this->SuratBiasa_model->suratkeluar($no_surat, $no_agenda, $tanggal_dikirim_awal, $tanggal_dikirim_akhir, $id_jenissurat, $id_tahanan, '0', $tolak);
         // dd($suratkeluars);
         $no = 1; // Untuk penomoran tabel, di awal set dengan 1
         $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
@@ -464,13 +455,36 @@ class SuratNotaDinas extends CI_Controller
         $write->save('php://output');
     }
 
+    public function cetakNotaDinas()
+    {
+        $this->load->view('suratbiasa/cetakNotaDinas');
+    }
+
+    public function cetakSuratBiasa()
+    {
+
+        // $namafile   = time();
+        // $this->cetakQRCode($namafile);
+
+        $data['suratbiasa']  = $this->SuratBiasa_model->suratbiasa();
+
+        $this->load->view('suratbiasa/cetakSuratBiasa');
+    }
+
+    public function cetakSuratPengantar()
+    {
+
+
+        $this->load->view('suratbiasa/cetakSuratPengantar');
+    }
+
     public function cetak($id)
     {
         // $id     = $this->input->get('id');
         // dd($id);
-        $data['suratnotadinas']  = $this->SuratNotaDinas_model->cetaksuratnotadinas($id);
-        // dd($data['suratnotadinas']);
-        $this->load->view('suratnotadinas/cetakSuratPengantar', $data);
+        $data['suratbiasa']  = $this->SuratBiasa_model->cetaksuratbiasa($id);
+        // dd($data['suratbiasa']);
+        $this->load->view('suratbiasa/cetakSuratBiasa', $data);
     }
 
     public function cetakQRCode($namafile)
@@ -489,11 +503,11 @@ class SuratNotaDinas extends CI_Controller
 
         $image_name = $namafile . '.png'; //buat name dari qr code sesuai dengan nim
 
-        $alamat                 = base_url() . 'CekSuratNotaDinas/show/?id=' . $namafile;
+        $alamat                 = base_url() . 'CekSuratBiasa/show/?id=' . $namafile;
         $params['data']         = $alamat; //data yang akan di jadikan QR CODE
-        $params['level'] = 'H'; //H=High
-        $params['size'] = 10;
-        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+        $params['level']        = 'H'; //H=High
+        $params['size']         = 10;
+        $params['savename']     = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
     }
 }

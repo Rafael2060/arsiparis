@@ -43,6 +43,21 @@
 
         <td width="50%">
             <center>
+                <img style="height:70px;width:auto" src="<?php echo base_url('assets/img/logo_tri_brata.png') ?>" alt="">
+            </center>
+        </td>
+        <td width="25%">
+            &nbsp;
+        </td>
+        <td width="25%">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+    <tr>
+
+        <td width="50%">
+            <center>
                 <kop>KEPOLISIAN NEGARA REPUBLIK INDONESIA</kop>
             </center>
         </td>
@@ -55,11 +70,21 @@
     </tr>
     <tr>
 
-        <td width="50%" style="border-bottom: 1px solid black;width:fit-content;">
+        <td width="50%">
             <center>
-                <div>
-                    <kop> MARKAS BESAR</kop>
-                </div>
+                <kop> RESOR KOTA PADANG</kop>
+            </center>
+        </td>
+        <td width="25%">
+        </td>
+        <td width="25%">
+        </td>
+    </tr>
+    <tr>
+
+        <td width="50%">
+            <center>
+                <kop> DAERAH SUMATERA BARAT</kop>
             </center>
         </td>
         <td width="25%">
@@ -72,37 +97,68 @@
 <br><br>
 <table width="100%">
     <tr>
-        <td width="15%">
-        </td>
-        <td>
-            <center>
-                <img style="height:70px;width:auto" src="<?php echo base_url('assets/img/logo_tri_brata.png') ?>" alt="">
-            </center>
-        </td>
-        <td width="15%">
-        </td>
+        <td width="70px"></td>
+        <td width="5px"></td>
+        <td width="350px"></td>
+        <td></td>
+        <td width="10px"></td>
+        <td><?php echo $suratbiasa['kota'] ?>, <?php echo date('d-M-Y', strtotime($suratbiasa['tanggal'])); ?></td>
     </tr>
     <tr>
-        <td width="15%">
-        </td>
-        <td>
-            <center>
-                <subkop> SURAT BIASA</subkop>
-            </center>
-        </td>
-        <td width="15%">
-        </td>
+        <td>Nomor</td>
+        <td>:</td>
+        <td><?php echo $suratbiasa['no_surat'] ?></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
-        <td width="15%">
-        </td>
-        <td>
-            <center>
-                <subkop> Nomor : <?php echo $suratbiasa['no_surat'] ?> </subkop>
-            </center>
-        </td>
-        <td width="15%">
-        </td>
+        <td>Klasifikasi</td>
+        <td>:</td>
+        <td><?php echo $suratbiasa['klasifikasi'] ?></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Lampiran</td>
+        <td>:</td>
+        <td><?php echo $suratbiasa['lampiran'] ?></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Hal</td>
+        <td>:</td>
+        <td><?php echo $suratbiasa['perihal'] ?></td>
+        <td></td>
+        <td></td>
+        <td>Kepada</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="vertical-align: top;">Yth.</td>
+        <td style="vertical-align: top;"><strong> <?php echo $suratbiasa['kepada'] ?></strong></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>di</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><?php echo $suratbiasa['di'] ?></td>
     </tr>
 
 </table>
@@ -110,91 +166,44 @@
 
 <table width="100%">
     <tr>
-        <td width="50px" style="vertical-align: top;">
-            <p>Pertimbangan</p>
-        </td>
-        <td width="10px">
-            <p>:</p>
-        </td>
-        <td width="">
-            <p><?php echo $suratbiasa['pertimbangan'] ?></p>
-        </td>
-    </tr>
-    <tr>
-        <td width="50px" style="vertical-align: top;">
-            <p> Dasar</p>
-        </td>
-        <td width="10px">
-            <p>:</p>
-        </td>
-        <td width="">
-            <p><?php echo $suratbiasa['dasar'] ?></p>
-        </td>
-    </tr>
-    <tr>
-        <td width="50px" style="vertical-align: top;">
-            <p>
-                Kepada
-            </p>
-        </td>
         <td width="10px" style="vertical-align: top;">
-            <p>
-                :
-            </p>
+            <p>1.</p>
         </td>
-        <td width="">
-            <p style="margin: 0px;"><?php echo $suratbiasa['kepada'] ?></p>
+        <td>
+            <p>Rujukan :</p>
         </td>
     </tr>
     <tr>
-        <td width="50px" style="vertical-align: top;">
-            <p>Untuk</p>
-        </td>
-        <td width="10px" style="vertical-align: top;">
-            <p>:</p>
-        </td>
-        <td width="" style="vertical-align: top;">
-            <p><?php echo $suratbiasa['untuk'] ?></p>
-        </td>
-    </tr>
-    <tr>
-        <td width="50px" style="vertical-align: top;">
-            <p>Selesai.</p>
-        </td>
-        <td width="10px">
+        <td style="vertical-align: top;">
             <p></p>
         </td>
-        <td width="">
+        <td>
+            <?php echo $suratbiasa['rujukan'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top;">
+            <p>2.</p>
+        </td>
+        <td>
+            <?php echo $suratbiasa['sehubungan'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top;">
+            <p>3.</p>
+        </td>
+        <td>
+            <p>
+                Demikian untuk maklum
+            </p>
         </td>
     </tr>
 </table>
 <br>
 
 <table width="100%">
-    <tr>
-        <td width="400px">
-            &nbsp;
-        </td>
-        <td width="10px">
-            &nbsp;
-        </td>
-        <td width="">
-            <table>
-                <tr>
-                    <td>Dikeluarkan di</td>
-                    <td>:</td>
-                    <td><?php echo $suratbiasa['kota'] ?></td>
-                </tr>
-                <tr>
-                    <td>pada tanggal</td>
-                    <td>:</td>
-                    <td><?php echo date('d-M-Y', strtotime($suratbiasa['tanggal'])) ?></td>
-                </tr>
-            </table>
 
-
-        </td>
-    </tr>
     <tr>
         <td width="400px">
             &nbsp;
@@ -219,21 +228,6 @@
             &nbsp;
         </td>
         <td width="">
-            <?php
-            // require 'vendor/autoload.php'; // load folder vendor/autoload
-            // $qrCode = new Endroid\QrCode\QrCode('KASATTAHTI'); // mengambil data kode siswa sebagai data  QR code
-            // $qrCode->writeFile('./QRcode/' . 'KASATTAHTI' . '.png'); // direktori untuk menyimpan gambar QR code
-            // 
-            ?>
-            <!-- tampilkan gambar QR code -->
-            <!-- <img src="<?= base_url('./QRcode/' . 'KASATTAHTI' . '.png') ?>" alt="QRcode-siswa" width="100px"> -->
-
-            <?php
-            // include "phpqrcode/qrlib.php";
-            // $isi    = 'Kasattahti';
-            // QRcode::png($isi);
-
-            ?>
             <center>
                 <?php if ($suratbiasa['qrcode'] == '') : ?>
                     <br><br><br>
@@ -275,12 +269,6 @@
 
 <table width="100%">
     <tr>
-        <td width="500px">
-            <tembusan> <i> <?php echo $suratbiasa['tembusan'] ?></i> </tembusan>
-        </td>
-    </tr>
-    <tr>
-        <td width="500px">
-        </td>
+        <tembusan> <i><?php echo $suratbiasa['tembusan'] ?> </i></tembusan>
     </tr>
 </table>
